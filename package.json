@@ -2,8 +2,8 @@
   "name": "bitbucket-repository-provider",
   "version": "0.0.0-semantic-release",
   "description": "repository provider for bitbucket",
-  "main": "dist/module.js",
-  "module": "src/module.js",
+  "main": "dist/bitbucket-repository-provider.js",
+  "module": "src/bitbucket-repository-provider.js",
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
     "test": "ava",
@@ -22,7 +22,8 @@
     "node": ">=8.9.1"
   },
   "dependencies": {
-    "bitbucket-server-nodejs": "^2.11.4"
+    "bitbucket-server-nodejs": "^2.11.4",
+    "repository-provider": "^1.0.5"
   },
   "devDependencies": {
     "ava": "^0.23.0",
