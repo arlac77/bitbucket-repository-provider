@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "bitbucket-server-nodejs": "^2.11.4",
-    "repository-provider": "^1.0.5"
+    "repository-provider": "^2.0.0"
   },
   "devDependencies": {
     "ava": "^0.23.0",
