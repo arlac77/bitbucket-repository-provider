@@ -34,6 +34,10 @@ export class BitbucketRepository extends Repository {
     return this.provider.client;
   }
 
+  get project() {
+    return 'aProject';
+  }
+
   async branches() {
     const res = await this.client.get(
       `repositories/${this.name}/refs/branches`
@@ -67,6 +71,10 @@ export class BitbucketBranch extends Branch {
     return this.provider.client;
   }
 
+  get project() {
+    return this.provider.project;
+  }
+
   async content(path, options = {}) {
     try {
       const res = await this.client.get(
@@ -92,5 +100,50 @@ export class BitbucketBranch extends Branch {
 
   async list() {
     return this.tree('/');
+  }
+
+  async createPullRequest(to, msg) {
+    const res = await this.client.put(
+      `repositories/${this.name}/pullrequests`,
+      {
+        title: msg,
+        description: msg,
+        state: 'OPEN',
+        open: true,
+        closed: false,
+        fromRef: {
+          id: `refs/heads/${this.name}`,
+          repository: {
+            slug: this.name,
+            name: null,
+            project: {
+              key: this.project
+            }
+          }
+        },
+        toRef: {
+          id: `refs/heads/${to}`,
+          repository: {
+            slug: to,
+            name: null,
+            project: {
+              key: this.project
+            }
+          }
+        },
+        locked: false,
+        reviewers: [
+          {
+            user: {
+              name: 'REVIEWER'
+            }
+          }
+        ]
+      }
+    );
+
+    console.log(res);
+
+    return new PullRequest(this.repository, result.number);
   }
 }
