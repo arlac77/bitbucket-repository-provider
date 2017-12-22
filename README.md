@@ -18,3 +18,17 @@
 bitbucket-repository-provider
 ===
 repository provider for bitbucket
+
+# API
+
+# install
+
+With [npm](http://npmjs.org) do:
+
+```shell
+npm install bitbucket-repository-provider
+```
+
+# license
+
+BSD-2-Clause
