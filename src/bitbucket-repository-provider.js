@@ -47,9 +47,9 @@ export class BitbucketProvider extends Provider {
     const boundary = '---------------------------735323031399963166993862150';
     const params = {
       uri: this.config.url + '/' + path,
-      headers: { 'Content-Type': `multipart/form-data boundary=${boundary}` },
+      //headers: { 'Content-Type': `multipart/form-data boundary=${boundary}` },
       auth: this.config.auth,
-      body: [boundary, data, boundary].join('\n')
+      form: data
     };
 
     return request.post(params);
@@ -78,10 +78,13 @@ export class BitbucketRepository extends Repository {
       `repositories/${this.name}/refs/branches`
     );
 
-    //console.log(res);
+    //console.log(JSON.stringify(res, undefined, 2));
 
     res.values.forEach(b => {
       const branch = new this.provider.constructor.branchClass(this, b.name);
+
+      branch.hash = b.target.hash;
+
       this._branches.set(branch.name, branch);
     });
 
@@ -89,14 +92,14 @@ export class BitbucketRepository extends Repository {
   }
 
   async createBranch(name, from) {
-    const res = await this.provider.put(
-      `repositories/${this.name}/src/`,
-      `branch=${name}
-message=hello
-parents=cd85098`
-    );
-    console.log(res);
-
+    const parents = [
+      from === undefined ? this._branches.get('master').hash : from.hash
+    ];
+    const res = await this.provider.put(`repositories/${this.name}/src/`, {
+      branch: name,
+      message: 'hello new branch',
+      parents: parents.join(',')
+    });
     const b = new this.provider.constructor.branchClass(this, name);
     this._branches.set(b.name, b);
     return b;

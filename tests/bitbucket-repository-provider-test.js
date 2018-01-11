@@ -38,7 +38,7 @@ test('provider repo with branch name', async t => {
   t.is(branches.get('master').name, 'master');
 });
 
-test.skip('create branch', async t => {
+test('create branch', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const branches = await repository.branches();
