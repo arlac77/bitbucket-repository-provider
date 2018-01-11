@@ -2,6 +2,9 @@ import { Provider, Repository, Branch } from 'repository-provider';
 
 const { Client } = require('bitbucket-server-nodejs');
 
+/**
+ * Provider for bitbucket repositories
+ */
 export class BitbucketProvider extends Provider {
   static get repositoryClass() {
     return BitbucketRepository;
@@ -24,6 +27,9 @@ export class BitbucketProvider extends Provider {
   }
 }
 
+/**
+ * a repository hosted in bitbucket
+ */
 export class BitbucketRepository extends Repository {
   constructor(provider, name) {
     super(provider, name.replace(/#.*/, ''));
