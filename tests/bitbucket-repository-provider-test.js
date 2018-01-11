@@ -7,8 +7,9 @@ const REPOSITORY_NAME = 'arlac77/sync-test-repository';
 
 const config = {
   auth: {
+    type: 'basic',
     password: process.env.BITBUCKET_PASSWORD,
-    user: process.env.BITBUCKET_USER
+    username: process.env.BITBUCKET_USER
   }
 };
 

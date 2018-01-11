@@ -37,7 +37,7 @@ Provider for bitbucket repositories
 
 **Parameters**
 
--   `config`  
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ## BitbucketRepository
 

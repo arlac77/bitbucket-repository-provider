@@ -2,8 +2,15 @@ import { Provider, Repository, Branch } from 'repository-provider';
 
 const { Client } = require('bitbucket-server-nodejs');
 
+const request = require('request-promise');
+
 /**
  * Provider for bitbucket repositories
+ * @param {Object} config
+ * @param {string} config.url
+ * @param {string} config.auth.type
+ * @param {string} config.auth.username
+ * @param {string} config.auth.password
  */
 export class BitbucketProvider extends Provider {
   static get repositoryClass() {
@@ -14,8 +21,18 @@ export class BitbucketProvider extends Provider {
     return BitbucketBranch;
   }
 
-  static config(config) {
-    return Object.assign({ url: 'https://api.bitbucket.org/2.0' }, config);
+  /**
+   * Default configuration
+   * @return {Object}
+   */
+  static get defaultOptions() {
+    return {
+      url: 'https://api.bitbucket.org/2.0'
+    };
+  }
+
+  static options(config) {
+    return Object.assign(this.defaultOptions, config);
   }
 
   constructor(config) {
@@ -24,6 +41,18 @@ export class BitbucketProvider extends Provider {
     Object.defineProperty(this, 'client', {
       value: new Client(this.config.url, this.config.auth)
     });
+  }
+
+  put(path, data) {
+    const boundary = '---------------------------735323031399963166993862150';
+    const params = {
+      uri: this.config.url + '/' + path,
+      headers: { 'Content-Type': `multipart/form-data boundary=${boundary}` },
+      auth: this.config.auth,
+      body: [boundary, data, boundary].join('\n')
+    };
+
+    return request.post(params);
   }
 }
 
@@ -60,9 +89,11 @@ export class BitbucketRepository extends Repository {
   }
 
   async createBranch(name, from) {
-    const res = await this.client.put(
-      `repositories/${this.name}/branches/master/`,
-      { branch: name }
+    const res = await this.provider.put(
+      `repositories/${this.name}/src/`,
+      `branch=${name}
+message=hello
+parents=cd85098`
     );
     console.log(res);
 
