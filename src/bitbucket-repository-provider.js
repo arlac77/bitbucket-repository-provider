@@ -44,11 +44,9 @@ export class BitbucketProvider extends Provider {
     });
   }
 
-  put(path, data) {
-    const boundary = '---------------------------735323031399963166993862150';
+  post(path, data) {
     const params = {
       uri: this.config.url + '/' + path,
-      //headers: { 'Content-Type': `multipart/form-data boundary=${boundary}` },
       auth: this.config.auth,
       form: data
     };
@@ -96,7 +94,7 @@ export class BitbucketRepository extends Repository {
     const parents = [
       from === undefined ? this._branches.get('master').hash : from.hash
     ];
-    const res = await this.provider.put(`repositories/${this.name}/src/`, {
+    const res = await this.provider.post(`repositories/${this.name}/src/`, {
       branch: name,
       message: 'hello new branch',
       parents: parents.join(',')
