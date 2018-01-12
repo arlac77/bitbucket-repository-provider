@@ -7,7 +7,8 @@ const request = require('request-promise');
 /**
  * Provider for bitbucket repositories
  * @param {Object} config
- * @param {string} config.url
+ * @param {string} config.url provider base
+ * @param {Object} config.auth authentication
  * @param {string} config.auth.type
  * @param {string} config.auth.username
  * @param {string} config.auth.password
