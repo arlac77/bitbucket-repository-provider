@@ -27,6 +27,7 @@ repository provider for bitbucket
 ### Table of Contents
 
 -   [BitbucketProvider](#bitbucketprovider)
+    -   [defaultOptions](#defaultoptions)
 -   [BitbucketRepository](#bitbucketrepository)
 
 ## BitbucketProvider
@@ -38,6 +39,13 @@ Provider for bitbucket repositories
 **Parameters**
 
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+    -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### defaultOptions
+
+Default configuration
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ## BitbucketRepository
 
