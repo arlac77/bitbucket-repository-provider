@@ -32,10 +32,11 @@ export class BitbucketProvider extends Provider {
     };
   }
 
+  /*
   static options(config) {
     return Object.assign(this.defaultOptions, config);
   }
-
+*/
   constructor(config) {
     super(config);
 
@@ -72,7 +73,9 @@ export class BitbucketRepository extends Repository {
     return 'aProject';
   }
 
-  async branches() {
+  async initialize() {
+    await super.initialize();
+
     const res = await this.client.get(
       `repositories/${this.name}/refs/branches`
     );
@@ -86,8 +89,6 @@ export class BitbucketRepository extends Repository {
 
       this._branches.set(branch.name, branch);
     });
-
-    return this._branches;
   }
 
   async createBranch(name, from) {
