@@ -27,6 +27,7 @@ repository provider for bitbucket
 ### Table of Contents
 
 -   [BitbucketProvider](#bitbucketprovider)
+    -   [repository](#repository)
     -   [defaultOptions](#defaultoptions)
 -   [BitbucketRepository](#bitbucketrepository)
 
@@ -44,6 +45,14 @@ Provider for bitbucket repositories
         -   `config.auth.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.auth.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.auth.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### repository
+
+**Parameters**
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **Repository** 
 
 ### defaultOptions
 

@@ -14,14 +14,6 @@ const request = require('request-promise');
  * @param {string} config.auth.password
  */
 export class BitbucketProvider extends Provider {
-  static get repositoryClass() {
-    return BitbucketRepository;
-  }
-
-  static get branchClass() {
-    return BitbucketBranch;
-  }
-
   /**
    * Default configuration
    * @return {Object}
@@ -32,17 +24,51 @@ export class BitbucketProvider extends Provider {
     };
   }
 
-  /*
-  static options(config) {
-    return Object.assign(this.defaultOptions, config);
-  }
-*/
   constructor(config) {
     super(config);
 
     Object.defineProperty(this, 'client', {
       value: new Client(this.config.url, this.config.auth)
     });
+  }
+
+  get repositoryClass() {
+    return BitbucketRepository;
+  }
+
+  get branchClass() {
+    return BitbucketBranch;
+  }
+
+  /**
+   * @param {string} name
+   * @return {Repository}
+   */
+  async repository(name) {
+    let r = this.repositories.get(name);
+    if (r === undefined) {
+      try {
+        const res = await this.get(`repositories/${name}`);
+        r = new this.repositoryClass(this, name);
+        await r.initialize();
+        this.repositories.set(name, r);
+      } catch (e) {
+        if (e.statusCode !== 404) {
+          throw e;
+        }
+      }
+    }
+
+    return r;
+  }
+
+  get(path) {
+    const params = {
+      uri: this.config.url + '/' + path,
+      auth: this.config.auth
+    };
+
+    return request.get(params);
   }
 
   post(path, data) {
@@ -83,7 +109,7 @@ export class BitbucketRepository extends Repository {
     //console.log(JSON.stringify(res, undefined, 2));
 
     res.values.forEach(b => {
-      const branch = new this.provider.constructor.branchClass(this, b.name);
+      const branch = new this.provider.branchClass(this, b.name);
 
       branch.hash = b.target.hash;
 
@@ -100,7 +126,7 @@ export class BitbucketRepository extends Repository {
       message: 'hello new branch',
       parents: parents.join(',')
     });
-    const b = new this.provider.constructor.branchClass(this, name);
+    const b = new this.provider.branchClass(this, name);
     this._branches.set(b.name, b);
     return b;
   }
