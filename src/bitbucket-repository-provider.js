@@ -125,17 +125,16 @@ export class BitbucketRepository extends Repository {
     });
   }
 
-  async createBranch(name, from) {
+  async createBranch(name, from, options = {}) {
     const parents = [
       from === undefined ? this._branches.get('master').hash : from.hash
     ];
     const res = await this.provider.post(`repositories/${this.name}/src/`, {
       branch: name,
-      message: 'hello new branch',
+      message: options.message,
       parents: parents.join(',')
     });
-    const b = new this.provider.branchClass(this, name);
-    this._branches.set(b.name, b);
+    const b = super.createBranch(name, from, options);
     return b;
   }
 }

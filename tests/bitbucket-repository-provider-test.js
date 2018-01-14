@@ -9,7 +9,7 @@ const config = {
   auth: {
     type: 'basic',
     password: process.env.BITBUCKET_PASSWORD,
-    username: process.env.BITBUCKET_USER
+    username: process.env.BITBUCKET_USERNAME
   }
 };
 
@@ -42,12 +42,9 @@ test('bitbucket provider url', async t => {
 test('provider repo with branch name', async t => {
   const provider = new BitbucketProvider(config);
 
-  const repository = await provider.repository(
-    REPOSITORY_NAME + '#some-other-branch'
-  );
+  const branch = await provider.branch(REPOSITORY_NAME + '#master');
 
-  const branches = await repository.branches();
-  t.is(branches.get('master').name, 'master');
+  t.is(branch.name, 'master');
 });
 
 test('create branch', async t => {
