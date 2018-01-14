@@ -27,6 +27,18 @@ test('bitbucket provider', async t => {
   t.is(branch.name, 'master');
 });
 
+test('bitbucket provider url', async t => {
+  const provider = new BitbucketProvider(config);
+  const repository = await provider.repository(
+    'https://arlac77@bitbucket.org/arlac77/sync-test-repository.git'
+  );
+
+  t.is(repository.name, 'arlac77/sync-test-repository');
+
+  const branch = await repository.branch('master');
+  t.is(branch.name, 'master');
+});
+
 test('provider repo with branch name', async t => {
   const provider = new BitbucketProvider(config);
 

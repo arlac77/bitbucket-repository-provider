@@ -3,6 +3,7 @@ import { Provider, Repository, Branch } from 'repository-provider';
 const { Client } = require('bitbucket-server-nodejs');
 
 const request = require('request-promise');
+const { URL } = require('url');
 
 /**
  * Provider for bitbucket repositories
@@ -45,6 +46,13 @@ export class BitbucketProvider extends Provider {
    * @return {Repository}
    */
   async repository(name) {
+    if (name.startsWith('http')) {
+      const url = new URL(name);
+      name = url.pathname;
+      name = name.replace(/\.git$/, '');
+      name = name.replace(/^\//, '');
+    }
+
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
