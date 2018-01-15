@@ -19,6 +19,10 @@ test('bitbucket provider', async t => {
   const repository = await provider.repository(REPOSITORY_NAME);
 
   t.is(repository.name, REPOSITORY_NAME);
+  t.is(
+    repository.urls[0],
+    'https://bitbucket.org/arlac77/sync-test-repository.git'
+  );
 
   const branches = await repository.branches();
   t.is(branches.get('master').name, 'master');

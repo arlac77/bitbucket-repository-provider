@@ -30,6 +30,7 @@ repository provider for bitbucket
     -   [repository](#repository)
     -   [defaultOptions](#defaultoptions)
 -   [BitbucketRepository](#bitbucketrepository)
+    -   [urls](#urls)
 
 ## BitbucketProvider
 
@@ -70,6 +71,10 @@ a repository hosted in bitbucket
 
 -   `provider`  
 -   `name`  
+
+### urls
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
 
 # install
 

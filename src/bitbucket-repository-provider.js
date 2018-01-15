@@ -99,6 +99,13 @@ export class BitbucketRepository extends Repository {
     Object.defineProperty(this, 'user', { value: name.split(/\//)[0] });
   }
 
+  /**
+   * @return {string[]} url
+   */
+  get urls() {
+    return [`https://bitbucket.org/${this.name}.git`];
+  }
+
   get client() {
     return this.provider.client;
   }
