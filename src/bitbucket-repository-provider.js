@@ -56,7 +56,17 @@ export class BitbucketProvider extends Provider {
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
-        const res = await this.get(`repositories/${name}`);
+        // TODO projects or users ?
+        let reposRoot = 'repositories';
+
+        const m = name.match(/^scm\/([^\/]+)\/(.*)/);
+        if (m) {
+          const project = m[1];
+          reposRoot = `projects/${$project}/repos`;
+          name = m[2];
+        }
+
+        const res = await this.get(`${reposRoot}/${name}`);
         r = new this.repositoryClass(this, name);
         await r.initialize();
         this.repositories.set(name, r);
