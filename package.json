@@ -28,8 +28,8 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "bitbucket-server-nodejs": "^2.11.4",
-    "repository-provider": "^2.8.0"
+    "repository-provider": "^2.8.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "ava": "^0.24.0",

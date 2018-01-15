@@ -50,7 +50,7 @@ test('provider repo with branch name', async t => {
   t.is(branch.name, 'master');
 });
 
-test('create branch', async t => {
+test.only('create branch', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const branches = await repository.branches();
@@ -59,6 +59,8 @@ test('create branch', async t => {
   const branch = await repository.createBranch(newName);
 
   t.is(branch.name, newName);
+
+  //await branch.delete();
 });
 
 test('bitbucket list', async t => {

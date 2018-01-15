@@ -1,9 +1,22 @@
 import { Provider, Repository, Branch } from 'repository-provider';
 
-const { Client } = require('bitbucket-server-nodejs');
-
 const request = require('request-promise');
 const { URL } = require('url');
+
+function ananlyseRepoURL(name) {
+  const m = name.match(/^scm\/([^\/]+)\/(.*)/);
+  if (m) {
+    const project = m[1];
+    const repoName = m[2];
+    return {
+      project,
+      repoName,
+      api: `2.0/projects/${$project}/repos/${repoName}`
+    };
+  }
+
+  return { repoName: name, api: `2.0/repositories/${name}` };
+}
 
 /**
  * Provider for bitbucket repositories
@@ -22,16 +35,8 @@ export class BitbucketProvider extends Provider {
   static get defaultOptions() {
     return {
       url: 'https://bitbucket.org',
-      api: 'https://api.bitbucket.org/2.0'
+      api: 'https://api.bitbucket.org'
     };
-  }
-
-  constructor(config) {
-    super(config);
-
-    Object.defineProperty(this, 'client', {
-      value: new Client(this.config.api, this.config.auth)
-    });
   }
 
   /**
@@ -63,6 +68,8 @@ export class BitbucketProvider extends Provider {
    * @return {Repository}
    */
   async repository(name) {
+    name = name.replace(/#.*$/, '');
+
     if (name.startsWith('http')) {
       const url = new URL(name);
       name = url.pathname;
@@ -73,20 +80,16 @@ export class BitbucketProvider extends Provider {
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
-        // TODO projects or users ?
-        let reposRoot = 'repositories';
+        const { repoName, project, api } = ananlyseRepoURL(name);
 
-        const m = name.match(/^scm\/([^\/]+)\/(.*)/);
-        if (m) {
-          const project = m[1];
-          reposRoot = `projects/${$project}/repos`;
-          name = m[2];
-        }
+        const res = await this.get(api);
+        r = new this.repositoryClass(this, repoName, {
+          project,
+          api
+        });
 
-        const res = await this.get(`${reposRoot}/${name}`);
-        r = new this.repositoryClass(this, name);
         await r.initialize();
-        this.repositories.set(name, r);
+        this.repositories.set(repoName, r);
       } catch (e) {
         if (e.statusCode !== 404) {
           throw e;
@@ -100,11 +103,31 @@ export class BitbucketProvider extends Provider {
   get(path) {
     const params = {
       uri: this.api + '/' + path,
-      auth: this.config.auth
+      auth: this.config.auth,
+      json: true
     };
 
     //console.log(`GET ${params.uri}`);
     return request.get(params);
+  }
+
+  put(path) {
+    const params = {
+      uri: this.api + '/' + path,
+      auth: this.config.auth
+    };
+
+    return request.put(params);
+  }
+
+  delete(path, data) {
+    const params = {
+      uri: this.api + '/' + path,
+      auth: this.config.auth,
+      form: data
+    };
+
+    return request.delete(params);
   }
 
   post(path, data) {
@@ -122,9 +145,16 @@ export class BitbucketProvider extends Provider {
  * a repository hosted in bitbucket
  */
 export class BitbucketRepository extends Repository {
-  constructor(provider, name) {
-    super(provider, name.replace(/#.*/, ''));
+  constructor(provider, name, options = {}) {
+    super(provider, name);
     Object.defineProperty(this, 'user', { value: name.split(/\//)[0] });
+    Object.defineProperty(this, 'api', {
+      value: options.api || `2.0/repositories/${name}`
+    });
+
+    Object.defineProperty(this, 'project', {
+      value: options.project
+    });
   }
 
   /**
@@ -134,22 +164,26 @@ export class BitbucketRepository extends Repository {
     return [`${this.provider.url}/${this.name}.git`];
   }
 
-  get client() {
-    return this.provider.client;
+  get(...args) {
+    return this.provider.get(...args);
   }
 
-  get project() {
-    return 'aProject';
+  put(...args) {
+    return this.provider.put(...args);
+  }
+
+  post(...args) {
+    return this.provider.post(...args);
+  }
+
+  delete(...args) {
+    return this.provider.delete(...args);
   }
 
   async initialize() {
     await super.initialize();
 
-    const res = await this.client.get(
-      `repositories/${this.name}/refs/branches`
-    );
-
-    //console.log(JSON.stringify(res, undefined, 2));
+    const res = await this.get(`${this.api}/refs/branches`);
 
     res.values.forEach(b => {
       const branch = new this.provider.branchClass(this, b.name);
@@ -164,7 +198,7 @@ export class BitbucketRepository extends Repository {
     const parents = [
       from === undefined ? this._branches.get('master').hash : from.hash
     ];
-    const res = await this.provider.post(`repositories/${this.name}/src/`, {
+    const res = await this.post(`${this.api}/src/`, {
       branch: name,
       message: options.message,
       parents: parents.join(',')
@@ -172,11 +206,30 @@ export class BitbucketRepository extends Repository {
     const b = super.createBranch(name, from, options);
     return b;
   }
+
+  async deleteBranch(name) {
+    const res = await this.delete(
+      `${this.api.replace(/2\.0/, '1.0')}/branches`,
+      {
+        name: `refs/heads/${name}`
+      }
+    );
+    console.log(res);
+    return super.deleteBranch(name);
+  }
 }
 
 export class BitbucketBranch extends Branch {
-  get client() {
-    return this.provider.client;
+  get(...args) {
+    return this.provider.get(...args);
+  }
+
+  put(...args) {
+    return this.provider.put(...args);
+  }
+
+  post(...args) {
+    return this.provider.post(...args);
   }
 
   get project() {
@@ -185,8 +238,8 @@ export class BitbucketBranch extends Branch {
 
   async content(path, options = {}) {
     try {
-      const res = await this.client.get(
-        `repositories/${this.repository.name}/raw/${this.name}/${path}`
+      const res = await this.get(
+        `${this.repository.api}/raw/${this.name}/${path}`
       );
       return res;
     } catch (e) {
@@ -197,8 +250,8 @@ export class BitbucketBranch extends Branch {
   }
 
   async tree(path) {
-    const res = await this.client.get(
-      `repositories/${this.repository.name}/src/${this.name}/${path}`
+    const res = await this.get(
+      `${this.repository.api}/src/${this.name}/${path}`
     );
 
     return res.values.map(e => {
@@ -211,44 +264,41 @@ export class BitbucketBranch extends Branch {
   }
 
   async createPullRequest(to, msg) {
-    const res = await this.client.put(
-      `repositories/${this.name}/pullrequests`,
-      {
-        title: msg,
-        description: msg,
-        state: 'OPEN',
-        open: true,
-        closed: false,
-        fromRef: {
-          id: `refs/heads/${this.name}`,
-          repository: {
-            slug: this.name,
-            name: null,
-            project: {
-              key: this.project
-            }
+    const res = await this.put(`${this.repository.api}/pullrequests`, {
+      title: msg,
+      description: msg,
+      state: 'OPEN',
+      open: true,
+      closed: false,
+      fromRef: {
+        id: `refs/heads/${this.name}`,
+        repository: {
+          slug: this.name,
+          name: null,
+          project: {
+            key: this.project
           }
-        },
-        toRef: {
-          id: `refs/heads/${to}`,
-          repository: {
-            slug: to,
-            name: null,
-            project: {
-              key: this.project
-            }
+        }
+      },
+      toRef: {
+        id: `refs/heads/${to}`,
+        repository: {
+          slug: to,
+          name: null,
+          project: {
+            key: this.project
           }
-        },
-        locked: false,
-        reviewers: [
-          {
-            user: {
-              name: 'REVIEWER'
-            }
+        }
+      },
+      locked: false,
+      reviewers: [
+        {
+          user: {
+            name: 'REVIEWER'
           }
-        ]
-      }
-    );
+        }
+      ]
+    });
 
     console.log(res);
 
