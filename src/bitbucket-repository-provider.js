@@ -21,7 +21,8 @@ export class BitbucketProvider extends Provider {
    */
   static get defaultOptions() {
     return {
-      url: 'https://api.bitbucket.org/2.0'
+      url: 'https://bitbucket.org',
+      api: 'https://api.bitbucket.org/2.0'
     };
   }
 
@@ -29,8 +30,24 @@ export class BitbucketProvider extends Provider {
     super(config);
 
     Object.defineProperty(this, 'client', {
-      value: new Client(this.config.url, this.config.auth)
+      value: new Client(this.config.api, this.config.auth)
     });
+  }
+
+  /**
+   * API base url
+   * @return {string} api base url
+   */
+  get api() {
+    return this.config.api;
+  }
+
+  /**
+   * GIT base url
+   * @return {string} repo base utl
+   */
+  get url() {
+    return this.config.url;
   }
 
   get repositoryClass() {
@@ -82,16 +99,17 @@ export class BitbucketProvider extends Provider {
 
   get(path) {
     const params = {
-      uri: this.config.url + '/' + path,
+      uri: this.api + '/' + path,
       auth: this.config.auth
     };
 
+    //console.log(`GET ${params.uri}`);
     return request.get(params);
   }
 
   post(path, data) {
     const params = {
-      uri: this.config.url + '/' + path,
+      uri: this.api + '/' + path,
       auth: this.config.auth,
       form: data
     };
@@ -113,7 +131,7 @@ export class BitbucketRepository extends Repository {
    * @return {string[]} url
    */
   get urls() {
-    return [`https://bitbucket.org/${this.name}.git`];
+    return [`${this.provider.url}/${this.name}.git`];
   }
 
   get client() {

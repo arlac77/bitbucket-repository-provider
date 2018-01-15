@@ -15,12 +15,11 @@ const config = {
 
 test('bitbucket provider', async t => {
   const provider = new BitbucketProvider(config);
-
   const repository = await provider.repository(REPOSITORY_NAME);
 
   t.is(repository.name, REPOSITORY_NAME);
   t.is(
-    repository.urls[0],
+    repository.urls.find(u => u.startsWith('http')),
     'https://bitbucket.org/arlac77/sync-test-repository.git'
   );
 
@@ -60,18 +59,6 @@ test('create branch', async t => {
   const branch = await repository.createBranch(newName);
 
   t.is(branch.name, newName);
-});
-
-test.skip('create pullRequest', async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(REPOSITORY_NAME);
-  const branch = await repository.branch('master');
-
-  const pr = await branch.createPullRequest(branch, 'PR1');
-
-  console.log(pr);
-
-  t.is(pr.name, 'PR1');
 });
 
 test('bitbucket list', async t => {
