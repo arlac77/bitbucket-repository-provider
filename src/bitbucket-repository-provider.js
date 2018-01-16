@@ -11,7 +11,7 @@ function ananlyseRepoURL(name) {
     return {
       project,
       repoName,
-      api: `2.0/projects/${$project}/repos/${repoName}`
+      api: `2.0/projects/${project}/repos/${repoName}`
     };
   }
 
