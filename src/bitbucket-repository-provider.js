@@ -3,25 +3,12 @@ import { Provider, Repository, Branch } from 'repository-provider';
 const request = require('request-promise');
 const { URL } = require('url');
 
-function ananlyseRepoURL(name) {
-  const m = name.match(/^scm\/([^\/]+)\/(.*)/);
-  if (m) {
-    const project = m[1];
-    const repoName = m[2];
-    return {
-      project,
-      repoName,
-      api: `2.0/projects/${project}/repos/${repoName}`
-    };
-  }
-
-  return { repoName: name, api: `2.0/repositories/${name}` };
-}
-
 /**
  * Provider for bitbucket repositories
  * @param {Object} config
- * @param {string} config.url provider base
+ * @param {string} config.url provider scm base
+ * @param {string} config.api provider api base
+ * @param {string} config.apiVersion provider api version
  * @param {Object} config.auth authentication
  * @param {string} config.auth.type
  * @param {string} config.auth.username
@@ -35,7 +22,26 @@ export class BitbucketProvider extends Provider {
   static get defaultOptions() {
     return {
       url: 'https://bitbucket.org',
-      api: 'https://api.bitbucket.org'
+      api: 'https://api.bitbucket.org',
+      apiVersion: '2.0'
+    };
+  }
+
+  ananlyseRepoURL(name) {
+    const m = name.match(/^scm\/([^\/]+)\/(.*)/);
+    if (m) {
+      const project = m[1];
+      const repoName = m[2];
+      return {
+        project,
+        repoName,
+        api: `${this.apiVersion}/projects/${project}/repos/${repoName}`
+      };
+    }
+
+    return {
+      repoName: name,
+      api: `${this.apiVersion}/repositories/${name}`
     };
   }
 
@@ -45,6 +51,14 @@ export class BitbucketProvider extends Provider {
    */
   get api() {
     return this.config.api;
+  }
+
+  /**
+   * API version to use
+   * @return {string} 1.0 or 2.0
+   */
+  get apiVersion() {
+    return this.config.apiVersion;
   }
 
   /**
@@ -80,7 +94,7 @@ export class BitbucketProvider extends Provider {
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
-        const { repoName, project, api } = ananlyseRepoURL(name);
+        const { repoName, project, api } = this.ananlyseRepoURL(name);
 
         const res = await this.get(api);
         r = new this.repositoryClass(this, repoName, {
@@ -149,7 +163,7 @@ export class BitbucketRepository extends Repository {
     super(provider, name);
     Object.defineProperty(this, 'user', { value: name.split(/\//)[0] });
     Object.defineProperty(this, 'api', {
-      value: options.api || `2.0/repositories/${name}`
+      value: options.api || `${provider.apiVersion}/repositories/${name}`
     });
 
     Object.defineProperty(this, 'project', {
