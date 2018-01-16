@@ -34,6 +34,8 @@ repository provider for bitbucket
     -   [defaultOptions](#defaultoptions)
 -   [BitbucketRepository](#bitbucketrepository)
     -   [urls](#urls)
+-   [BitbucketBranch](#bitbucketbranch)
+    -   [content](#content)
 
 ## BitbucketProvider
 
@@ -99,6 +101,18 @@ a repository hosted in bitbucket
 ### urls
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
+
+## BitbucketBranch
+
+**Extends Branch**
+
+### content
+
+**Parameters**
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Content>** 
 
 # install
 

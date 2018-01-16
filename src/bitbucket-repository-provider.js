@@ -233,6 +233,9 @@ export class BitbucketRepository extends Repository {
   }
 }
 
+/**
+ *
+ */
 export class BitbucketBranch extends Branch {
   get(...args) {
     return this.provider.get(...args);
@@ -247,20 +250,18 @@ export class BitbucketBranch extends Branch {
   }
 
   get project() {
-    return this.provider.project;
+    return this.branch.project;
   }
 
-  async content(path, options = {}) {
-    try {
-      const res = await this.get(
-        `${this.repository.api}/raw/${this.name}/${path}`
-      );
-      return res;
-    } catch (e) {
-      if (options.ignoreMissing) {
-        return '';
-      }
-    }
+  /**
+   * @param {string} path
+   * @return {Promise<Content>}
+   */
+  async content(path) {
+    const res = await this.get(
+      `${this.repository.api}/src/${this.name}/${path}`
+    );
+    return { content: res, path };
   }
 
   async tree(path) {

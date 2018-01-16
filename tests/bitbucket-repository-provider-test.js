@@ -13,7 +13,7 @@ const config = {
   }
 };
 
-test('bitbucket provider', async t => {
+test('provider', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
@@ -30,7 +30,7 @@ test('bitbucket provider', async t => {
   t.is(branch.name, 'master');
 });
 
-test('bitbucket provider url', async t => {
+test('provider url', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
     'https://arlac77@bitbucket.org/arlac77/sync-test-repository.git'
@@ -63,11 +63,19 @@ test('create branch', async t => {
   //await branch.delete();
 });
 
-test('bitbucket list', async t => {
+test('list', async t => {
   const provider = new BitbucketProvider(config);
-
-  const repository = await provider.repository(REPOSITORY_NAME);
-  const branch = await repository.branch('master');
+  const branch = await provider.branch(REPOSITORY_NAME);
 
   t.deepEqual(await branch.list(), [{ path: 'README.md' }]);
+});
+
+test('content', async t => {
+  const provider = new BitbucketProvider(config);
+  const branch = await provider.branch(REPOSITORY_NAME);
+
+  const c = await branch.content('README.md');
+
+  t.is(c.path, 'README.md');
+  t.is(c.content.startsWith('# README'), true);
 });
