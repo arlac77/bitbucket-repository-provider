@@ -166,9 +166,11 @@ export class BitbucketRepository extends Repository {
       value: options.api || `${provider.apiVersion}/repositories/${name}`
     });
 
-    Object.defineProperty(this, 'project', {
-      value: options.project
-    });
+    if (options.project !== undefined) {
+      Object.defineProperty(this, 'project', {
+        value: options.project
+      });
+    }
   }
 
   /**
@@ -222,12 +224,17 @@ export class BitbucketRepository extends Repository {
   }
 
   async deleteBranch(name) {
-    const res = await this.delete(
-      `${this.api.replace(/2\.0/, '1.0')}/branches`,
-      {
-        name: `refs/heads/${name}`
-      }
-    );
+    //console.log(${});
+    const p = 'arlac77';
+    const r = 'sync-test-repository';
+    const u = `rest/branch-utils/1.0/projects/${p}/repos/${r}/branches`;
+    console.log(u);
+
+    //content = '''{"name": "refs/heads/%s"}''' % (variables['branch'])
+
+    const res = await this.delete(u /*`${this.api}/branches`*/, {
+      name: `refs/heads/${name}`
+    });
     console.log(res);
     return super.deleteBranch(name);
   }
@@ -274,6 +281,9 @@ export class BitbucketBranch extends Branch {
     return this.tree('/');
   }
 
+  /**
+   * @see{https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}
+   */
   async createPullRequest(to, msg) {
     const res = await this.put(`${this.repository.api}/pullrequests`, {
       title: msg,

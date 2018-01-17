@@ -37,6 +37,7 @@ test('provider url', async t => {
   );
 
   t.is(repository.name, 'arlac77/sync-test-repository');
+  t.is(repository.user, 'arlac77');
 
   const branch = await repository.branch('master');
   t.is(branch.name, 'master');
@@ -47,7 +48,9 @@ test('provider repo with branch name', async t => {
 
   const branch = await provider.branch(REPOSITORY_NAME + '#master');
 
+  t.is(branch.provider, provider);
   t.is(branch.name, 'master');
+  //t.is(branch.user, 'arlac77');
 });
 
 test('create branch', async t => {
@@ -61,6 +64,13 @@ test('create branch', async t => {
   t.is(branch.name, newName);
 
   //await branch.delete();
+});
+
+test.skip('create branch', async t => {
+  const provider = new BitbucketProvider(config);
+  const repository = await provider.repository(REPOSITORY_NAME);
+  await repository.deleteBranch('test-2');
+  t.is(await repository.branch('test-2'), undefined);
 });
 
 test('list', async t => {

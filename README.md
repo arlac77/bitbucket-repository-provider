@@ -36,6 +36,7 @@ repository provider for bitbucket
     -   [urls](#urls)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
+    -   [createPullRequest](#createpullrequest)
 
 ## BitbucketProvider
 
@@ -113,6 +114,15 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Content>** 
+
+### createPullRequest
+
+-   **See: {<https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}>**
+
+**Parameters**
+
+-   `to`  
+-   `msg`  
 
 # install
 
