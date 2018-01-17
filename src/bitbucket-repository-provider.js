@@ -249,10 +249,6 @@ export class BitbucketBranch extends Branch {
     return this.provider.post(...args);
   }
 
-  get project() {
-    return this.branch.project;
-  }
-
   /**
    * @param {string} path
    * @return {Promise<Content>}
