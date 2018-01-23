@@ -180,6 +180,22 @@ export class BitbucketRepository extends Repository {
     return [`${this.provider.url}/${this.name}.git`];
   }
 
+  /**
+   * Deliver the url of home page.
+   * @return {string} '.../overwiew'
+   */
+  get homePageURL() {
+    return `${this.provider.url}/${this.name}/overview`;
+  }
+
+  /**
+   * Deliver the url of issue tracking system.
+   * @return {string} '.../issues'
+   */
+  get issuesURL() {
+    return `${this.provider.url}/${this.name}/issues`;
+  }
+
   get(...args) {
     return this.provider.get(...args);
   }
