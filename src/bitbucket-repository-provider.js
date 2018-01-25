@@ -1,4 +1,4 @@
-import { Provider, Repository, Branch } from 'repository-provider';
+import { Provider, Repository, Branch, Content } from 'repository-provider';
 
 const request = require('request-promise');
 const { URL } = require('url');
@@ -280,7 +280,7 @@ export class BitbucketBranch extends Branch {
     const res = await this.get(
       `${this.repository.api}/src/${this.name}/${path}`
     );
-    return { content: res, path };
+    return new Content(path, res);
   }
 
   async tree(path) {
