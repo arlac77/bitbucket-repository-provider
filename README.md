@@ -30,10 +30,15 @@ repository provider for bitbucket
     -   [api](#api)
     -   [apiVersion](#apiversion)
     -   [url](#url)
+    -   [repositoryClass](#repositoryclass)
+    -   [branchClass](#branchclass)
     -   [repository](#repository)
     -   [defaultOptions](#defaultoptions)
 -   [BitbucketRepository](#bitbucketrepository)
     -   [urls](#urls)
+    -   [homePageURL](#homepageurl)
+    -   [issuesURL](#issuesurl)
+    -   [createBranch](#createbranch)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
     -   [createPullRequest](#createpullrequest)
@@ -73,6 +78,14 @@ GIT base url
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** repo base utl
 
+### repositoryClass
+
+Returns **Class** BitbucketRepository
+
+### branchClass
+
+Returns **Class** BitbucketBranch
+
 ### repository
 
 **Parameters**
@@ -97,11 +110,40 @@ a repository hosted in bitbucket
 
 -   `provider`  
 -   `name`  
--   `options`   (optional, default `{}`)
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+    -   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+    -   `options.project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+
+**Properties**
+
+-   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `user` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### urls
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
+
+### homePageURL
+
+Deliver the url of home page.
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../overwiew'
+
+### issuesURL
+
+Deliver the url of issue tracking system.
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
+
+### createBranch
+
+**Parameters**
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `from` **[BitbucketBranch](#bitbucketbranch)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+    -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## BitbucketBranch
 

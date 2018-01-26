@@ -56,9 +56,7 @@ test('provider repo with branch name', async t => {
 test('create branch', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
-  const branches = await repository.branches();
-
-  const newName = `test-${branches.size}`;
+  const newName = `test-${new Date().getTime()}`;
   const branch = await repository.createBranch(newName);
 
   t.is(branch.name, newName);

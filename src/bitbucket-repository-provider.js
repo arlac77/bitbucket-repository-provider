@@ -69,10 +69,16 @@ export class BitbucketProvider extends Provider {
     return this.config.url;
   }
 
+  /**
+   * @return {Class} BitbucketRepository
+   */
   get repositoryClass() {
     return BitbucketRepository;
   }
 
+  /**
+   * @return {Class} BitbucketBranch
+   */
   get branchClass() {
     return BitbucketBranch;
   }
@@ -157,13 +163,22 @@ export class BitbucketProvider extends Provider {
 
 /**
  * a repository hosted in bitbucket
+ * @param {Object} options
+ * @param {string} [options.api]
+ * @param {string} [options.project]
+ *
+ * @property {string} api
+ * @property {string} project
+ * @property {string} user
  */
 export class BitbucketRepository extends Repository {
   constructor(provider, name, options = {}) {
     super(provider, name);
-    Object.defineProperty(this, 'user', { value: name.split(/\//)[0] });
-    Object.defineProperty(this, 'api', {
-      value: options.api || `${provider.apiVersion}/repositories/${name}`
+    Object.defineProperties(this, {
+      user: { value: name.split(/\//)[0] },
+      api: {
+        value: options.api || `${provider.apiVersion}/repositories/${name}`
+      }
     });
 
     if (options.project !== undefined) {
@@ -215,17 +230,26 @@ export class BitbucketRepository extends Repository {
   async initialize() {
     await super.initialize();
 
-    const res = await this.get(`${this.api}/refs/branches`);
+    let url = `${this.api}/refs/branches`;
+    do {
+      const res = await this.get(url);
+      url = res.next;
+      res.values.forEach(b => {
+        const branch = new this.provider.branchClass(this, b.name);
 
-    res.values.forEach(b => {
-      const branch = new this.provider.branchClass(this, b.name);
+        branch.hash = b.target.hash;
 
-      branch.hash = b.target.hash;
-
-      this._branches.set(branch.name, branch);
-    });
+        this._branches.set(branch.name, branch);
+      });
+    } while (url);
   }
 
+  /**
+   * @param {string} name
+   * @param {BitbucketBranch} from
+   * @param {Object} options
+   * @param {string} options.message
+   */
   async createBranch(name, from, options = {}) {
     const parents = [
       from === undefined ? this._branches.get('master').hash : from.hash
@@ -235,8 +259,7 @@ export class BitbucketRepository extends Repository {
       message: options.message,
       parents: parents.join(',')
     });
-    const b = super.createBranch(name, from, options);
-    return b;
+    return super.createBranch(name, from, options);
   }
 
   async deleteBranch(name) {
