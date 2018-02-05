@@ -1,7 +1,8 @@
 import { Provider, Repository, Branch, Content } from 'repository-provider';
+import { URL } from 'url';
 
 const request = require('request-promise');
-const { URL } = require('url');
+//const { URL } = require('url');
 
 /**
  * Provider for bitbucket repositories

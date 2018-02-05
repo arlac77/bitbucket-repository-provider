@@ -1,4 +1,6 @@
 import multiEntry from 'rollup-plugin-multi-entry';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 
 export default {
   input: 'tests/**/*-test.js',
@@ -7,6 +9,6 @@ export default {
     format: 'cjs',
     sourcemap: true
   },
-  external: ['ava', 'repository-provider'],
-  plugins: [multiEntry()]
+  external: ['ava', 'repository-provider', 'url'],
+  plugins: [multiEntry(), resolve(), commonjs()]
 };
