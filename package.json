@@ -29,7 +29,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "repository-provider": "^2.17.0",
+    "repository-provider": "^2.18.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },
