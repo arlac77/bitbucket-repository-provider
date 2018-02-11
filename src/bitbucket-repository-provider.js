@@ -96,6 +96,11 @@ export class BitbucketProvider extends Provider {
       name = url.pathname;
       name = name.replace(/\.git$/, '');
       name = name.replace(/^\//, '');
+    } else if (name.startsWith('git@')) {
+      const [host, pathname] = name.split(/:/);
+      name = pathname;
+      name = name.replace(/\.git$/, '');
+      name = name.replace(/^\//, '');
     }
 
     let r = this.repositories.get(name);
