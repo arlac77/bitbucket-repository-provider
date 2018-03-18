@@ -30,10 +30,23 @@ test('provider', async t => {
   t.is(branch.name, 'master');
 });
 
-test('provider url https', async t => {
+test('provider url https with user', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
     'https://arlac77@bitbucket.org/arlac77/sync-test-repository.git'
+  );
+
+  t.is(repository.name, 'arlac77/sync-test-repository');
+  t.is(repository.user, 'arlac77');
+
+  const branch = await repository.branch('master');
+  t.is(branch.name, 'master');
+});
+
+test('provider url https with user and password', async t => {
+  const provider = new BitbucketProvider(config);
+  const repository = await provider.repository(
+    'https://arlac77:aSecret@bitbucket.org/arlac77/sync-test-repository.git'
   );
 
   t.is(repository.name, 'arlac77/sync-test-repository');
