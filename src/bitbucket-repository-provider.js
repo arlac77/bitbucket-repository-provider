@@ -91,7 +91,7 @@ export class BitbucketProvider extends Provider {
   async repository(name) {
     name = name.replace(/#.*$/, '');
 
-    if (name.startsWith('http')) {
+    if (name.startsWith('http') || name.startsWith('git+http')) {
       const url = new URL(name);
       name = url.pathname;
       name = name.replace(/\.git$/, '');
