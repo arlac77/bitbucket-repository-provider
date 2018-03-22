@@ -88,6 +88,13 @@ Returns **Class** BitbucketBranch
 
 ### repository
 
+Supported name schemes are
+
+-   <https://user:aSecret@bitbucket.org/owner/repo-name.git>
+-   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
+-   git@bitbucket.org:owner/repo-name.git
+-   owner/repo-name
+
 **Parameters**
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 

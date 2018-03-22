@@ -85,24 +85,33 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
+   * Supported name schemes are
+   * - https://user:aSecret@bitbucket.org/owner/repo-name.git
+   * - git+https://user:aSecret@bitbucket.org/owner/repo-name.git
+   * - git@bitbucket.org:owner/repo-name.git
+   * - owner/repo-name
    * @param {string} name
    * @return {Repository}
    */
   async repository(name) {
     name = name.replace(/#.*$/, '');
 
-    if (name.startsWith('http') || name.startsWith('git+http')) {
-      const url = new URL(name);
-      name = url.pathname;
-      name = name.replace(/\.git$/, '');
-      name = name.replace(/^\//, '');
-    } else if (name.startsWith('git@') || name.startsWith('git+ssh@')) {
+    if (name.startsWith('git@') || name.startsWith('git+ssh@')) {
       const [host, pathname] = name.split(/:/);
       if (pathname !== undefined) {
         name = pathname;
         name = name.replace(/\.git$/, '');
         name = name.replace(/^\//, '');
       }
+    } else if (
+      name.startsWith('https') ||
+      name.startsWith('git+https') ||
+      name.startsWith('ssh:')
+    ) {
+      const url = new URL(name);
+      name = url.pathname;
+      name = name.replace(/\.git$/, '');
+      name = name.replace(/^\//, '');
     }
 
     let r = this.repositories.get(name);
