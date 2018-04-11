@@ -34,6 +34,7 @@ repository provider for bitbucket
     -   [branchClass](#branchclass)
     -   [repository](#repository)
     -   [defaultOptions](#defaultoptions)
+    -   [optionsFromEnvironment](#optionsfromenvironment)
 -   [BitbucketRepository](#bitbucketrepository)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
@@ -106,6 +107,19 @@ Returns **Repository**
 Default configuration
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### optionsFromEnvironment
+
+provide username&password from
+
+-   BITBUCKET_USERNAME
+-   BITBUCKET_PASSWORD
+
+**Parameters**
+
+-   `env`  
+
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ## BitbucketRepository
 
