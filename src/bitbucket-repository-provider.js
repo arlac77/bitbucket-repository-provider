@@ -32,7 +32,7 @@ export class BitbucketProvider extends Provider {
    * provide username&password from
    * - BITBUCKET_USERNAME
    * - BITBUCKET_PASSWORD
-   * @return {object}
+   * @return {Object}
    */
   static optionsFromEnvironment(env) {
     if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
