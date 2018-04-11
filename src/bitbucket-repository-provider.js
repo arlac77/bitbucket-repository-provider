@@ -28,6 +28,26 @@ export class BitbucketProvider extends Provider {
     };
   }
 
+  /**
+   * provide username&password from
+   * - BITBUCKET_USERNAME
+   * - BITBUCKET_PASSWORD
+   * @return {object}
+   */
+  static optionsFromEnvironment(env) {
+    if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
+      return {
+        auth: {
+          type: 'basic',
+          username: env.BITBUCKET_USERNAME,
+          password: env.BITBUCKET_PASSWORD
+        }
+      };
+    }
+
+    return undefined;
+  }
+
   ananlyseRepoURL(name) {
     const m = name.match(/^scm\/([^\/]+)\/(.*)/);
     if (m) {

@@ -5,13 +5,7 @@ const REPOSITORY_URL =
   'https://arlac77@bitbucket.org/arlac77/sync-test-repository.git';
 const REPOSITORY_NAME = 'arlac77/sync-test-repository';
 
-const config = {
-  auth: {
-    type: 'basic',
-    password: process.env.BITBUCKET_PASSWORD,
-    username: process.env.BITBUCKET_USERNAME
-  }
-};
+const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
 test('provider', async t => {
   const provider = new BitbucketProvider(config);
