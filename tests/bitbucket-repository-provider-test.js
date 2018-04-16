@@ -7,6 +7,20 @@ const REPOSITORY_NAME = 'arlac77/sync-test-repository';
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
+test('optionsFromEnvironment undefined', async t => {
+  t.is(BitbucketProvider.optionsFromEnvironment(undefined), undefined);
+});
+
+test('optionsFromEnvironment defined', async t => {
+  t.deepEqual(
+    BitbucketProvider.optionsFromEnvironment({
+      BITBUCKET_USERNAME: 'user',
+      BITBUCKET_PASSWORD: 'pass'
+    }),
+    { auth: { type: 'basic', username: 'user', password: 'pass' } }
+  );
+});
+
 test('provider', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);

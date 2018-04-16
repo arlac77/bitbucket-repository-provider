@@ -110,16 +110,16 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### optionsFromEnvironment
 
-provide username&password from
+provide username + password from environment variables
 
 -   BITBUCKET_USERNAME
 -   BITBUCKET_PASSWORD
 
 **Parameters**
 
--   `env`  
+-   `env` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** as provided by process.env
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** undefined if no bitbucket related entries where found
 
 ## BitbucketRepository
 
