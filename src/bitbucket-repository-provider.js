@@ -9,7 +9,6 @@ const request = require('request-promise');
  * @param {Object} config
  * @param {string} config.url provider scm base
  * @param {string} config.api provider api base
- * @param {string} config.apiVersion provider api version
  * @param {Object} config.auth authentication
  * @param {string} config.auth.type
  * @param {string} config.auth.username
@@ -23,8 +22,7 @@ export class BitbucketProvider extends Provider {
   static get defaultOptions() {
     return {
       url: 'https://bitbucket.org',
-      api: 'https://api.bitbucket.org',
-      apiVersion: '2.0'
+      api: 'https://api.bitbucket.org/2.0'
     };
   }
 
@@ -49,7 +47,7 @@ export class BitbucketProvider extends Provider {
     return undefined;
   }
 
-  ananlyseRepoURL(name) {
+  analyseRepoURL(name) {
     const m = name.match(/^scm\/([^\/]+)\/(.*)/);
     if (m) {
       const project = m[1];
@@ -57,13 +55,13 @@ export class BitbucketProvider extends Provider {
       return {
         project,
         repoName,
-        api: `${this.apiVersion}/projects/${project}/repos/${repoName}`
+        api: `projects/${project}/repos/${repoName}`
       };
     }
 
     return {
       repoName: name,
-      api: `${this.apiVersion}/repositories/${name}`
+      api: `repositories/${name}`
     };
   }
 
@@ -73,14 +71,6 @@ export class BitbucketProvider extends Provider {
    */
   get api() {
     return this.config.api;
-  }
-
-  /**
-   * API version to use
-   * @return {string} 1.0 or 2.0
-   */
-  get apiVersion() {
-    return this.config.apiVersion;
   }
 
   /**
@@ -138,7 +128,7 @@ export class BitbucketProvider extends Provider {
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
-        const { repoName, project, api } = this.ananlyseRepoURL(name);
+        const { repoName, project, api } = this.analyseRepoURL(name);
 
         const res = await this.get(api);
         r = new this.repositoryClass(this, repoName, {
@@ -215,7 +205,7 @@ export class BitbucketRepository extends Repository {
     Object.defineProperties(this, {
       user: { value: name.split(/\//)[0] },
       api: {
-        value: options.api || `${provider.apiVersion}/repositories/${name}`
+        value: options.api || `2.0/repositories/${name}`
       }
     });
 
