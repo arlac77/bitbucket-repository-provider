@@ -38,6 +38,13 @@ test('provider', async t => {
   t.is(branch.name, 'master');
 });
 
+test('provider repository undefined', async t => {
+  const provider = new BitbucketProvider(config);
+  const repository = await provider.repository(undefined);
+
+  t.is(repository, undefined);
+});
+
 test('provider url git+https', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(

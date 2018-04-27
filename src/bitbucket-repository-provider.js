@@ -105,6 +105,10 @@ export class BitbucketProvider extends Provider {
    * @return {Repository}
    */
   async repository(name) {
+    if (name === undefined) {
+      return undefined;
+    }
+
     name = name.replace(/#.*$/, '');
 
     if (name.startsWith('git@') || name.startsWith('git+ssh@')) {
