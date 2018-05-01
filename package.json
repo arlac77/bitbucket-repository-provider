@@ -1,14 +1,10 @@
 {
   "name": "bitbucket-repository-provider",
   "version": "0.0.0-semantic-release",
-  "main": "dist/bitbucket-repository-provider.js",
-  "module": "src/bitbucket-repository-provider.js",
+  "main": "dist/bitbucket-provider.js",
+  "module": "src/bitbucket-provider.js",
   "description": "repository provider for bitbucket",
-  "keywords": [
-    "git",
-    "bitbucket",
-    "repository-provider"
-  ],
+  "keywords": ["git", "bitbucket", "repository-provider"],
   "contributors": [
     {
       "name": "Markus Felten",
@@ -22,10 +18,10 @@
     "pretest": "rollup -c tests/rollup.config.js",
     "precover": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
-    "docs": "documentation readme src/bitbucket-repository-provider.js --section=API",
+    "docs": "documentation readme src/bitbucket-provider.js --section=API",
     "semantic-release": "semantic-release",
     "prepare": "rollup -c",
-    "lint": "documentation lint src/bitbucket-repository-provider.js",
+    "lint": "documentation lint src/bitbucket-provider.js",
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
@@ -58,21 +54,12 @@
   "homepage": "https://github.com/arlac77/bitbucket-repository-provider#readme",
   "release": {},
   "ava": {
-    "files": [
-      "build/*-test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "require": ["babel-register"]
   },
   "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "xo": {
