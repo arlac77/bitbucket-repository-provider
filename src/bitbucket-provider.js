@@ -292,19 +292,17 @@ export class BitbucketRepository extends Repository {
   }
 
   /**
-   * @param {string} name
+   * Create a new branch
+   * @param {string} name of the new branch to create
    * @param {BitbucketBranch} from
    * @param {Object} options
    * @param {string} options.message
    */
-  async createBranch(name, from, options = {}) {
-    const parents = [
-      from === undefined ? this._branches.get('master').hash : from.hash
-    ];
+  async createBranch(name, from = this.defaultBranch, options = {}) {
     const res = await this.post(`${this.api}/src/`, {
       branch: name,
       message: options.message,
-      parents: parents.join(',')
+      parents: [from.hash].join(',')
     });
     return super.createBranch(name, from, options);
   }
