@@ -27,21 +27,36 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
-   * provide username + password from environment variables
-   * - BITBUCKET_USERNAME
-   * - BITBUCKET_PASSWORD
+   * provide auth info from environment variables
+   * either from
+   * __BITBUCKET_USERNAME__ and
+   * __BITBUCKET_PASSWORD__
+   * or
+   * __BITBUCKET_TOKEN__ or __BB_TOKEN__
    * @param {Object} env as provided by process.env
    * @return {Object} undefined if no bitbucket related entries where found
    */
   static optionsFromEnvironment(env) {
-    if (env !== undefined && env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
-      return {
-        auth: {
-          type: 'basic',
-          username: env.BITBUCKET_USERNAME,
-          password: env.BITBUCKET_PASSWORD
-        }
-      };
+    if (env !== undefined) {
+      const token = env.BB_TOKEN || env.BITBUCKET_TOKEN;
+      if (token !== undefined) {
+        return {
+          auth: {
+            type: 'token',
+            token
+          }
+        };
+      }
+
+      if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
+        return {
+          auth: {
+            type: 'basic',
+            username: env.BITBUCKET_USERNAME,
+            password: env.BITBUCKET_PASSWORD
+          }
+        };
+      }
     }
 
     return undefined;

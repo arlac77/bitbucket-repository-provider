@@ -27,7 +27,6 @@ repository provider for bitbucket
 
 -   [BitbucketProvider](#bitbucketprovider)
     -   [api](#api)
-    -   [apiVersion](#apiversion)
     -   [url](#url)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
@@ -54,7 +53,6 @@ Provider for bitbucket repositories
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider scm base
     -   `config.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider api base
-    -   `config.apiVersion` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider api version
     -   `config.auth` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** authentication
         -   `config.auth.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.auth.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
@@ -65,12 +63,6 @@ Provider for bitbucket repositories
 API base url
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api base url
-
-### apiVersion
-
-API version to use
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 1.0 or 2.0
 
 ### url
 
@@ -109,10 +101,12 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### optionsFromEnvironment
 
-provide username + password from environment variables
-
--   BITBUCKET_USERNAME
--   BITBUCKET_PASSWORD
+provide auth info from environment variables
+either from
+**BITBUCKET_USERNAME** and
+**BITBUCKET_PASSWORD**
+or
+**BITBUCKET_TOKEN** or **BB_TOKEN**
 
 **Parameters**
 

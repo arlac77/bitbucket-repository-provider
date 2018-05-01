@@ -11,13 +11,28 @@ test('optionsFromEnvironment undefined', async t => {
   t.is(BitbucketProvider.optionsFromEnvironment(undefined), undefined);
 });
 
-test('optionsFromEnvironment defined', async t => {
+test('optionsFromEnvironment user', async t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_USERNAME: 'user',
       BITBUCKET_PASSWORD: 'pass'
     }),
     { auth: { type: 'basic', username: 'user', password: 'pass' } }
+  );
+});
+
+test('optionsFromEnvironment token', async t => {
+  t.deepEqual(
+    BitbucketProvider.optionsFromEnvironment({
+      BB_TOKEN: '1234'
+    }),
+    { auth: { type: 'token', token: '1234' } }
+  );
+  t.deepEqual(
+    BitbucketProvider.optionsFromEnvironment({
+      BITBUCKET_TOKEN: '1234'
+    }),
+    { auth: { type: 'token', token: '1234' } }
   );
 });
 
