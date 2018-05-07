@@ -189,7 +189,7 @@ export class BitbucketProvider extends Provider {
 
   delete(path, data) {
     const params = {
-      uri: this.api + '/' + path,
+      uri: 'https://api.bitbucket.org/' + path,
       auth: this.config.auth,
       form: data
     };
@@ -280,6 +280,7 @@ export class BitbucketRepository extends Repository {
     let url = `${this.api}/refs/branches`;
     do {
       const res = await this.get(url);
+
       url = res.next;
       res.values.forEach(b => {
         const branch = new this.provider.branchClass(this, b.name);
@@ -311,7 +312,9 @@ export class BitbucketRepository extends Repository {
     //console.log(${});
     const p = 'arlac77';
     const r = 'sync-test-repository';
+
     const u = `rest/branch-utils/1.0/projects/${p}/repos/${r}/branches`;
+
     console.log(u);
 
     //content = '''{"name": "refs/heads/%s"}''' % (variables['branch'])

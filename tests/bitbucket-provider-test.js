@@ -169,11 +169,19 @@ test('create branch', async t => {
   //await branch.delete();
 });
 
-test.skip('create branch', async t => {
+test.skip('delete branch', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
-  await repository.deleteBranch('test-2');
-  t.is(await repository.branch('test-2'), undefined);
+
+  const branches = await repository.branches();
+
+  for (const [name, branch] of branches.entries()) {
+    if (name.match(/^test-/)) {
+      await repository.deleteBranch(name);
+      t.is(await repository.branch(name), undefined);
+    }
+    //console.log(`${name}: ${branch}`);
+  }
 });
 
 test('list', async t => {
