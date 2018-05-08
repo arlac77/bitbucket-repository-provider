@@ -165,6 +165,8 @@ Create a new branch
 
 **Extends Branch**
 
+Branch of a bitbucket repository
+
 ### content
 
 **Parameters**
