@@ -1,6 +1,9 @@
 {
   "name": "bitbucket-repository-provider",
   "version": "0.0.0-semantic-release",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/bitbucket-provider.js",
   "module": "src/bitbucket-provider.js",
   "description": "repository provider for bitbucket",
