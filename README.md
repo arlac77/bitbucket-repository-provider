@@ -26,21 +26,29 @@ repository provider for bitbucket
 ### Table of Contents
 
 -   [BitbucketProvider](#bitbucketprovider)
+    -   [Parameters](#parameters)
     -   [api](#api)
     -   [url](#url)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
     -   [repository](#repository)
+        -   [Parameters](#parameters-1)
     -   [defaultOptions](#defaultoptions)
     -   [optionsFromEnvironment](#optionsfromenvironment)
+        -   [Parameters](#parameters-2)
+-   [BitbucketBranch](#bitbucketbranch)
+    -   [content](#content)
+        -   [Parameters](#parameters-3)
+    -   [createPullRequest](#createpullrequest)
+        -   [Parameters](#parameters-4)
 -   [BitbucketRepository](#bitbucketrepository)
+    -   [Parameters](#parameters-5)
+    -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
--   [BitbucketBranch](#bitbucketbranch)
-    -   [content](#content)
-    -   [createPullRequest](#createpullrequest)
+        -   [Parameters](#parameters-6)
 
 ## BitbucketProvider
 
@@ -48,7 +56,7 @@ repository provider for bitbucket
 
 Provider for bitbucket repositories
 
-**Parameters**
+### Parameters
 
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider scm base
@@ -87,7 +95,7 @@ Supported name schemes are
 -   git@bitbucket.org:owner/repo-name.git
 -   owner/repo-name
 
-**Parameters**
+#### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -108,11 +116,34 @@ either from
 or
 **BITBUCKET_TOKEN** or **BB_TOKEN**
 
-**Parameters**
+#### Parameters
 
 -   `env` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** as provided by process.env
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** undefined if no bitbucket related entries where found
+
+## BitbucketBranch
+
+**Extends Branch**
+
+Branch of a bitbucket repository
+
+### content
+
+#### Parameters
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Content>** 
+
+### createPullRequest
+
+-   **See: {<https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}>**
+
+#### Parameters
+
+-   `to`  
+-   `msg`  
 
 ## BitbucketRepository
 
@@ -120,7 +151,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 a repository hosted in bitbucket
 
-**Parameters**
+### Parameters
 
 -   `provider`  
 -   `name`  
@@ -128,7 +159,7 @@ a repository hosted in bitbucket
     -   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
     -   `options.project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
 
-**Properties**
+### Properties
 
 -   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
@@ -154,35 +185,12 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Create a new branch
 
-**Parameters**
+#### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** of the new branch to create
 -   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-## BitbucketBranch
-
-**Extends Branch**
-
-Branch of a bitbucket repository
-
-### content
-
-**Parameters**
-
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Content>** 
-
-### createPullRequest
-
--   **See: {<https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}>**
-
-**Parameters**
-
--   `to`  
--   `msg`  
 
 # install
 
