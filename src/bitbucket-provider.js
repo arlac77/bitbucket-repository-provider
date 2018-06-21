@@ -23,10 +23,23 @@ export class BitbucketProvider extends Provider {
    * @return {Object}
    */
   static get defaultOptions() {
+    const url = 'https://bitbucket.org';
     return {
-      url: 'https://bitbucket.org',
-      api: 'https://api.bitbucket.org/2.0'
+      url,
+      api: BitbucketProvider.apiURL(url)
     };
+  }
+
+  /**
+   * api url for a given repo url
+   * @param {string} url bitbucket (repo)
+   * @param {string} version api version
+   * @return {string} bitbucket api url
+   */
+  static apiURL(url, version = '2.0') {
+    const u = new URL(url);
+    u.host = 'api.' + u.host;
+    return `${u.href}${version}`;
   }
 
   /**

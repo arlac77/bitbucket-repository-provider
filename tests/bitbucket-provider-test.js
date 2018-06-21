@@ -36,6 +36,13 @@ test('optionsFromEnvironment token', async t => {
   );
 });
 
+test('api url', t => {
+  t.is(
+    'https://api.bitbucket.org/2.0',
+    BitbucketProvider.apiURL('https://bitbucket.org', '2.0')
+  );
+});
+
 test('provider', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
@@ -58,6 +65,20 @@ test('provider repository undefined', async t => {
   const repository = await provider.repository(undefined);
 
   t.is(repository, undefined);
+});
+
+test('provider url git+https mybitbucket.org', async t => {
+  const provider = new BitbucketProvider({ url: 'https://mybitbucket.org' });
+
+  const repository = await provider.repository(
+    'git+https://arlac77@mybitbucket.org/arlac77/sync-test-repository.git'
+  );
+
+  t.is(repository.name, 'arlac77/sync-test-repository');
+  t.is(repository.user, 'arlac77');
+
+  const branch = await repository.branch('master');
+  t.is(branch.name, 'master');
 });
 
 test('provider url git+https', async t => {

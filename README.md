@@ -34,21 +34,23 @@ repository provider for bitbucket
     -   [repository](#repository)
         -   [Parameters](#parameters-1)
     -   [defaultOptions](#defaultoptions)
-    -   [optionsFromEnvironment](#optionsfromenvironment)
+    -   [apiURL](#apiurl)
         -   [Parameters](#parameters-2)
+    -   [optionsFromEnvironment](#optionsfromenvironment)
+        -   [Parameters](#parameters-3)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
-        -   [Parameters](#parameters-3)
-    -   [createPullRequest](#createpullrequest)
         -   [Parameters](#parameters-4)
+    -   [createPullRequest](#createpullrequest)
+        -   [Parameters](#parameters-5)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-5)
+    -   [Parameters](#parameters-6)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-6)
+        -   [Parameters](#parameters-7)
 
 ## BitbucketProvider
 
@@ -106,6 +108,17 @@ Returns **Repository**
 Default configuration
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### apiURL
+
+api url for a given repo url
+
+#### Parameters
+
+-   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
+-   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api version (optional, default `'2.0'`)
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket api url
 
 ### optionsFromEnvironment
 
