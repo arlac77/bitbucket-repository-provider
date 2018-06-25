@@ -43,6 +43,13 @@ test('api url', t => {
   );
 });
 
+test('api url stash', t => {
+  t.is(
+    'https://api.stash.mydomain.com/1.0',
+    BitbucketProvider.apiURL('https://stash.mydomain.com')
+  );
+});
+
 test('provider', async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);

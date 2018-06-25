@@ -32,12 +32,20 @@ export class BitbucketProvider extends Provider {
 
   /**
    * api url for a given repo url
+   * provide version 1.0 for stash hosts names and 2.0 for all other
    * @param {string} url bitbucket (repo)
    * @param {string} version api version
    * @return {string} bitbucket api url
    */
-  static apiURL(url, version = '2.0') {
+  static apiURL(url, version) {
     const u = new URL(url);
+    if (version === undefined) {
+      if (u.host.match(/stash/)) {
+        version = '1.0';
+      } else {
+        version = '2.0';
+      }
+    }
     u.host = 'api.' + u.host;
     return `${u.href}${version}`;
   }

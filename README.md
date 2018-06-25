@@ -112,11 +112,12 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### apiURL
 
 api url for a given repo url
+provide version 1.0 for stash hosts names and 2.0 for all other
 
 #### Parameters
 
 -   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
--   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api version (optional, default `'2.0'`)
+-   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api version
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket api url
 
