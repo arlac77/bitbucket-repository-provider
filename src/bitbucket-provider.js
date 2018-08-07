@@ -7,13 +7,14 @@ import {
 } from 'repository-provider';
 import { BitbucketBranch } from './bitbucket-branch';
 import { BitbucketRepository } from './bitbucket-repository';
+import { BitbucketProject } from './bitbucket-project';
 import { URL } from 'url';
 import fetch from 'node-fetch';
 import btoa from 'btoa';
 
 const request = require('request-promise');
 
-export { BitbucketBranch, BitbucketRepository };
+export { BitbucketBranch, BitbucketRepository, BitbucketProject };
 
 /**
  * Provider for bitbucket repositories
@@ -140,6 +141,13 @@ export class BitbucketProvider extends Provider {
    */
   get branchClass() {
     return BitbucketBranch;
+  }
+
+  /**
+   * @return {Class} BitbucketProject
+   */
+  get projectClass() {
+    return BitbucketProject;
   }
 
   /**

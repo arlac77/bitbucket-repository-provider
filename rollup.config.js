@@ -12,5 +12,5 @@ export default {
     interop: false
   },
   plugins: [resolve(), commonjs(), cleanup()],
-  external: ['repository-provider', 'url']
+  external: ['repository-provider', 'url', 'stream', 'http', 'https', 'zlib']
 };

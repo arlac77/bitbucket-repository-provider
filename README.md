@@ -31,26 +31,32 @@ repository provider for bitbucket
     -   [url](#url)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
+    -   [projectClass](#projectclass)
     -   [repository](#repository)
         -   [Parameters](#parameters-1)
+    -   [fetch](#fetch)
+        -   [Parameters](#parameters-2)
+    -   [addAuthorizationHeader](#addauthorizationheader)
+        -   [Parameters](#parameters-3)
     -   [defaultOptions](#defaultoptions)
     -   [apiURL](#apiurl)
-        -   [Parameters](#parameters-2)
+        -   [Parameters](#parameters-4)
     -   [optionsFromEnvironment](#optionsfromenvironment)
-        -   [Parameters](#parameters-3)
+        -   [Parameters](#parameters-5)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
-        -   [Parameters](#parameters-4)
+        -   [Parameters](#parameters-6)
     -   [createPullRequest](#createpullrequest)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-7)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-8)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-7)
+        -   [Parameters](#parameters-9)
+-   [BitbucketProject](#bitbucketproject)
 
 ## BitbucketProvider
 
@@ -88,6 +94,10 @@ Returns **Class** BitbucketRepository
 
 Returns **Class** BitbucketBranch
 
+### projectClass
+
+Returns **Class** BitbucketProject
+
 ### repository
 
 Supported name schemes are
@@ -102,6 +112,26 @@ Supported name schemes are
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **Repository** 
+
+### fetch
+
+#### Parameters
+
+-   `url` **[URL](https://developer.mozilla.org/docs/Web/API/URL/URL)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** fetch result
+
+### addAuthorizationHeader
+
+inserts the authorization data into the reguest header
+
+#### Parameters
+
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** http credentials will be inserted into
+-   `credentials` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if auth info has been written into headers
 
 ### defaultOptions
 
@@ -205,6 +235,12 @@ Create a new branch
 -   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## BitbucketProject
+
+**Extends Project**
+
+Project of a bitbucket repository
 
 # install
 
