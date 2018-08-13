@@ -9,8 +9,6 @@ import { BitbucketBranch } from './bitbucket-branch';
 import { BitbucketRepository } from './bitbucket-repository';
 import { BitbucketProject } from './bitbucket-project';
 import { URL } from 'url';
-import fetch from 'node-fetch';
-import btoa from 'btoa';
 
 const request = require('request-promise');
 
@@ -207,64 +205,11 @@ export class BitbucketProvider extends Provider {
     return r;
   }
 
-  /**
-   * @param {URL} url
-   * @param {Object} options
-   * @return {Promise} fetch result
-   */
-  async fetch(url, options = {}) {
-    options = Object.assign({}, options, {
-      headers: Object.assign({}, options.headers)
-    });
+  async project(name) {
+    const username = 'xxxx';
+    const response = await this.get(`teams/${username}/projects/`); // 2.0
 
-    let response;
-
-    for (let n = 1; n <= 2; n++) {
-      response = await fetch(url, options);
-
-      if (response.status < 200 || response.status >= 300) {
-        switch (response.status) {
-          case 401:
-            const credentials = await this.provideCredentials(
-              context,
-              parseAuthenticate(response.headers.get('WWW-Authenticate'), {
-                url
-              })
-            );
-            if (credentials !== undefined) {
-              this.addAuthorizationHeader(options.headers, credentials);
-              break;
-            }
-          default:
-            throw new Error(response);
-        }
-      } else {
-        return response;
-      }
-    }
-    return response;
-  }
-
-  /**
-   * inserts the authorization data into the reguest header
-   * @param {Object} headers http credentials will be inserted into
-   * @param {Object} credentials
-   *
-   * @return {boolean} true if auth info has been written into headers
-   */
-  addAuthorizationHeader(headers, credentials) {
-    if (credentials !== undefined) {
-      if (
-        credentials.user !== undefined &&
-        credentials.password !== undefined
-      ) {
-        headers.authorization =
-          'Basic ' + btoa(credentials.user + ':' + credentials.password);
-        return true;
-      }
-    }
-
-    return false;
+    console.log(response);
   }
 
   get(path) {

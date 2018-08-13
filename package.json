@@ -7,11 +7,7 @@
   "main": "dist/bitbucket-provider.js",
   "module": "src/bitbucket-provider.js",
   "description": "repository provider for bitbucket",
-  "keywords": [
-    "git",
-    "bitbucket",
-    "repository-provider"
-  ],
+  "keywords": ["git", "bitbucket", "repository-provider"],
   "contributors": [
     {
       "name": "Markus Felten",
@@ -32,8 +28,6 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "btoa": "^1.2.1",
-    "node-fetch": "^2.2.0",
     "repository-provider": "^2.24.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
@@ -66,21 +60,12 @@
   "homepage": "https://github.com/arlac77/bitbucket-repository-provider#readme",
   "release": {},
   "ava": {
-    "files": [
-      "build/*-test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "require": ["babel-register"]
   },
   "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "xo": {

@@ -186,32 +186,6 @@ test('provider repo with branch name', async t => {
   //t.is(branch.user, 'arlac77');
 });
 
-test('create branch', async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(REPOSITORY_NAME);
-  const newName = `test-${new Date().getTime()}`;
-  const branch = await repository.createBranch(newName);
-
-  t.is(branch.name, newName);
-
-  //await branch.delete();
-});
-
-test.skip('delete branch', async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(REPOSITORY_NAME);
-
-  const branches = await repository.branches();
-
-  for (const [name, branch] of branches.entries()) {
-    if (name.match(/^test-/)) {
-      await repository.deleteBranch(name);
-      t.is(await repository.branch(name), undefined);
-    }
-    //console.log(`${name}: ${branch}`);
-  }
-});
-
 test('list', async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
