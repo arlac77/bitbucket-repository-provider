@@ -11,7 +11,15 @@ export default {
     sourcemap: true,
     interop: false
   },
-  external: ['ava', 'repository-provider', 'url'],
+  external: [
+    'ava',
+    'repository-provider',
+    'url',
+    'stream',
+    'http',
+    'https',
+    'zlib'
+  ],
   plugins: [
     multiEntry(),
     resolve(),
