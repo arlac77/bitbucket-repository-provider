@@ -21,7 +21,7 @@ test('optionsFromEnvironment user', async t => {
   );
 });
 
-test('optionsFromEnvironment token', async t => {
+test('optionsFromEnvironment token', t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BB_TOKEN: '1234'
@@ -37,16 +37,16 @@ test('optionsFromEnvironment token', async t => {
 });
 
 test('api url', t => {
-  t.is(
-    'https://api.bitbucket.org/2.0',
-    BitbucketProvider.apiURL('https://bitbucket.org', '2.0')
+  t.deepEqual(
+    { '2.0': 'https://api.bitbucket.org/2.0' },
+    BitbucketProvider.apiURLs('https://bitbucket.org', '2.0')
   );
 });
 
 test('api url stash', t => {
-  t.is(
-    'https://api.stash.mydomain.com/1.0',
-    BitbucketProvider.apiURL('https://stash.mydomain.com')
+  t.deepEqual(
+    { '1.0': 'https://api.stash.mydomain.com/1.0' },
+    BitbucketProvider.apiURLs('https://stash.mydomain.com')
   );
 });
 

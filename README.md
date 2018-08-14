@@ -34,28 +34,24 @@ repository provider for bitbucket
     -   [projectClass](#projectclass)
     -   [repository](#repository)
         -   [Parameters](#parameters-1)
-    -   [fetch](#fetch)
-        -   [Parameters](#parameters-2)
-    -   [addAuthorizationHeader](#addauthorizationheader)
-        -   [Parameters](#parameters-3)
     -   [defaultOptions](#defaultoptions)
-    -   [apiURL](#apiurl)
-        -   [Parameters](#parameters-4)
+    -   [apiURLs](#apiurls)
+        -   [Parameters](#parameters-2)
     -   [optionsFromEnvironment](#optionsfromenvironment)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-3)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
-        -   [Parameters](#parameters-6)
+        -   [Parameters](#parameters-4)
     -   [createPullRequest](#createpullrequest)
-        -   [Parameters](#parameters-7)
+        -   [Parameters](#parameters-5)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-8)
+    -   [Parameters](#parameters-6)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-9)
+        -   [Parameters](#parameters-7)
 -   [BitbucketProject](#bitbucketproject)
 
 ## BitbucketProvider
@@ -113,33 +109,13 @@ Supported name schemes are
 
 Returns **Repository** 
 
-### fetch
-
-#### Parameters
-
--   `url` **[URL](https://developer.mozilla.org/docs/Web/API/URL/URL)** 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** fetch result
-
-### addAuthorizationHeader
-
-inserts the authorization data into the reguest header
-
-#### Parameters
-
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** http credentials will be inserted into
--   `credentials` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if auth info has been written into headers
-
 ### defaultOptions
 
 Default configuration
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### apiURL
+### apiURLs
 
 api url for a given repo url
 provide version 1.0 for stash hosts names and 2.0 for all other
@@ -149,7 +125,7 @@ provide version 1.0 for stash hosts names and 2.0 for all other
 -   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
 -   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api version
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket api url
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** bitbucket api urls by version
 
 ### optionsFromEnvironment
 

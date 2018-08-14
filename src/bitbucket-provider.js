@@ -33,7 +33,7 @@ export class BitbucketProvider extends Provider {
     const url = 'https://bitbucket.org';
     return {
       url,
-      api: BitbucketProvider.apiURL(url)
+      api: BitbucketProvider.apiURLs(url)
     };
   }
 
@@ -42,9 +42,9 @@ export class BitbucketProvider extends Provider {
    * provide version 1.0 for stash hosts names and 2.0 for all other
    * @param {string} url bitbucket (repo)
    * @param {string} version api version
-   * @return {string} bitbucket api url
+   * @return {Object} bitbucket api urls by version
    */
-  static apiURL(url, version) {
+  static apiURLs(url, version) {
     const u = new URL(url);
     if (version === undefined) {
       if (u.host.match(/stash/)) {
@@ -54,7 +54,7 @@ export class BitbucketProvider extends Provider {
       }
     }
     u.host = 'api.' + u.host;
-    return `${u.href}${version}`;
+    return { [version]: `${u.href}${version}` };
   }
 
   /**
@@ -214,7 +214,7 @@ export class BitbucketProvider extends Provider {
 
   get(path) {
     const params = {
-      uri: this.api + '/' + path,
+      uri: this.api['2.0'] + '/' + path,
       auth: this.config.auth,
       json: true
     };
@@ -225,7 +225,7 @@ export class BitbucketProvider extends Provider {
 
   put(path) {
     const params = {
-      uri: this.api + '/' + path,
+      uri: this.api['2.0'] + '/' + path,
       auth: this.config.auth
     };
 
@@ -244,7 +244,7 @@ export class BitbucketProvider extends Provider {
 
   post(path, data) {
     const params = {
-      uri: this.api + '/' + path,
+      uri: this.api['2.0'] + '/' + path,
       auth: this.config.auth,
       form: data
     };
