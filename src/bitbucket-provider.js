@@ -96,17 +96,17 @@ export class BitbucketProvider extends Provider {
   analyseRepoURL(name) {
     const m = name.match(/^scm\/([^\/]+)\/(.*)/);
     if (m) {
-      const project = m[1];
-      const repoName = m[2];
+      const projectName = m[1];
+      const repositoryName = m[2];
       return {
-        project,
-        repoName,
+        projectName,
+        repositoryName,
         api: `projects/${project}/repos/${repoName}`
       };
     }
 
     return {
-      repoName: name,
+      repositoryName: name,
       api: `repositories/${name}`
     };
   }
@@ -185,16 +185,16 @@ export class BitbucketProvider extends Provider {
     let r = this.repositories.get(name);
     if (r === undefined) {
       try {
-        const { repoName, project, api } = this.analyseRepoURL(name);
+        const { repositoryName, projectName, api } = this.analyseRepoURL(name);
 
         const res = await this.get(api);
-        r = new this.repositoryClass(this, repoName, {
-          project,
+        r = new this.repositoryClass(this, repositoryName, {
+          project: projectName,
           api
         });
 
         await r.initialize();
-        this.repositories.set(repoName, r);
+        this.repositories.set(repositoryName, r);
       } catch (e) {
         if (e.statusCode !== 404) {
           throw e;
