@@ -31,7 +31,7 @@ repository provider for bitbucket
     -   [url](#url)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
-    -   [projectClass](#projectclass)
+    -   [repositoryGroupClass](#repositorygroupclass)
     -   [repository](#repository)
         -   [Parameters](#parameters-1)
     -   [defaultOptions](#defaultoptions)
@@ -90,7 +90,7 @@ Returns **Class** BitbucketRepository
 
 Returns **Class** BitbucketBranch
 
-### projectClass
+### repositoryGroupClass
 
 Returns **Class** BitbucketProject
 
@@ -214,7 +214,7 @@ Create a new branch
 
 ## BitbucketProject
 
-**Extends Project**
+**Extends RepositoryGroup**
 
 Project of a bitbucket repository
 

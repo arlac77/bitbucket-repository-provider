@@ -144,7 +144,7 @@ export class BitbucketProvider extends Provider {
   /**
    * @return {Class} BitbucketProject
    */
-  get projectClass() {
+  get repositoryGroupClass() {
     return BitbucketProject;
   }
 

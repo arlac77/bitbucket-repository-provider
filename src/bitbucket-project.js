@@ -1,6 +1,6 @@
-import { Project } from 'repository-provider';
+import { RepositoryGroup } from 'repository-provider';
 
 /**
  * Project of a bitbucket repository
  */
-export class BitbucketProject extends Project {}
+export class BitbucketProject extends RepositoryGroup {}
