@@ -4,7 +4,7 @@ import {
   Branch,
   Content,
   PullRequest
-} from 'repository-provider';
+} from "repository-provider";
 
 /**
  * a repository hosted in bitbucket
@@ -17,20 +17,20 @@ import {
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
+  /*
+  static get defaultOptions() {
+    return Object.assign({ project: undefined }, super.defaultOptions);
+  }
+*/
+
   constructor(provider, name, options = {}) {
-    super(provider, name);
+    super(provider, name, options);
     Object.defineProperties(this, {
       user: { value: name.split(/\//)[0] },
       api: {
         value: options.api || `2.0/repositories/${name}`
       }
     });
-
-    if (options.project !== undefined) {
-      Object.defineProperty(this, 'project', {
-        value: options.project
-      });
-    }
   }
 
   /**
@@ -72,8 +72,8 @@ export class BitbucketRepository extends Repository {
     return this.provider.delete(...args);
   }
 
-  async initialize() {
-    await super.initialize();
+  async _initialize() {
+    await super._initialize();
 
     let url = `${this.api}/refs/branches`;
     do {
@@ -101,15 +101,15 @@ export class BitbucketRepository extends Repository {
     const res = await this.post(`${this.api}/src/`, {
       branch: name,
       message: options.message,
-      parents: [from.hash].join(',')
+      parents: [from.hash].join(",")
     });
     return super.createBranch(name, from, options);
   }
 
   async deleteBranch(name) {
     //console.log(${});
-    const p = 'arlac77';
-    const r = 'sync-test-repository';
+    const p = "arlac77";
+    const r = "sync-test-repository";
 
     const u = `rest/branch-utils/1.0/projects/${p}/repos/${r}/branches`;
 
