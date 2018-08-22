@@ -36,20 +36,6 @@ test("optionsFromEnvironment token", t => {
   );
 });
 
-test("api url", t => {
-  t.deepEqual(
-    { "2.0": "https://api.bitbucket.org/2.0" },
-    BitbucketProvider.apiURLs("https://bitbucket.org", "2.0")
-  );
-});
-
-test("api url stash", t => {
-  t.deepEqual(
-    { "1.0": "https://api.stash.mydomain.com/1.0" },
-    BitbucketProvider.apiURLs("https://stash.mydomain.com")
-  );
-});
-
 test("provider", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
