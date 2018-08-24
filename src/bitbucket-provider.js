@@ -121,24 +121,6 @@ export class BitbucketProvider extends Provider {
     return undefined;
   }
 
-  analyseRepoURL(name) {
-    const m = name.match(/^scm\/([^\/]+)\/(.*)/);
-    if (m) {
-      const projectName = m[1];
-      const repositoryName = m[2];
-      return {
-        projectName,
-        repositoryName,
-        api: `projects/${project}/repos/${repoName}`
-      };
-    }
-
-    return {
-      repositoryName: name,
-      api: `repositories/${name}`
-    };
-  }
-
   /**
    * API base url
    * @return {string} api base url
