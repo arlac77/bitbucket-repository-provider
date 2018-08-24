@@ -231,17 +231,18 @@ export class BitbucketProvider extends Provider {
 
   delete(path, data) {
     const params = {
-      uri: "https://api.bitbucket.org/" + path,
+      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
       auth: this.config.auth,
       form: data
     };
+    console.log(`DELETE ${params.uri}`);
 
     return request.delete(params);
   }
 
   post(path, data) {
     const params = {
-      uri: this.api["2.0"] + "/" + path,
+      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
       auth: this.config.auth,
       form: data
     };

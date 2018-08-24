@@ -78,7 +78,10 @@ export class BitbucketRepository extends Repository {
 
   async _initialize() {
     await super._initialize();
+    await this._loadAllBranches();
+  }
 
+  async _loadAllBranches() {
     let url = `repositories/${this.fullName}/refs/branches`;
 
     do {
@@ -103,7 +106,7 @@ export class BitbucketRepository extends Repository {
    * @param {string} options.message
    */
   async createBranch(name, from = this.defaultBranch, options = {}) {
-    const res = await this.post(`${this.api}/src/`, {
+    const res = await this.post(`repositories/${this.fullName}/src`, {
       branch: name,
       message: options.message,
       parents: [from.hash].join(",")
@@ -111,21 +114,30 @@ export class BitbucketRepository extends Repository {
     return super.createBranch(name, from, options);
   }
 
+  /**
+   * https://docs.atlassian.com/bitbucket-server/rest/5.8.0/bitbucket-branch-rest.html#idm45555984542992
+   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete
+   */
   async deleteBranch(name) {
-    //console.log(${});
+    /*
     const p = "arlac77";
     const r = "sync-test-repository";
-
     const u = `rest/branch-utils/1.0/projects/${p}/repos/${r}/branches`;
 
-    console.log(u);
+    /rest/branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches
+    {
+    name: `refs/heads/${name}`,
+    dryRun: false
+    }
+    url = `https://api.bitbucket.org/rest/branch-utils/1.0/projects/arlac77/repos/${
+      this.fullName
+    }/branches`;
+*/
 
-    //content = '''{"name": "refs/heads/%s"}''' % (variables['branch'])
+    const res = await this.delete(
+      `repositories/${this.fullName}/refs/branches/${name}`
+    );
 
-    const res = await this.delete(u /*`${this.api}/branches`*/, {
-      name: `refs/heads/${name}`
-    });
-    console.log(res);
     return super.deleteBranch(name);
   }
 }

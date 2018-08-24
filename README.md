@@ -35,7 +35,7 @@ repository provider for bitbucket
     -   [repository](#repository)
         -   [Parameters](#parameters-1)
     -   [defaultOptions](#defaultoptions)
-    -   [apiURLs](#apiurls)
+    -   [analyseURL](#analyseurl)
         -   [Parameters](#parameters-2)
     -   [optionsFromEnvironment](#optionsfromenvironment)
         -   [Parameters](#parameters-3)
@@ -44,6 +44,8 @@ repository provider for bitbucket
         -   [Parameters](#parameters-4)
     -   [createPullRequest](#createpullrequest)
         -   [Parameters](#parameters-5)
+    -   [defaultOptions](#defaultoptions-1)
+-   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
     -   [Parameters](#parameters-6)
     -   [Properties](#properties)
@@ -52,7 +54,11 @@ repository provider for bitbucket
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
         -   [Parameters](#parameters-7)
+    -   [deleteBranch](#deletebranch)
+        -   [Parameters](#parameters-8)
 -   [BitbucketProject](#bitbucketproject)
+    -   [defaultOptions](#defaultoptions-2)
+-   [api](#api-1)
 
 ## BitbucketProvider
 
@@ -115,7 +121,7 @@ Default configuration
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### apiURLs
+### analyseURL
 
 api URL for a given repo url
 provide version 1.0 for stash hosts names and 2.0 for all other
@@ -165,6 +171,16 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 -   `to`  
 -   `msg`  
 
+### defaultOptions
+
+options
+
+## hash
+
+api url.
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
 ## BitbucketRepository
 
 **Extends Repository**
@@ -173,8 +189,8 @@ a repository hosted in bitbucket
 
 ### Parameters
 
--   `provider`  
--   `name`  
+-   `owner` **Owner** 
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
     -   `options.project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
@@ -212,11 +228,30 @@ Create a new branch
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### deleteBranch
+
+<https://docs.atlassian.com/bitbucket-server/rest/5.8.0/bitbucket-branch-rest.html#idm45555984542992>
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete>
+
+#### Parameters
+
+-   `name`  
+
 ## BitbucketProject
 
 **Extends RepositoryGroup**
 
 Project of a bitbucket repository
+
+### defaultOptions
+
+options
+
+## api
+
+api url.
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 # install
 

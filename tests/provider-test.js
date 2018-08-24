@@ -36,7 +36,7 @@ test("optionsFromEnvironment token", t => {
   );
 });
 
-test.only("provider", async t => {
+test("provider", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
@@ -181,21 +181,4 @@ test("provider repo with branch name", async t => {
   t.is(branch.provider, provider);
   t.is(branch.name, "master");
   //t.is(branch.user, 'arlac77');
-});
-
-test("list", async t => {
-  const provider = new BitbucketProvider(config);
-  const branch = await provider.branch(REPOSITORY_NAME);
-
-  t.deepEqual(await branch.list(), [{ path: "README.md" }]);
-});
-
-test("content", async t => {
-  const provider = new BitbucketProvider(config);
-  const branch = await provider.branch(REPOSITORY_NAME);
-
-  const c = await branch.content("README.md");
-
-  t.is(c.path, "README.md");
-  t.is(c.content.startsWith("# README"), true);
 });

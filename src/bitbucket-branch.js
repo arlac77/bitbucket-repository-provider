@@ -44,7 +44,7 @@ export class BitbucketBranch extends Branch {
    */
   async content(path) {
     const res = await this.get(
-      `${this.repository.api}/src/${this.name}/${path}`
+      `repositories/${this.fullName}/src/${this.hash}/${path}`
     );
     return new Content(path, res);
   }
