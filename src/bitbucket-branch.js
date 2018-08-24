@@ -4,12 +4,28 @@ import {
   Branch,
   Content,
   PullRequest
-} from 'repository-provider';
+} from "repository-provider";
 
 /**
  * Branch of a bitbucket repository
  */
 export class BitbucketBranch extends Branch {
+  /**
+   * options
+   */
+  static get defaultOptions() {
+    return Object.assign(
+      {
+        /**
+         * api url.
+         * @return {string}
+         */
+        hash: undefined
+      },
+      super.defaultOptions
+    );
+  }
+
   get(...args) {
     return this.provider.get(...args);
   }
@@ -44,7 +60,7 @@ export class BitbucketBranch extends Branch {
   }
 
   async list() {
-    return this.tree('/');
+    return this.tree("/");
   }
 
   /**
@@ -54,7 +70,7 @@ export class BitbucketBranch extends Branch {
     const res = await this.put(`${this.repository.api}/pullrequests`, {
       title: msg,
       description: msg,
-      state: 'OPEN',
+      state: "OPEN",
       open: true,
       closed: false,
       fromRef: {
@@ -81,7 +97,7 @@ export class BitbucketBranch extends Branch {
       reviewers: [
         {
           user: {
-            name: 'REVIEWER'
+            name: "REVIEWER"
           }
         }
       ]

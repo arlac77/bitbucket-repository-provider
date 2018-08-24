@@ -19,12 +19,6 @@ import {
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
-  /*
-  static get defaultOptions() {
-    return Object.assign({ project: undefined }, super.defaultOptions);
-  }
-*/
-
   constructor(owner, name, options = {}) {
     super(owner, name, options);
     Object.defineProperties(this, {
