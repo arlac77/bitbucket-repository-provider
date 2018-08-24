@@ -32,7 +32,7 @@ export class BitbucketProvider extends Provider {
     const url = "https://bitbucket.org";
     return {
       url,
-      api: BitbucketProvider.apiURLs(url)
+      api: BitbucketProvider.analyseURL(url).api
     };
   }
 
@@ -43,20 +43,46 @@ export class BitbucketProvider extends Provider {
    * @param {string} version api version
    * @return {Object} bitbucket api urls by version
    */
-  static apiURLs(url, version = "2.0") {
-    const u = new URL(url);
-    if (u.host.match(/stash\./)) {
-      version = "1.0";
-      u.pathname = `rest/api/${version}`;
-    } else {
-      u.host = "api." + u.host;
-      u.pathname = `${version}`;
+  static analyseURL(url, version = "2.0") {
+    if (url === undefined) {
+      return undefined;
     }
 
-    u.username = "";
-    u.password = "";
+    if (url.startsWith("git@") || url.startsWith("git+ssh@")) {
+      url = url.replace(/^\w+@/, "");
+      url = url.replace(/:/, "/");
+      url = "https://" + url;
+    } else if (url.startsWith("git+https:")) {
+      url = url.replace(/^git\+/, "");
+    }
+    if (!url.match(/^[\w\+]+:/)) {
+      // TODO default url
+      url = "https://bitbucket.org/" + url;
+    }
 
-    return { [version]: u.href };
+    const apiURL = new URL(url);
+    const branch = apiURL.hash.substring(1);
+
+    apiURL.hash = "";
+
+    const parts = apiURL.pathname.split(/\//);
+    const project = parts[parts.length - 2];
+    let repository = parts[parts.length - 1];
+
+    repository = repository.replace(/\.git$/, "");
+
+    if (apiURL.host.match(/stash\./)) {
+      version = "1.0";
+      apiURL.pathname = `rest/api/${version}`;
+    } else {
+      apiURL.host = "api." + apiURL.host;
+      apiURL.pathname = `${version}`;
+    }
+
+    apiURL.username = "";
+    apiURL.password = "";
+
+    return { api: { [version]: apiURL.href }, repository, project, branch };
   }
 
   /**
@@ -150,6 +176,10 @@ export class BitbucketProvider extends Provider {
     return BitbucketProject;
   }
 
+  analyseURL(...args) {
+    return this.constructor.analyseURL(...args);
+  }
+
   /**
    * Supported name schemes are
    * - https://user:aSecret@bitbucket.org/owner/repo-name.git
@@ -160,43 +190,22 @@ export class BitbucketProvider extends Provider {
    * @return {Repository}
    */
   async repository(name) {
-    if (name === undefined) {
+    const analysed = this.analyseURL(name);
+    if (analysed === undefined) {
       return undefined;
     }
 
-    name = name.replace(/#.*$/, "");
+    let repository = this.repositories.get(analysed.repository);
 
-    if (name.startsWith("git@") || name.startsWith("git+ssh@")) {
-      const [host, pathname] = name.split(/:/);
-      if (pathname !== undefined) {
-        name = pathname;
-        name = name.replace(/\.git$/, "");
-        name = name.replace(/^\//, "");
-      }
-    } else if (
-      name.startsWith("https") ||
-      name.startsWith("git+https") ||
-      name.startsWith("ssh:")
-    ) {
-      const url = new URL(name);
-      name = url.pathname;
-      name = name.replace(/\.git$/, "");
-      name = name.replace(/^\//, "");
-    }
+    if (repository === undefined) {
+      const project = await this.project(analysed.project);
 
-    let r = this.repositories.get(name);
-    if (r === undefined) {
       try {
-        const { repositoryName, projectName, api } = this.analyseRepoURL(name);
-
-        const res = await this.get(api);
-        r = new this.repositoryClass(this, repositoryName, {
-          project: projectName,
-          api
+        repository = new this.repositoryClass(project, analysed.repository, {
+          api: analysed.api["2.0"]
         });
 
-        await r.initialize();
-        this.repositories.set(repositoryName, r);
+        this.repositories.set(repository.name, repository);
       } catch (e) {
         if (e.statusCode !== 404) {
           throw e;
@@ -204,24 +213,28 @@ export class BitbucketProvider extends Provider {
       }
     }
 
-    return r;
+    return repository;
   }
 
-  async project(name) {
-    const username = "xxxx";
-    const response = await this.get(`teams/${username}/projects/`); // 2.0
+  async project(name, options) {
+    let project = this.repositoryGroups.get(name);
+    if (project !== undefined) {
+      return project;
+    }
+    project = new this.repositoryGroupClass(this, name, options);
+    this.repositoryGroups.set(project.name, project);
 
-    console.log(response);
+    return project;
   }
 
   get(path) {
     const params = {
-      uri: this.api["2.0"] + "/" + path,
+      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
       auth: this.config.auth,
       json: true
     };
 
-    //console.log(`GET ${params.uri}`);
+    console.log(`GET ${params.uri}`);
     return request.get(params);
   }
 

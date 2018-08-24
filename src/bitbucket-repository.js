@@ -8,6 +8,8 @@ import {
 
 /**
  * a repository hosted in bitbucket
+ * @param {Owner} owner
+ * @param {string} name
  * @param {Object} options
  * @param {string} [options.api]
  * @param {string} [options.project]
@@ -23,21 +25,29 @@ export class BitbucketRepository extends Repository {
   }
 */
 
-  constructor(provider, name, options = {}) {
-    super(provider, name, options);
+  constructor(owner, name, options = {}) {
+    super(owner, name, options);
     Object.defineProperties(this, {
       user: { value: name.split(/\//)[0] },
       api: {
-        value: options.api || `2.0/repositories/${name}`
+        value: options.api
       }
     });
+  }
+
+  get provider() {
+    return this.owner.provider;
+  }
+
+  get fullName() {
+    return `${this.owner.name}/${this.name}`;
   }
 
   /**
    * @return {string[]} url
    */
   get urls() {
-    return [`${this.provider.url}/${this.name}.git`];
+    return [`${this.provider.url}/${this.fullName}.git`];
   }
 
   /**
@@ -45,7 +55,7 @@ export class BitbucketRepository extends Repository {
    * @return {string} '.../overwiew'
    */
   get homePageURL() {
-    return `${this.provider.url}/${this.name}/overview`;
+    return `${this.provider.url}/${this.fullName}/overview`;
   }
 
   /**
@@ -53,7 +63,7 @@ export class BitbucketRepository extends Repository {
    * @return {string} '.../issues'
    */
   get issuesURL() {
-    return `${this.provider.url}/${this.name}/issues`;
+    return `${this.provider.url}/${this.fullName}/issues`;
   }
 
   get(...args) {
@@ -75,15 +85,16 @@ export class BitbucketRepository extends Repository {
   async _initialize() {
     await super._initialize();
 
-    let url = `${this.api}/refs/branches`;
+    let url = `repositories/${this.fullName}/refs/branches`;
+
     do {
       const res = await this.get(url);
 
       url = res.next;
       res.values.forEach(b => {
-        const branch = new this.provider.branchClass(this, b.name);
-
-        branch.hash = b.target.hash;
+        const branch = new this.provider.branchClass(this, b.name, {
+          hash: b.target.hash
+        });
 
         this._branches.set(branch.name, branch);
       });
