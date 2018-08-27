@@ -25,64 +25,16 @@ export { BitbucketBranch, BitbucketRepository, BitbucketProject };
  */
 export class BitbucketProvider extends Provider {
   /**
-   * Default configuration
+   * Default configuration as given for the cloud privider
    * @return {Object}
    */
   static get defaultOptions() {
-    const url = "https://bitbucket.org";
     return {
-      url,
-      api: BitbucketProvider.analyseURL(url).api
+      url: "https://bitbucket.org",
+      api: {
+        "2.0": "https://api.bitbucket.org/2.0"
+      }
     };
-  }
-
-  /**
-   * api URL for a given repo url
-   * provide version 1.0 for stash hosts names and 2.0 for all other
-   * @param {string} url bitbucket (repo)
-   * @param {string} version api version
-   * @return {Object} bitbucket api urls by version
-   */
-  static analyseURL(url, version = "2.0") {
-    if (url === undefined) {
-      return undefined;
-    }
-
-    if (url.startsWith("git@") || url.startsWith("git+ssh@")) {
-      url = url.replace(/^\w+@/, "");
-      url = url.replace(/:/, "/");
-      url = "https://" + url;
-    } else if (url.startsWith("git+https:")) {
-      url = url.replace(/^git\+/, "");
-    }
-    if (!url.match(/^[\w\+]+:/)) {
-      // TODO default url
-      url = "https://bitbucket.org/" + url;
-    }
-
-    const apiURL = new URL(url);
-    const branch = apiURL.hash.substring(1);
-
-    apiURL.hash = "";
-
-    const parts = apiURL.pathname.split(/\//);
-    const project = parts[parts.length - 2];
-    let repository = parts[parts.length - 1];
-
-    repository = repository.replace(/\.git$/, "");
-
-    if (apiURL.host.match(/stash\./)) {
-      version = "1.0";
-      apiURL.pathname = `rest/api/${version}`;
-    } else {
-      apiURL.host = "api." + apiURL.host;
-      apiURL.pathname = `${version}`;
-    }
-
-    apiURL.username = "";
-    apiURL.password = "";
-
-    return { api: { [version]: apiURL.href }, repository, project, branch };
   }
 
   /**
@@ -158,8 +110,55 @@ export class BitbucketProvider extends Provider {
     return BitbucketProject;
   }
 
-  analyseURL(...args) {
-    return this.constructor.analyseURL(...args);
+  /**
+   * decode URL for a given repo url
+   * provide version 1.0 for stash hosts names and 2.0 for all other
+   * @param {string} url bitbucket (repo)
+   * @param {Object} options api version
+   * @return {Object} bitbucket api urls by version
+   */
+  analyseURL(url, options = { version: "2.0" }) {
+    if (url === undefined) {
+      return undefined;
+    }
+
+    let version = options.version;
+
+    if (url.startsWith("git@") || url.startsWith("git+ssh@")) {
+      url = url.replace(/^\w+@/, "");
+      url = url.replace(/:/, "/");
+      url = "https://" + url;
+    } else if (url.startsWith("git+https:")) {
+      url = url.replace(/^git\+/, "");
+    }
+    if (!url.match(/^[\w\+]+:/)) {
+      // TODO default url
+      url = "https://bitbucket.org/" + url;
+    }
+
+    const apiURL = new URL(url);
+    const branch = apiURL.hash.substring(1);
+
+    apiURL.hash = "";
+
+    const parts = apiURL.pathname.split(/\//);
+    const project = parts[parts.length - 2];
+    let repository = parts[parts.length - 1];
+
+    repository = repository.replace(/\.git$/, "");
+
+    if (apiURL.host.match(/stash\./)) {
+      version = "1.0";
+      apiURL.pathname = `rest/api/${version}`;
+    } else {
+      apiURL.host = "api." + apiURL.host;
+      apiURL.pathname = `${version}`;
+    }
+
+    apiURL.username = "";
+    apiURL.password = "";
+
+    return { api: { [version]: apiURL.href }, repository, project, branch };
   }
 
   /**
@@ -172,7 +171,7 @@ export class BitbucketProvider extends Provider {
    * @return {Repository}
    */
   async repository(name) {
-    const analysed = this.analyseURL(name);
+    const analysed = this.analyseURL(name, { part: "repository" });
     if (analysed === undefined) {
       return undefined;
     }
@@ -203,7 +202,7 @@ export class BitbucketProvider extends Provider {
    * @param {Object} options
    */
   async project(name, options) {
-    const analysed = this.analyseURL(name);
+    const analysed = this.analyseURL(name, { part: "project" });
     if (analysed === undefined) {
       return undefined;
     }
