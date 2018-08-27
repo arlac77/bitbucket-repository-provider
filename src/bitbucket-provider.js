@@ -198,12 +198,21 @@ export class BitbucketProvider extends Provider {
     return repository;
   }
 
+  /**
+   * @param {string} name
+   * @param {Object} options
+   */
   async project(name, options) {
-    let project = this.repositoryGroups.get(name);
+    const analysed = this.analyseURL(name);
+    if (analysed === undefined) {
+      return undefined;
+    }
+
+    let project = this.repositoryGroups.get(analysed.project);
     if (project !== undefined) {
       return project;
     }
-    project = new this.repositoryGroupClass(this, name, options);
+    project = new this.repositoryGroupClass(this, analysed.project, options);
     this.repositoryGroups.set(project.name, project);
 
     return project;
