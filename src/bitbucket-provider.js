@@ -190,7 +190,7 @@ export class BitbucketProvider extends Provider {
           options
         );
 
-        this.repositories.set(repository.name, repository);
+        project.repositories.set(repository.name, repository);
       } catch (e) {
         if (e.statusCode !== 404) {
           throw e;
