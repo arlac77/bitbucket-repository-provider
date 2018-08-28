@@ -170,7 +170,7 @@ export class BitbucketProvider extends Provider {
    * @param {string} name
    * @return {Repository}
    */
-  async repository(name) {
+  async repository(name, options) {
     const analysed = this.analyseURL(name, { part: "repository" });
     if (analysed === undefined) {
       return undefined;
@@ -184,7 +184,11 @@ export class BitbucketProvider extends Provider {
       });
 
       try {
-        repository = new this.repositoryClass(project, analysed.repository, {});
+        repository = new this.repositoryClass(
+          project,
+          analysed.repository,
+          options
+        );
 
         this.repositories.set(repository.name, repository);
       } catch (e) {
