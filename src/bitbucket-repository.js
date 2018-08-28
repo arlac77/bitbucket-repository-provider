@@ -21,6 +21,7 @@ import {
 export class BitbucketRepository extends Repository {
   constructor(owner, name, options = {}) {
     super(owner, name, options);
+
     Object.defineProperties(this, {
       user: { value: name.split(/\//)[0] },
       api: {

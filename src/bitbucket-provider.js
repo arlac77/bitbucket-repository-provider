@@ -122,6 +122,17 @@ export class BitbucketProvider extends Provider {
       return undefined;
     }
 
+    if (url.match(/^(\w+)$/)) {
+      switch (options.part) {
+        case "project":
+          return { project: url };
+          break;
+        case "repository":
+          return { project: url };
+          break;
+      }
+    }
+
     let version = options.version;
 
     if (url.startsWith("git@") || url.startsWith("git+ssh@")) {
