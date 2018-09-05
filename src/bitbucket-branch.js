@@ -74,7 +74,7 @@ export class BitbucketBranch extends Branch {
       open: true,
       closed: false,
       fromRef: {
-        id: `refs/heads/${this.name}`,
+        id: this.ref,
         repository: {
           slug: this.name,
           name: null,
@@ -84,7 +84,7 @@ export class BitbucketBranch extends Branch {
         }
       },
       toRef: {
-        id: `refs/heads/${to}`,
+        id: to.ref,
         repository: {
           slug: to,
           name: null,
