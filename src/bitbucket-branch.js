@@ -59,8 +59,10 @@ export class BitbucketBranch extends Branch {
     });
   }
 
-  async list() {
-    return this.tree("/");
+  async *list(pattern = ["**/*", "**/.*"]) {
+    for (entry of this.tree("/")) {
+      yield entry;
+    }
   }
 
   /**

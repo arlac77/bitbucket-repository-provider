@@ -1,3 +1,4 @@
+import babel from "rollup-plugin-babel";
 import multiEntry from "rollup-plugin-multi-entry";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
@@ -14,6 +15,11 @@ export default {
   external: ["ava", "repository-provider", "stream", "http", "https", "zlib"],
   plugins: [
     multiEntry(),
+    babel({
+      babelrc: false,
+      plugins: ["@babel/plugin-proposal-async-generator-functions"],
+      exclude: "node_modules/**"
+    }),
     resolve(),
     commonjs(),
     istanbul({
