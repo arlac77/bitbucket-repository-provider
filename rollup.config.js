@@ -1,3 +1,4 @@
+import json from "rollup-plugin-json";
 import executable from "rollup-plugin-executable";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
