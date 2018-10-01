@@ -6,6 +6,8 @@ import {
   PullRequest
 } from "repository-provider";
 
+import micromatch from "micromatch";
+
 /**
  * Branch of a bitbucket repository
  */
@@ -49,21 +51,24 @@ export class BitbucketBranch extends Branch {
     return new Content(path, res);
   }
 
-  async tree(path) {
+  async *tree(path, patterns) {
     const res = await this.get(
       `repositories/${this.repository.fullName}/src/${this.hash}${path}`
     );
 
-    console.log(res);
-    return res.values.map(e => {
-      return { path: e.path };
-    });
+    for(const entry of res.values) {
+      if (patterns === undefined) {
+        yield new Content(entry.path);
+      } else {
+        if (micromatch([entry.path], patterns).length === 1) {
+          yield new Content(entry.path);
+        }
+      }
+    }
   }
 
-  async *list(pattern = ["**/*", "**/.*"]) {
-    for (entry of this.tree("/")) {
-      yield entry;
-    }
+  async *list(patterns) {
+    return yield *this.tree("/", patterns);
   }
 
   /**

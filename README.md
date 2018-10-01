@@ -32,30 +32,32 @@ repository provider for bitbucket
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
     -   [repositoryGroupClass](#repositorygroupclass)
-    -   [repository](#repository)
-        -   [Parameters](#parameters-1)
-    -   [defaultOptions](#defaultoptions)
     -   [analyseURL](#analyseurl)
+        -   [Parameters](#parameters-1)
+    -   [repository](#repository)
         -   [Parameters](#parameters-2)
-    -   [optionsFromEnvironment](#optionsfromenvironment)
+    -   [project](#project)
         -   [Parameters](#parameters-3)
+    -   [defaultOptions](#defaultoptions)
+    -   [optionsFromEnvironment](#optionsfromenvironment)
+        -   [Parameters](#parameters-4)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [content](#content)
-        -   [Parameters](#parameters-4)
-    -   [createPullRequest](#createpullrequest)
         -   [Parameters](#parameters-5)
+    -   [createPullRequest](#createpullrequest)
+        -   [Parameters](#parameters-6)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-7)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-7)
-    -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-8)
+    -   [deleteBranch](#deletebranch)
+        -   [Parameters](#parameters-9)
 -   [BitbucketProject](#bitbucketproject)
     -   [defaultOptions](#defaultoptions-2)
 -   [api](#api-1)
@@ -100,6 +102,18 @@ Returns **Class** BitbucketBranch
 
 Returns **Class** BitbucketProject
 
+### analyseURL
+
+decode URL for a given repo url
+provide version 1.0 for stash hosts names and 2.0 for all other
+
+#### Parameters
+
+-   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** api version (optional, default `{version:"2.0"}`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** bitbucket api urls by version
+
 ### repository
 
 Supported name schemes are
@@ -112,26 +126,22 @@ Supported name schemes are
 #### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `options`  
 
 Returns **Repository** 
 
-### defaultOptions
-
-Default configuration
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### analyseURL
-
-api URL for a given repo url
-provide version 1.0 for stash hosts names and 2.0 for all other
+### project
 
 #### Parameters
 
--   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
--   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api version (optional, default `"2.0"`)
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** bitbucket api urls by version
+### defaultOptions
+
+Default configuration as given for the cloud privider
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### optionsFromEnvironment
 

@@ -1,4 +1,8 @@
 import test from "ava";
+import {
+  Content,
+} from "repository-provider";
+
 import { BitbucketProvider } from "../src/bitbucket-provider";
 import { BitbucketProject } from "../src/bitbucket-project";
 
@@ -47,7 +51,9 @@ test.only("list", async t => {
     entries.push(entry);
   }
 
-  t.deepEqual(entries, [{ path: "README.md" }]);
+  t.true(entries[0].equals(new Content('README.md')));
+
+  //t.deepEqual(entries, [{ path: "README.md" }]);
 });
 
 test("content", async t => {

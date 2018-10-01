@@ -12,7 +12,20 @@ export default {
     sourcemap: true,
     interop: false
   },
-  external: ["ava", "repository-provider", "stream", "http", "https", "zlib"],
+  external: [
+    "ava",
+    "repository-provider",
+    "stream",
+    "http",
+    "https",
+    "zlib",
+    "util",
+    "path",
+    "fs",
+    "net",
+    "url",
+    "tty"
+  ],
   plugins: [
     multiEntry(),
     babel({

@@ -25,5 +25,17 @@ export default {
     commonjs(),
     cleanup()
   ],
-  external: ["repository-provider", "stream", "http", "https", "zlib"]
+  external: [
+    "repository-provider",
+    "stream",
+    "http",
+    "https",
+    "zlib",
+    "util",
+    "path",
+    "fs",
+    "net",
+    "url",
+    "tty"
+  ]
 };
