@@ -128,7 +128,7 @@ export class BitbucketProvider extends Provider {
           return { project: url };
           break;
         case "repository":
-          return { project: url };
+          return { repository: url };
           break;
       }
     }
