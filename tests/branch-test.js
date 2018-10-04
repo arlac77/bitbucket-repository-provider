@@ -39,7 +39,7 @@ test("delete branch", async t => {
   }
 });
 
-test.only("list", async t => {
+test("list", async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
 
@@ -59,12 +59,8 @@ test.only("list", async t => {
 test("content", async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
+  const content = await branch.content("README.md");
 
-  const c = await branch.content("README.md");
-
-  console.log(c.path);
-  console.log(c.content);
-
-  t.is(c.path, "README.md");
-  t.is(c.content.startsWith("# README"), true);
+  t.is(content.path, "README.md");
+  t.is(content.toString().startsWith("# README"), true);
 });
