@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "micromatch": "^3.1.10",
-    "repository-provider": "^5.2.4",
+    "repository-provider": "^5.2.5",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   },
