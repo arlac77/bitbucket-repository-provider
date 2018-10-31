@@ -12,7 +12,7 @@ const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
-test("create branch", async t => {
+test.only("branch create", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const newName = `test-${new Date().getTime()}`;
@@ -23,7 +23,7 @@ test("create branch", async t => {
   //await branch.delete();
 });
 
-test("delete branch", async t => {
+test("branch delete", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
@@ -61,6 +61,7 @@ test("content", async t => {
   const branch = await provider.branch(REPOSITORY_NAME);
   const content = await branch.content("README.md");
 
+  console.log(content);
   t.is(content.path, "README.md");
   t.is(content.toString().startsWith("# README"), true);
 });
