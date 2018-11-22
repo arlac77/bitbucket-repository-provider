@@ -101,16 +101,18 @@ export class BitbucketRepository extends Repository {
 
   /**
    * Create a new branch
+   * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post
    * @param {string} name of the new branch to create
    * @param {BitbucketBranch} from
    * @param {Object} options
    * @param {string} options.message
    */
   async createBranch(name, from = this.defaultBranch, options = {}) {
-    const res = await this.post(`repositories/${this.fullName}/src`, {
-      branch: name,
-      message: options.message,
-      parents: [from.hash].join(",")
+    const res = await this.post(`repositories/${this.fullName}/refs/branches`, {
+      name: name,
+      target: {
+        hash: "4d2dc9b5fb194eeaf1dee933e3e0140d98856be3"
+      }
     });
     return super.createBranch(name, from, options);
   }

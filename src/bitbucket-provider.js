@@ -74,22 +74,6 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
-   * API base url
-   * @return {string} api base url
-   */
-  get api() {
-    return this.config.api;
-  }
-
-  /**
-   * GIT base url
-   * @return {string} repo base utl
-   */
-  get url() {
-    return this.config.url;
-  }
-
-  /**
    * @return {Class} BitbucketRepository
    */
   get repositoryClass() {

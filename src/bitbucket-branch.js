@@ -44,16 +44,20 @@ export class BitbucketBranch extends Branch {
    * @param {string} path
    * @return {Promise<Content>}
    */
-  async content(path) {
+  async entry(name) {
     const res = await this.get(
-      `repositories/${this.fullName}/src/${this.hash}/${path}`
+      `repositories/${this.fullName}/src/${this.hash}/${name}`
     );
-    return new Content(path, res);
+
+    console.log(res);
+    console.log(`repositories/${this.fullName}/src/${this.hash}/${name}`);
+
+    return new Content(name, res);
   }
 
-  async *tree(path, patterns) {
+  async *tree(name, patterns) {
     const res = await this.get(
-      `repositories/${this.repository.fullName}/src/${this.hash}${path}`
+      `repositories/${this.repository.fullName}/src/${this.hash}${name}`
     );
 
     for(const entry of res.values) {
@@ -67,7 +71,7 @@ export class BitbucketBranch extends Branch {
     }
   }
 
-  async *list(patterns) {
+  async *entries(patterns) {
     return yield *this.tree("/", patterns);
   }
 
