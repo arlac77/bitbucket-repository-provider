@@ -1,7 +1,5 @@
 import test from "ava";
-import {
-  Content,
-} from "repository-provider";
+import { Entry } from "repository-provider";
 
 import { BitbucketProvider } from "../src/bitbucket-provider";
 import { BitbucketProject } from "../src/bitbucket-project";
@@ -51,17 +49,17 @@ test("list", async t => {
     entries.push(entry);
   }
 
-  t.true(entries[0].equals(new Content('README.md')));
+  t.true(entries[0].equals(new Entry("README.md")));
 
   //t.deepEqual(entries, [{ path: "README.md" }]);
 });
 
-test("content", async t => {
+test("entry", async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
-  const content = await branch.content("README.md");
+  const entry = await branch.entry("README.md");
 
-  console.log(content);
-  t.is(content.path, "README.md");
-  t.is(content.toString().startsWith("# README"), true);
+  console.log(entry);
+  t.is(entry.name, "README.md");
+  t.is((await entry.getString()).startsWith("# README"), true);
 });

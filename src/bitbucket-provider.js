@@ -1,10 +1,4 @@
-import {
-  Provider,
-  Repository,
-  Branch,
-  Project,
-  Content
-} from "repository-provider";
+import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch";
 import { BitbucketRepository } from "./bitbucket-repository";
 import { BitbucketProject } from "./bitbucket-project";
@@ -219,7 +213,7 @@ export class BitbucketProvider extends Provider {
   get(path) {
     const params = {
       uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.config.auth,
+      auth: this.auth,
       json: true
     };
 
@@ -230,7 +224,7 @@ export class BitbucketProvider extends Provider {
   put(path) {
     const params = {
       uri: this.api["2.0"] + "/" + path,
-      auth: this.config.auth
+      auth: this.auth
     };
 
     return request.put(params);
@@ -239,7 +233,7 @@ export class BitbucketProvider extends Provider {
   delete(path, data) {
     const params = {
       uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.config.auth,
+      auth: this.auth,
       form: data
     };
     console.log(`DELETE ${params.uri}`);
@@ -250,7 +244,7 @@ export class BitbucketProvider extends Provider {
   post(path, data) {
     const params = {
       uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.config.auth,
+      auth: this.auth,
       form: data
     };
 

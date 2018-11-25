@@ -1,10 +1,4 @@
-import {
-  Provider,
-  Repository,
-  Branch,
-  Content,
-  PullRequest
-} from "repository-provider";
+import { Provider, Repository, Branch, PullRequest } from "repository-provider";
 
 /**
  * a repository hosted in bitbucket

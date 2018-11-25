@@ -1,10 +1,4 @@
-import {
-  Provider,
-  Repository,
-  Branch,
-  Content,
-  PullRequest
-} from "repository-provider";
+import { Branch, PullRequest } from "repository-provider";
 
 import micromatch from "micromatch";
 
@@ -42,7 +36,7 @@ export class BitbucketBranch extends Branch {
 
   /**
    * @param {string} path
-   * @return {Promise<Content>}
+   * @return {Promise<Entry>}
    */
   async entry(name) {
     const res = await this.get(
@@ -52,7 +46,7 @@ export class BitbucketBranch extends Branch {
     console.log(res);
     console.log(`repositories/${this.fullName}/src/${this.hash}/${name}`);
 
-    return new Content(name, res);
+    return new this.entryClass(name, res);
   }
 
   async *tree(name, patterns) {
@@ -60,19 +54,19 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.repository.fullName}/src/${this.hash}${name}`
     );
 
-    for(const entry of res.values) {
+    for (const entry of res.values) {
       if (patterns === undefined) {
-        yield new Content(entry.path);
+        yield new this.entryClass(entry.path);
       } else {
         if (micromatch([entry.path], patterns).length === 1) {
-          yield new Content(entry.path);
+          yield new this.entryClass(entry.path);
         }
       }
     }
   }
 
   async *entries(patterns) {
-    return yield *this.tree("/", patterns);
+    return yield* this.tree("/", patterns);
   }
 
   /**
