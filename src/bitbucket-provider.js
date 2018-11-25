@@ -109,6 +109,8 @@ export class BitbucketProvider extends Provider {
           return { repository: url };
           break;
       }
+
+      return { project: url };
     }
 
     let version = options.version;
@@ -172,19 +174,16 @@ export class BitbucketProvider extends Provider {
         api: analysed.api
       });
 
-      try {
-        repository = new this.repositoryClass(
-          project,
-          analysed.repository,
-          options
-        );
+      console.log(project);
+      console.log(analysed.repository);
 
-        project.repositories.set(repository.name, repository);
-      } catch (e) {
-        if (e.statusCode !== 404) {
-          throw e;
-        }
-      }
+      repository = new this.repositoryClass(
+        project,
+        analysed.repository,
+        options
+      );
+
+      project.repositories.set(repository.name, repository);
     }
 
     return repository;
@@ -195,16 +194,16 @@ export class BitbucketProvider extends Provider {
    * @param {Object} options
    */
   async project(name, options) {
-    const analysed = this.analyseURL(name, { part: "project" });
-    if (analysed === undefined) {
-      return undefined;
+    if (name === undefined) {
+      return name;
     }
 
-    let project = this.repositoryGroups.get(analysed.project);
+    let project = this.repositoryGroups.get(name);
     if (project !== undefined) {
       return project;
     }
-    project = new this.repositoryGroupClass(this, analysed.project, options);
+
+    project = new this.repositoryGroupClass(this, name, options);
     this.repositoryGroups.set(project.name, project);
 
     return project;

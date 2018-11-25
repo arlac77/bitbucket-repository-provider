@@ -127,7 +127,7 @@ test("provider url ssh://git@bitbucket.org/arlac77...", async t => {
   t.is(branch.name, "master");
 });
 
-test("provider url git@", async t => {
+test("provider url git@ :", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
     "git@bitbucket.org:arlac77/sync-test-repository.git"
@@ -140,13 +140,13 @@ test("provider url git@", async t => {
   t.is(branch.name, "master");
 });
 
-test("provider url git@ invalid", async t => {
+test("provider url git@ / ", async t => {
   const provider = new BitbucketProvider(config);
   t.is(
-    await provider.repository(
+    (await provider.repository(
       "git@bitbucket.org/arlac77/sync-test-repository.git"
-    ),
-    undefined
+    )).name,
+    'sync-test-repository'
   );
 });
 

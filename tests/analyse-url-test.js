@@ -21,6 +21,24 @@ test("api url https://bitbucket.org", t => {
   );
 });
 
+test("analyse url project only", t => {
+  const provider = new BitbucketProvider();
+
+  t.deepEqual(
+    {
+      project: "arlac77"
+    },
+    provider.analyseURL("arlac77")
+  );
+
+  t.deepEqual(
+    {
+      project: "arlac77"
+    },
+    provider.analyseURL("arlac77", { part: "project" })
+  );
+});
+
 test.skip("api url given config", t => {
   const provider = new BitbucketProvider({
     api: {
