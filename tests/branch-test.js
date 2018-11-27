@@ -37,7 +37,7 @@ test("branch delete", async t => {
   }
 });
 
-test("list", async t => {
+test("branch list", async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
 
@@ -54,7 +54,7 @@ test("list", async t => {
   //t.deepEqual(entries, [{ path: "README.md" }]);
 });
 
-test("entry", async t => {
+test("branch entry", async t => {
   const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
   const entry = await branch.entry("README.md");
