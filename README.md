@@ -27,8 +27,6 @@ repository provider for bitbucket
 
 -   [BitbucketProvider](#bitbucketprovider)
     -   [Parameters](#parameters)
-    -   [api](#api)
-    -   [url](#url)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
     -   [repositoryGroupClass](#repositorygroupclass)
@@ -42,7 +40,7 @@ repository provider for bitbucket
     -   [optionsFromEnvironment](#optionsfromenvironment)
         -   [Parameters](#parameters-4)
 -   [BitbucketBranch](#bitbucketbranch)
-    -   [content](#content)
+    -   [entry](#entry)
         -   [Parameters](#parameters-5)
     -   [createPullRequest](#createpullrequest)
         -   [Parameters](#parameters-6)
@@ -60,7 +58,7 @@ repository provider for bitbucket
         -   [Parameters](#parameters-9)
 -   [BitbucketProject](#bitbucketproject)
     -   [defaultOptions](#defaultoptions-2)
--   [api](#api-1)
+-   [api](#api)
 
 ## BitbucketProvider
 
@@ -77,18 +75,6 @@ Provider for bitbucket repositories
         -   `config.auth.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.auth.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.auth.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### api
-
-API base url
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** api base url
-
-### url
-
-GIT base url
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** repo base utl
 
 ### repositoryClass
 
@@ -164,13 +150,14 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Branch of a bitbucket repository
 
-### content
+### entry
 
 #### Parameters
 
+-   `name`  
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Content>** 
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
 
 ### createPullRequest
 
@@ -228,6 +215,8 @@ Deliver the url of issue tracking system.
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
 
 ### createBranch
+
+-   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post>**
 
 Create a new branch
 
