@@ -1,4 +1,5 @@
 import { Branch, PullRequest } from "repository-provider";
+import { BufferContentEntry } from "content-entry/src/buffer-content-entry";
 
 import micromatch from "micromatch";
 
@@ -112,5 +113,9 @@ export class BitbucketBranch extends Branch {
     console.log(res);
 
     return new PullRequest(this.repository, result.number);
+  }
+
+  get entryClass() {
+    return BufferContentEntry;
   }
 }

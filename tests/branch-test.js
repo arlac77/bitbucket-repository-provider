@@ -1,8 +1,7 @@
 import test from "ava";
-import { Entry } from "repository-provider";
-
 import { BitbucketProvider } from "../src/bitbucket-provider";
 import { BitbucketProject } from "../src/bitbucket-project";
+import { EmptyContentEntry } from "content-entry";
 
 const REPOSITORY_URL =
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git";
@@ -45,13 +44,11 @@ test("branch list", async t => {
 
   const entries = [];
 
-  for await (const entry of branch.list()) {
+  for await (const entry of branch) {
     entries.push(entry);
   }
 
-  t.true(entries[0].equals(new Entry("README.md")));
-
-  //t.deepEqual(entries, [{ path: "README.md" }]);
+  t.true(await entries[0].equals(new EmptyContentEntry("README.md")));
 });
 
 test("branch entry", async t => {
