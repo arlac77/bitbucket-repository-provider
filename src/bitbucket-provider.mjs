@@ -2,8 +2,7 @@ import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch";
 import { BitbucketRepository } from "./bitbucket-repository";
 import { BitbucketProject } from "./bitbucket-project";
-
-const request = require("request-promise");
+import request from "request-promise";
 
 export { BitbucketBranch, BitbucketRepository, BitbucketProject };
 
