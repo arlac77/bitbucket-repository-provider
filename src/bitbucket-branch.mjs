@@ -36,7 +36,7 @@ export class BitbucketBranch extends Branch {
   }
 
   /**
-   * @param {string} path
+   * @param {string} name
    * @return {Promise<Entry>}
    */
   async entry(name) {
