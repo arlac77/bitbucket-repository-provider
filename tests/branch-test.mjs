@@ -35,28 +35,3 @@ test.skip("branch delete", async t => {
     }
   }
 });
-
-test("branch list", async t => {
-  const provider = new BitbucketProvider(config);
-  const branch = await provider.branch(REPOSITORY_NAME);
-
-  t.is(branch.name, "master");
-
-  const entries = [];
-
-  for await (const entry of branch) {
-    entries.push(entry);
-  }
-
-  t.true(await entries[0].equals(new EmptyContentEntry("README.md")));
-});
-
-test.skip("branch entry", async t => {
-  const provider = new BitbucketProvider(config);
-  const branch = await provider.branch(REPOSITORY_NAME);
-  const entry = await branch.entry("README.md");
-
-  console.log(entry);
-  t.is(entry.name, "README.md");
-  t.is((await entry.getString()).startsWith("# README"), true);
-});

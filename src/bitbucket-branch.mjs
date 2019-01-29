@@ -1,5 +1,5 @@
 import { Branch, PullRequest } from "repository-provider";
-import { BufferContentEntry } from "content-entry/src/buffer-content-entry";
+import { BufferContentEntry } from "content-entry";
 
 import micromatch from "micromatch";
 
@@ -35,17 +35,21 @@ export class BitbucketBranch extends Branch {
     return this.provider.post(...args);
   }
 
+  get slug() {
+    return this.repository.slug;
+  }
+
   /**
+   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories
    * @param {string} name
    * @return {Promise<Entry>}
    */
   async entry(name) {
     const res = await this.get(
-      `repositories/${this.fullName}/src/${this.hash}/${name}`
+      `repositories/${this.slug}/src/${this.hash}/${name}`
     );
 
-    console.log(res);
-    console.log(`repositories/${this.fullName}/src/${this.hash}/${name}`);
+    //console.log("AAA", res);
 
     return new this.entryClass(name, res);
   }
