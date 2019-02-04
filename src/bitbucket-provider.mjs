@@ -166,7 +166,7 @@ export class BitbucketProvider extends Provider {
       return undefined;
     }
 
-    let repository = this.repositories.get(analysed.repository);
+    let repository = this._repositories.get(analysed.repository);
 
     if (repository === undefined) {
       const project = await this.project(analysed.project, {
@@ -182,7 +182,7 @@ export class BitbucketProvider extends Provider {
         options
       );
 
-      project.repositories.set(repository.name, repository);
+      project._repositories.set(repository.name, repository);
     }
 
     return repository;
