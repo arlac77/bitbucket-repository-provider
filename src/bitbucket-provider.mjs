@@ -169,6 +169,8 @@ export class BitbucketProvider extends Provider {
     let repository = this._repositories.get(analysed.repository);
 
     if (repository === undefined) {
+      console.log(analysed);
+
       const project = await this.project(analysed.project, {
         api: analysed.api
       });
@@ -189,23 +191,12 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
+   * alias for repositoryGroup()
    * @param {string} name
    * @param {Object} options
    */
   async project(name, options) {
-    if (name === undefined) {
-      return name;
-    }
-
-    let project = this.repositoryGroups.get(name);
-    if (project !== undefined) {
-      return project;
-    }
-
-    project = new this.repositoryGroupClass(this, name, options);
-    this.repositoryGroups.set(project.name, project);
-
-    return project;
+    return this.repositoryGroup(name, options);
   }
 
   get(path) {

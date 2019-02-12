@@ -49,8 +49,6 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
 
-    //console.log("AAA", res);
-
     return new this.entryClass(name, res);
   }
 
