@@ -169,15 +169,20 @@ export class BitbucketProvider extends Provider {
     let repository = this._repositories.get(analysed.repository);
 
     if (repository === undefined) {
-      console.log(analysed);
-
-      const project = await this.project(analysed.project, {
+      let project = await this.project(analysed.project, {
         api: analysed.api
       });
 
-      console.log(project);
-      console.log(analysed.repository);
+      if(project === undefined) {
+        project = await this._loadProjectRepositories(analysed.project);
+      }
 
+      console.log("PROJECT", project);
+
+      repository = await project.repository(analysed.repository);
+      console.log("REPOSITORY", analysed.repository, repository);
+
+      /*
       repository = new this.repositoryClass(
         project,
         analysed.repository,
@@ -185,9 +190,37 @@ export class BitbucketProvider extends Provider {
       );
 
       project._repositories.set(repository.name, repository);
+      */
     }
 
     return repository;
+  }
+
+  async _loadProjectRepositories(project) {
+    let url = `repositories/${project}`;
+
+    let group;
+
+    do {
+      const res = await this.get(url);
+
+      url = res.next;
+      res.values.forEach(b => {
+        const groupName = b.owner.username;
+        group = this._repositoryGroups.get(groupName);
+        if(group === undefined) {
+          group = new this.repositoryGroupClass( groupName, b.owner);
+          this._repositoryGroups.set(group.name, group);
+        }
+
+        const repository = new this.repositoryClass(group, b.name, b);
+        group._repositories.set(repository.name, repository);
+
+        console.log(b.name, repository.name, await group.repository(b.name));
+      });
+    } while (url);
+
+    return group;
   }
 
   /**
