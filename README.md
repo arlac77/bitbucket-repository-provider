@@ -6,11 +6,9 @@
 [![codecov.io](http://codecov.io/github/arlac77/bitbucket-repository-provider/coverage.svg?branch=master)](http://codecov.io/github/arlac77/bitbucket-repository-provider?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/arlac77/bitbucket-repository-provider/badge.svg)](https://snyk.io/test/github/arlac77/bitbucket-repository-provider)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/bitbucket-repository-provider.svg?style=flat-square)](https://github.com/arlac77/bitbucket-repository-provider/issues)
-[![Stories in Ready](https://badge.waffle.io/arlac77/bitbucket-repository-provider.svg?label=ready&title=Ready)](http://waffle.io/arlac77/bitbucket-repository-provider)
 [![Dependency Status](https://david-dm.org/arlac77/bitbucket-repository-provider.svg)](https://david-dm.org/arlac77/bitbucket-repository-provider)
 [![devDependency Status](https://david-dm.org/arlac77/bitbucket-repository-provider/dev-status.svg)](https://david-dm.org/arlac77/bitbucket-repository-provider#info=devDependencies)
 [![docs](http://inch-ci.org/github/arlac77/bitbucket-repository-provider.svg?branch=master)](http://inch-ci.org/github/arlac77/bitbucket-repository-provider)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![downloads](http://img.shields.io/npm/dm/bitbucket-repository-provider.svg?style=flat-square)](https://npmjs.org/package/bitbucket-repository-provider)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
