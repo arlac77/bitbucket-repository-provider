@@ -8,7 +8,7 @@ test("list repositories", async t => {
 
   const rps = new Set();
 
-  for await (const r of await provider.repositories("XXX/*")) {
+  for await (const r of await provider.repositories("xhubio/*")) {
     console.log(r);
     rps.add(r.name);
   }

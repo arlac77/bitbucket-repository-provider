@@ -163,12 +163,8 @@ export class BitbucketProvider extends Provider {
     for (const p of asArray(pattern)) {
       let m;
       if ((m = p.match(/^(\w+)\/(.*)/))) {
-        const pn = m[1];
-        const r = await this.fetch(`${this.api["2.0"]}/projects/${pn}`);
-        console.log(r);
-      } else {
-        const r = await this.fetch(`${this.api["2.0"]}/repositories`);
-        console.log(r);
+        const group = await this._loadProjectRepositories(m[1]);
+        yield * group.repositories(m[2]);
       }
     }
   }
@@ -224,7 +220,8 @@ export class BitbucketProvider extends Provider {
     let group;
 
     do {
-      const res = await this.get(url);
+      const r = await this.fetch(url);
+      const res = await r.json();
 
       url = res.next;
       await Promise.all(
@@ -262,7 +259,7 @@ export class BitbucketProvider extends Provider {
   }
 
   fetch(url, options) {
-    return fetch(url, {
+    return fetch(`${this.api["2.0"]}/${url}`, {
       headers: {
         authorization:
           "Basic " +
