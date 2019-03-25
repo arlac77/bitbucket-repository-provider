@@ -226,6 +226,7 @@ export class BitbucketProvider extends Provider {
       url = res.next;
       await Promise.all(
         res.values.map(async b => {
+        //  console.log(b);
           const groupName = b.owner.username;
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
