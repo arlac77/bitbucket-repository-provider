@@ -21,6 +21,15 @@ test("optionsFromEnvironment user", t => {
   );
 });
 
+test("optionsFromEnvironment api", t => {
+  t.deepEqual(
+    BitbucketProvider.optionsFromEnvironment({
+      BITBUCKET_API: "https://stash.myserver.mydomain:1234/api/2.0"
+    }),
+    { api: { "2.0": "https://stash.myserver.mydomain:1234/api/2.0" } }
+  );
+});
+
 test("optionsFromEnvironment token", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
@@ -36,7 +45,7 @@ test("optionsFromEnvironment token", t => {
   );
 });
 
-test.only("provider", async t => {
+test("provider", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
@@ -146,7 +155,7 @@ test("provider url git@ / ", async t => {
     (await provider.repository(
       "git@bitbucket.org/arlac77/sync-test-repository.git"
     )).name,
-    'sync-test-repository'
+    "sync-test-repository"
   );
 });
 

@@ -3,6 +3,7 @@ import { BitbucketBranch } from "./bitbucket-branch";
 import { BitbucketRepository } from "./bitbucket-repository";
 import { BitbucketProject } from "./bitbucket-project";
 import request from "request-promise";
+import fetch from "node-fetch";
 
 export { BitbucketBranch, BitbucketRepository, BitbucketProject };
 
@@ -26,7 +27,8 @@ export class BitbucketProvider extends Provider {
       url: "https://bitbucket.org",
       api: {
         "2.0": "https://api.bitbucket.org/2.0"
-      }
+      },
+      auth: {}
     };
   }
 
@@ -42,25 +44,31 @@ export class BitbucketProvider extends Provider {
    */
   static optionsFromEnvironment(env) {
     if (env !== undefined) {
+      const config = {};
+
       const token = env.BB_TOKEN || env.BITBUCKET_TOKEN;
       if (token !== undefined) {
-        return {
-          auth: {
-            type: "token",
-            token
-          }
+        config.auth = {
+          type: "token",
+          token
         };
       }
 
       if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
-        return {
-          auth: {
-            type: "basic",
-            username: env.BITBUCKET_USERNAME,
-            password: env.BITBUCKET_PASSWORD
-          }
+        config.auth = {
+          type: "basic",
+          username: env.BITBUCKET_USERNAME,
+          password: env.BITBUCKET_PASSWORD
         };
       }
+
+      if (env.BITBUCKET_API) {
+        config.api = {
+          "2.0": env.BITBUCKET_API
+        };
+      }
+
+      return config;
     }
 
     return undefined;
@@ -151,6 +159,20 @@ export class BitbucketProvider extends Provider {
     return { api: { [version]: apiURL.href }, repository, project, branch };
   }
 
+  async *repositories(pattern = "**/*") {
+    for (const p of asArray(pattern)) {
+      let m;
+      if ((m = p.match(/^(\w+)\/(.*)/))) {
+        const pn = m[1];
+        const r = await this.fetch(`${this.api["2.0"]}/projects/${pn}`);
+        console.log(r);
+      } else {
+        const r = await this.fetch(`${this.api["2.0"]}/repositories`);
+        console.log(r);
+      }
+    }
+  }
+
   /**
    * Supported name schemes are
    * - https://user:aSecret@bitbucket.org/owner/repo-name.git
@@ -218,7 +240,11 @@ export class BitbucketProvider extends Provider {
           //const repository = await group._createRepository(b.name, b);
           group._repositories.set(repository.name, repository);
 
-          console.log(b.name, repository.name, await group._repositories.get(b.name));
+          console.log(
+            b.name,
+            repository.name,
+            await group._repositories.get(b.name)
+          );
         })
       );
     } while (url);
@@ -233,6 +259,18 @@ export class BitbucketProvider extends Provider {
    */
   async project(name, options) {
     return this.repositoryGroup(name, options);
+  }
+
+  fetch(url, options) {
+    return fetch(url, {
+      headers: {
+        authorization:
+          "Basic " +
+          Buffer(this.auth.username + ":" + this.auth.password).toString(
+            "base64"
+          )
+      }
+    });
   }
 
   get(path) {
@@ -275,4 +313,8 @@ export class BitbucketProvider extends Provider {
 
     return request.post(params);
   }
+}
+
+function asArray(o) {
+  return Array.isArray(o) ? o : [o];
 }
