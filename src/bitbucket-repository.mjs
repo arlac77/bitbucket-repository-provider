@@ -59,20 +59,8 @@ export class BitbucketRepository extends Repository {
     return `${this.provider.url}/${this.fullName}/issues`;
   }
 
-  get(...args) {
-    return this.provider.get(...args);
-  }
-
-  put(...args) {
-    return this.provider.put(...args);
-  }
-
-  post(...args) {
-    return this.provider.post(...args);
-  }
-
-  delete(...args) {
-    return this.provider.delete(...args);
+  fetch(...args) {
+    return this.provider.fetch(...args);
   }
 
   async _initialize() {
@@ -84,8 +72,8 @@ export class BitbucketRepository extends Repository {
     let url = `repositories/${this.fullName}/refs/branches`;
 
     do {
-      const res = await this.get(url);
-
+      const r = await this.fetch(url);
+      const res = await r.json();
       url = res.next;
       res.values.forEach(b => {
         const branch = new this.provider.branchClass(this, b.name, {
@@ -106,12 +94,18 @@ export class BitbucketRepository extends Repository {
    * @param {string} options.message
    */
   async createBranch(name, from = this.defaultBranch, options = {}) {
-    const res = await this.post(`repositories/${this.fullName}/refs/branches`, {
-      name: name,
-      target: {
-        hash: "4d2dc9b5fb194eeaf1dee933e3e0140d98856be3"
+    const res = await this.fetch(
+      `repositories/${this.fullName}/refs/branches`,
+      {
+        method: "POST",
+        data: {
+          name: name,
+          target: {
+            hash: "4d2dc9b5fb194eeaf1dee933e3e0140d98856be3"
+          }
+        }
       }
-    });
+    );
     return super.createBranch(name, from, options);
   }
 
@@ -135,8 +129,9 @@ export class BitbucketRepository extends Repository {
     }/branches`;
 */
 
-    const res = await this.delete(
-      `repositories/${this.fullName}/refs/branches/${name}`
+    const res = await this.fetch(
+      `repositories/${this.fullName}/refs/branches/${name}`,
+      { method: "DELETE" }
     );
 
     return super.deleteBranch(name);

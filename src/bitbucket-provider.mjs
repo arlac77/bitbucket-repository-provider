@@ -2,7 +2,6 @@ import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch";
 import { BitbucketRepository } from "./bitbucket-repository";
 import { BitbucketProject } from "./bitbucket-project";
-import request from "request-promise";
 import fetch from "node-fetch";
 
 export { BitbucketBranch, BitbucketRepository, BitbucketProject };
@@ -238,11 +237,12 @@ export class BitbucketProvider extends Provider {
           //const repository = await group._createRepository(b.name, b);
           group._repositories.set(repository.name, repository);
 
-          console.log(
+          /*console.log(
             b.name,
             repository.name,
             await group._repositories.get(b.name)
           );
+          */
         })
       );
     } while (url);
@@ -269,47 +269,6 @@ export class BitbucketProvider extends Provider {
           )
       }
     });
-  }
-
-  get(path) {
-    const params = {
-      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.auth,
-      json: true
-    };
-
-    console.log(`GET ${params.uri}`);
-    return request.get(params);
-  }
-
-  put(path) {
-    const params = {
-      uri: this.api["2.0"] + "/" + path,
-      auth: this.auth
-    };
-
-    return request.put(params);
-  }
-
-  delete(path, data) {
-    const params = {
-      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.auth,
-      form: data
-    };
-    console.log(`DELETE ${params.uri}`);
-
-    return request.delete(params);
-  }
-
-  post(path, data) {
-    const params = {
-      uri: path.match(/^https?:/) ? path : this.api["2.0"] + "/" + path,
-      auth: this.auth,
-      form: data
-    };
-
-    return request.post(params);
   }
 }
 
