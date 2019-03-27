@@ -183,18 +183,18 @@ export class BitbucketProvider extends Provider {
       return undefined;
     }
 
+    console.log(analysed);
+
     let repository = this._repositories.get(analysed.repository);
 
     if (repository === undefined) {
-      let project = await this.project(analysed.project, {
-        api: analysed.api
-      });
+      let project = await this.project(analysed.project);
 
       if (project === undefined) {
         project = await this._loadProjectRepositories(analysed.project);
       }
 
-      //console.log("PROJECT", project);
+      console.log("PROJECT", project);
 
       repository = await project.repository(analysed.repository);
       console.log("REPOSITORY", analysed.repository, repository);
@@ -219,30 +219,43 @@ export class BitbucketProvider extends Provider {
     let group;
 
     do {
+      //console.log("_loadProjectRepositories",url);
+
       const r = await this.fetch(url);
       const res = await r.json();
+
+      //console.log(res);
 
       url = res.next;
       await Promise.all(
         res.values.map(async b => {
-        //  console.log(b);
           const groupName = b.owner.username;
+
+          //console.log(groupName);
+
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
             group = new this.repositoryGroupClass(groupName, b.owner);
             this._repositoryGroups.set(group.name, group);
           }
 
+          console.log("CREATE", group, b.name);
+
           const repository = new this.repositoryClass(group, b.name, b);
+
+          console.log("REPOSITORY", repository.prototype);
+
           //const repository = await group._createRepository(b.name, b);
           group._repositories.set(repository.name, repository);
 
-          /*console.log(
+
+          console.log("XX",
             b.name,
             repository.name,
-            await group._repositories.get(b.name)
+            await group._repositories.get(b.name),
+            await group.repository(repository.name)
           );
-          */
+
         })
       );
     } while (url);

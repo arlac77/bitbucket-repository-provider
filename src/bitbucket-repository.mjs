@@ -13,6 +13,17 @@ import { Provider, Repository, Branch, PullRequest } from "repository-provider";
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
+  static get defaultOptions() {
+    return Object.assign(
+      {
+        size: undefined,
+        language: undefined,
+        uuid: undefined
+      },
+      super.defaultOptions
+    );
+  }
+
   constructor(owner, name, options = {}) {
     super(owner, name, options);
 
