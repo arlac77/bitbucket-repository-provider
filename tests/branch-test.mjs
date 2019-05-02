@@ -1,7 +1,6 @@
 import test from "ava";
-import { BitbucketProvider } from "../src/bitbucket-provider";
-import { BitbucketProject } from "../src/bitbucket-project";
 import { EmptyContentEntry } from "content-entry";
+import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const REPOSITORY_URL =
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git";

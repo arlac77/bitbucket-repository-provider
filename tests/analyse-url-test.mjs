@@ -1,5 +1,5 @@
 import test from "ava";
-import { BitbucketProvider } from "../src/bitbucket-provider";
+import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 test("api url undefined", t => {
   const provider = new BitbucketProvider();
@@ -11,7 +11,7 @@ test("api url https://bitbucket.org", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.bitbucket.org/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
     },
@@ -26,14 +26,14 @@ test("analyse url project only", t => {
 
   t.deepEqual(
     {
-      project: "arlac77"
+      group: "arlac77"
     },
     provider.analyseURL("arlac77")
   );
 
   t.deepEqual(
     {
-      project: "arlac77"
+      group: "arlac77"
     },
     provider.analyseURL("arlac77", { part: "project" })
   );
@@ -48,7 +48,7 @@ test.skip("api url given config", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.mydomain.org/api/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
     },
@@ -63,7 +63,7 @@ test("api url git@bitbucket.org", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.bitbucket.org/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
     },
@@ -78,7 +78,7 @@ test("api url git+https@mybitbucket.org", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.mybitbucket.org/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
     },
@@ -93,7 +93,7 @@ test("api url git+ssh@bitbucket.org:", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.bitbucket.org/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
     },
@@ -108,7 +108,7 @@ test("api url git+ssh@bitbucket.org/", t => {
   t.deepEqual(
     {
       api: { "2.0": "https://api.bitbucket.org/2.0" },
-      project: "arlac77",
+      group: "arlac77",
       repository: "sync-test-repository",
       branch: ""
     },
@@ -122,7 +122,7 @@ test("api url stash", t => {
   t.deepEqual(
     {
       api: { "1.0": "https://stash.mydomain.com/rest/api/1.0" },
-      project: "proj1",
+      group: "proj1",
       repository: "repo1",
       branch: "aBranch"
     },

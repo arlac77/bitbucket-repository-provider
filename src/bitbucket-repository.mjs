@@ -6,10 +6,10 @@ import { Provider, Repository, Branch, PullRequest } from "repository-provider";
  * @param {string} name
  * @param {Object} options
  * @param {string} [options.api]
- * @param {string} [options.project]
+ * @param {string} [options.group]
  *
  * @property {string} api
- * @property {string} project
+ * @property {string} group
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {

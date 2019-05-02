@@ -1,10 +1,11 @@
-import { Provider } from "repository-provider";
-import { BitbucketBranch } from "./bitbucket-branch";
-import { BitbucketRepository } from "./bitbucket-repository";
-import { BitbucketProject } from "./bitbucket-project";
 import fetch from "node-fetch";
 
-export { BitbucketBranch, BitbucketRepository, BitbucketProject };
+import { Provider } from "repository-provider";
+import { BitbucketBranch } from "./bitbucket-branch.mjs";
+import { BitbucketRepository } from "./bitbucket-repository.mjs";
+import { BitbucketGroup } from "./bitbucket-group.mjs";
+
+export { BitbucketBranch, BitbucketRepository, BitbucketGroup };
 
 /**
  * Provider for bitbucket repositories
@@ -88,10 +89,10 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
-   * @return {Class} BitbucketProject
+   * @return {Class} BitbucketGroup
    */
   get repositoryGroupClass() {
-    return BitbucketProject;
+    return BitbucketGroup;
   }
 
   /**
@@ -108,15 +109,15 @@ export class BitbucketProvider extends Provider {
 
     if (url.match(/^(\w+)$/)) {
       switch (options.part) {
-        case "project":
-          return { project: url };
+        case "group":
+          return { group: url };
           break;
         case "repository":
           return { repository: url };
           break;
       }
 
-      return { project: url };
+      return { group: url };
     }
 
     let version = options.version;
@@ -139,7 +140,7 @@ export class BitbucketProvider extends Provider {
     apiURL.hash = "";
 
     const parts = apiURL.pathname.split(/\//);
-    const project = parts[parts.length - 2];
+    const group = parts[parts.length - 2];
     let repository = parts[parts.length - 1];
 
     repository = repository.replace(/\.git$/, "");
@@ -155,14 +156,14 @@ export class BitbucketProvider extends Provider {
     apiURL.username = "";
     apiURL.password = "";
 
-    return { api: { [version]: apiURL.href }, repository, project, branch };
+    return { api: { [version]: apiURL.href }, repository, group, branch };
   }
 
   async *repositories(pattern = "**/*") {
     for (const p of asArray(pattern)) {
       let m;
       if ((m = p.match(/^(\w+)\/(.*)/))) {
-        const group = await this._loadProjectRepositories(m[1]);
+        const group = await this._loadGroupRepositories(m[1]);
         yield * group.repositories(m[2]);
       }
     }
@@ -188,38 +189,36 @@ export class BitbucketProvider extends Provider {
     let repository = this._repositories.get(analysed.repository);
 
     if (repository === undefined) {
-      let project = await this.project(analysed.project);
+      let group = await this.repositoryGroup(analysed.group);
 
-      if (project === undefined) {
-        project = await this._loadProjectRepositories(analysed.project);
+      if (group === undefined) {
+        group = await this._loadGroupRepositories(analysed.group);
       }
 
-      console.log("PROJECT", project);
+      console.log("GROUP", group);
 
-      repository = await project.repository(analysed.repository);
+      repository = await group.repository(analysed.repository);
       console.log("REPOSITORY", analysed.repository, repository);
 
       /*
       repository = new this.repositoryClass(
-        project,
+        group,
         analysed.repository,
         options
       );
 
-      project._repositories.set(repository.name, repository);
+      group._repositories.set(repository.name, repository);
       */
     }
 
     return repository;
   }
 
-  async _loadProjectRepositories(project) {
-    let url = `repositories/${project}`;
-
-    let group;
+  async _loadGroupRepositories(group) {
+    let url = `repositories/${group}`;
 
     do {
-      //console.log("_loadProjectRepositories",url);
+      //console.log("_loadGroupRepositories",url);
 
       const r = await this.fetch(url);
       const res = await r.json();
@@ -261,15 +260,6 @@ export class BitbucketProvider extends Provider {
     } while (url);
 
     return group;
-  }
-
-  /**
-   * alias for repositoryGroup()
-   * @param {string} name
-   * @param {Object} options
-   */
-  async project(name, options) {
-    return this.repositoryGroup(name, options);
   }
 
   fetch(url, options) {

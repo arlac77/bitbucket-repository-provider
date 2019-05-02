@@ -1,9 +1,9 @@
 import { RepositoryGroup } from "repository-provider";
 
 /**
- * Project of a bitbucket repository
+ * Group of a bitbucket repositories (Project)
  */
-export class BitbucketProject extends RepositoryGroup {
+export class BitbucketGroup extends RepositoryGroup {
   /**
    * options
    */

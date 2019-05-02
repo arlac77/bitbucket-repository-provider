@@ -1,5 +1,5 @@
 import test from "ava";
-import { BitbucketProvider } from "../src/bitbucket-provider";
+import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 test("list repositories", async t => {
   const provider = new BitbucketProvider(

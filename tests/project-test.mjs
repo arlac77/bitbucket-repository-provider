@@ -1,13 +1,12 @@
 import test from "ava";
-import { BitbucketProvider } from "../src/bitbucket-provider";
-import { BitbucketProject } from "../src/bitbucket-project";
+import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
-test("project by short name", async t => {
+test("groups by short name", async t => {
   const provider = new BitbucketProvider(config);
-  const project = await provider.project("xhubio/decision-table");
+  const project = await provider.repositoryGroup("xhubio/decision-table");
 
   t.is(project.name, "decision-table");
 });
