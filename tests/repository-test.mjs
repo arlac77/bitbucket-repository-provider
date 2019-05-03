@@ -1,11 +1,11 @@
 import test from "ava";
-import { BitbucketGroup } from "../src/bitbucket-project.mjs";
+import { BitbucketGroup } from "../src/bitbucket-group.mjs";
 import { BitbucketRepository } from "../src/bitbucket-repository.mjs";
 
 test("BitbucketRepository constructor", t => {
-  const project = new BitbucketGroup("p1");
-  const repository = new BitbucketRepository(project, "r1");
+  const group = new BitbucketGroup("p1");
+  const repository = new BitbucketRepository(group, "r1");
 
-  t.is(repository.owner, project);
+  t.is(repository.owner, group);
   t.is(repository.name, "r1");
 });
