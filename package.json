@@ -28,7 +28,7 @@
     "test": "ava"
   },
   "dependencies": {
-    "content-entry": "^2.1.2",
+    "content-entry": "^2.1.3",
     "micromatch": "^4.0.2",
     "node-fetch": "^2.6.0",
     "repository-provider": "^13.0.3"
