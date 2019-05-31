@@ -10,7 +10,6 @@ test("api url https://bitbucket.org", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "2.0": "https://api.bitbucket.org/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
@@ -41,13 +40,10 @@ test("analyse url project only", t => {
 
 test.skip("api url given config", t => {
   const provider = new BitbucketProvider({
-    api: {
-      "2.0": "https://api.mydomain.org/api/2.0"
-    }
+    api: "https://api.mydomain.org/api/2.0"
   });
   t.deepEqual(
     {
-      api: { "2.0": "https://api.mydomain.org/api/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
@@ -62,7 +58,6 @@ test("api url git@bitbucket.org", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "2.0": "https://api.bitbucket.org/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
@@ -77,7 +72,6 @@ test("api url git+https@mybitbucket.org", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "2.0": "https://api.mybitbucket.org/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
@@ -92,7 +86,6 @@ test("api url git+ssh@bitbucket.org:", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "2.0": "https://api.bitbucket.org/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: "aBranch"
@@ -107,7 +100,6 @@ test("api url git+ssh@bitbucket.org/", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "2.0": "https://api.bitbucket.org/2.0" },
       group: "arlac77",
       repository: "sync-test-repository",
       branch: ""
@@ -121,7 +113,6 @@ test("api url stash", t => {
   const provider = new BitbucketProvider();
   t.deepEqual(
     {
-      api: { "1.0": "https://stash.mydomain.com/rest/api/1.0" },
       group: "proj1",
       repository: "repo1",
       branch: "aBranch"

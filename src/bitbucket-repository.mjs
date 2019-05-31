@@ -15,21 +15,18 @@ import { Provider, Repository, Branch, PullRequest } from "repository-provider";
 export class BitbucketRepository extends Repository {
   static get defaultOptions() {
     return {
-        size: undefined,
-        language: undefined,
-        uuid: undefined,
-        ...super.defaultOptions
-      };
+      size: undefined,
+      language: undefined,
+      uuid: undefined,
+      ...super.defaultOptions
+    };
   }
 
   constructor(owner, name, options = {}) {
     super(owner, name, options);
 
     Object.defineProperties(this, {
-      user: { value: name.split(/\//)[0] },
-      api: {
-        value: options.api
-      }
+      user: { value: name.split(/\//)[0] }
     });
   }
 

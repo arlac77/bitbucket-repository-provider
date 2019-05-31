@@ -25,9 +25,7 @@ export class BitbucketProvider extends Provider {
   static get defaultOptions() {
     return {
       url: "https://bitbucket.org",
-      api: {
-        "2.0": "https://api.bitbucket.org/2.0"
-      },
+      api: "https://api.bitbucket.org/2.0",
       auth: {}
     };
   }
@@ -63,9 +61,7 @@ export class BitbucketProvider extends Provider {
       }
 
       if (env.BITBUCKET_API) {
-        config.api = {
-          "2.0": env.BITBUCKET_API
-        };
+        config.api = env.BITBUCKET_API;
       }
 
       return config;
@@ -97,12 +93,11 @@ export class BitbucketProvider extends Provider {
 
   /**
    * decode URL for a given repo url
-   * provide version 1.0 for stash hosts names and 2.0 for all other
    * @param {string} url bitbucket (repo)
    * @param {Object} options api version
    * @return {Object} bitbucket api urls by version
    */
-  analyseURL(url, options = { version: "2.0" }) {
+  analyseURL(url, options = { }) {
     if (url === undefined) {
       return undefined;
     }
@@ -120,8 +115,6 @@ export class BitbucketProvider extends Provider {
       return { group: url };
     }
 
-    let version = options.version;
-
     if (url.startsWith("git@") || url.startsWith("git+ssh@")) {
       url = url.replace(/^\w+@/, "");
       url = url.replace(/:/, "/");
@@ -137,26 +130,13 @@ export class BitbucketProvider extends Provider {
     const apiURL = new URL(url);
     const branch = apiURL.hash.substring(1);
 
-    apiURL.hash = "";
-
     const parts = apiURL.pathname.split(/\//);
     const group = parts[parts.length - 2];
     let repository = parts[parts.length - 1];
 
     repository = repository.replace(/\.git$/, "");
 
-    if (apiURL.host.match(/stash\./)) {
-      version = "1.0";
-      apiURL.pathname = `rest/api/${version}`;
-    } else {
-      apiURL.host = "api." + apiURL.host;
-      apiURL.pathname = `${version}`;
-    }
-
-    apiURL.username = "";
-    apiURL.password = "";
-
-    return { api: { [version]: apiURL.href }, repository, group, branch };
+    return { repository, group, branch };
   }
 
   async *repositories(pattern = "**/*") {
@@ -238,15 +218,14 @@ export class BitbucketProvider extends Provider {
             this._repositoryGroups.set(group.name, group);
           }
 
-          console.log("CREATE", group, b.name);
+          //console.log("CREATE", group, b.name);
 
           const repository = new this.repositoryClass(group, b.name, b);
 
-          console.log("REPOSITORY", repository.prototype);
+          //console.log("REPOSITORY", repository.prototype);
 
           //const repository = await group._createRepository(b.name, b);
           group._repositories.set(repository.name, repository);
-
 
           console.log("XX",
             b.name,
@@ -254,7 +233,6 @@ export class BitbucketProvider extends Provider {
             await group._repositories.get(b.name),
             await group.repository(repository.name)
           );
-
         })
       );
     } while (url);
@@ -263,7 +241,7 @@ export class BitbucketProvider extends Provider {
   }
 
   fetch(url, options) {
-    return fetch(`${this.api["2.0"]}/${url}`, {
+    return fetch(`${this.api}/${url}`, {
       headers: {
         authorization:
           "Basic " +

@@ -26,7 +26,7 @@ test("optionsFromEnvironment api", t => {
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_API: "https://stash.myserver.mydomain:1234/api/2.0"
     }),
-    { api: { "2.0": "https://stash.myserver.mydomain:1234/api/2.0" } }
+    { api: "https://stash.myserver.mydomain:1234/api/2.0" }
   );
 });
 
@@ -45,7 +45,7 @@ test("optionsFromEnvironment token", t => {
   );
 });
 
-test("provider", async t => {
+test.only("provider branches", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
@@ -136,7 +136,7 @@ test("provider url ssh://git@bitbucket.org/arlac77...", async t => {
   t.is(branch.name, "master");
 });
 
-test.only("provider url git@ :", async t => {
+test("provider url git@ :", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
     "git@bitbucket.org:arlac77/sync-test-repository.git"
