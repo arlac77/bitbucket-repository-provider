@@ -8,15 +8,13 @@ export class BitbucketGroup extends RepositoryGroup {
    * options
    */
   static get defaultOptions() {
-    return Object.assign(
-      {
+    return {
         /**
          * api url.
          * @return {string}
          */
-        api: undefined
-      },
-      super.defaultOptions
-    );
+        api: undefined,
+        ...super.defaultOptions
+      };
   }
 }

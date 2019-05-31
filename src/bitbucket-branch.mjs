@@ -10,16 +10,14 @@ export class BitbucketBranch extends Branch {
    * options
    */
   static get defaultOptions() {
-    return Object.assign(
-      {
+    return {
         /**
          * api url.
          * @return {string}
          */
-        hash: undefined
-      },
-      super.defaultOptions
-    );
+        hash: undefined,
+        ...super.defaultOptions
+      };
   }
 
   fetch(...args) {
