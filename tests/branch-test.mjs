@@ -1,5 +1,4 @@
 import test from "ava";
-import { EmptyContentEntry } from "content-entry";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const REPOSITORY_URL =

@@ -33,7 +33,7 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
-   * provide auth info from environment variables
+   * provide config from environment variables
    * either from
    * __BITBUCKET_USERNAME__ and
    * __BITBUCKET_PASSWORD__
