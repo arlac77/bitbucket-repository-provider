@@ -30,6 +30,24 @@ export class BitbucketProvider extends Provider {
     };
   }
 
+    /**
+   * known environment variables
+   * @return {Object} 
+   * @return {string} BITBUCKET_API api url
+   */
+  static get environmentOptions() {
+    return {
+      'BITBUCKET_API': 'api',
+
+      /*
+      BB_TOKEN: 'auth.token',
+      BITBUCKET_TOKEN: 'auth.token',
+      BITBUCKET_USERNAME: 'auth.username',
+      BITBUCKET_PASSWORD: 'auth.password'
+      */
+    };
+  }
+
   /**
    * provide config from environment variables
    * either from
@@ -41,11 +59,14 @@ export class BitbucketProvider extends Provider {
    * @return {Object} undefined if no bitbucket related entries where found
    */
   static optionsFromEnvironment(env) {
-    if (env !== undefined) {
-      const config = {};
+    let config = super.optionsFromEnvironment(env);
 
+    if (env !== undefined) {
       const token = env.BB_TOKEN || env.BITBUCKET_TOKEN;
       if (token !== undefined) {
+        if(config === undefined) {
+          config = {};
+        }
         config.auth = {
           type: "token",
           token
@@ -53,21 +74,19 @@ export class BitbucketProvider extends Provider {
       }
 
       if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
+        if(config === undefined) {
+          config = {};
+        }
+
         config.auth = {
           type: "basic",
           username: env.BITBUCKET_USERNAME,
           password: env.BITBUCKET_PASSWORD
         };
       }
-
-      if (env.BITBUCKET_API) {
-        config.api = env.BITBUCKET_API;
-      }
-
-      return config;
     }
 
-    return undefined;
+    return config;
   }
 
   /**
