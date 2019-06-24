@@ -31,7 +31,7 @@
     "content-entry": "^2.1.3",
     "micromatch": "^4.0.2",
     "node-fetch": "^2.6.0",
-    "repository-provider": "^14.3.0"
+    "repository-provider": "^14.4.0"
   },
   "devDependencies": {
     "ava": "^2.1.0",
