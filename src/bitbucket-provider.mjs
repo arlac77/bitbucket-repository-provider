@@ -30,63 +30,33 @@ export class BitbucketProvider extends Provider {
     };
   }
 
-    /**
-   * known environment variables
-   * @return {Object} 
-   * @return {string} BITBUCKET_API api url
+  /**
+   * @param {Object} options 
+   * @return {boolean} true if token an api are present
    */
-  static get environmentOptions() {
-    return {
-      'BITBUCKET_API': 'api',
-
-      /*
-      BB_TOKEN: 'auth.token',
-      BITBUCKET_TOKEN: 'auth.token',
-      BITBUCKET_USERNAME: 'auth.username',
-      BITBUCKET_PASSWORD: 'auth.password'
-      */
-    };
+  static areOptionsSufficciant(options) {
+    return options.auth !== undefined;
   }
 
   /**
-   * provide config from environment variables
-   * either from
-   * __BITBUCKET_USERNAME__ and
-   * __BITBUCKET_PASSWORD__
-   * or
-   * __BITBUCKET_TOKEN__ or __BB_TOKEN__
-   * @param {Object} env as provided by process.env
-   * @return {Object} undefined if no bitbucket related entries where found
+   * known environment variables
+   * @return {Object} 
+   * @return {string} BITBUCKET_API api
+   * @return {string} BB_TOKEN api token
+   * @return {string} BITBUCKET_TOKEN ´api token
+   * @return {string} BITBUCKET_USERNAME username
+   * @return {string} BITBUCKET_PASSWORD password
    */
-  static optionsFromEnvironment(env) {
-    let config = super.optionsFromEnvironment(env);
+  static get environmentOptions() {
+    const tokenDef = { path: 'auth.token', template: { type: 'token' } };
 
-    if (env !== undefined) {
-      const token = env.BB_TOKEN || env.BITBUCKET_TOKEN;
-      if (token !== undefined) {
-        if(config === undefined) {
-          config = {};
-        }
-        config.auth = {
-          type: "token",
-          token
-        };
-      }
-
-      if (env.BITBUCKET_USERNAME && env.BITBUCKET_PASSWORD) {
-        if(config === undefined) {
-          config = {};
-        }
-
-        config.auth = {
-          type: "basic",
-          username: env.BITBUCKET_USERNAME,
-          password: env.BITBUCKET_PASSWORD
-        };
-      }
-    }
-
-    return config;
+    return {
+      BITBUCKET_API: 'api',
+      BB_TOKEN: tokenDef,
+      BITBUCKET_TOKEN: tokenDef,
+      BITBUCKET_USERNAME: { path: 'auth.username', template: { type: 'basic' } },
+      BITBUCKET_PASSWORD: { path: 'auth.password', template: { type: 'basic' } }
+    };
   }
 
   /**
