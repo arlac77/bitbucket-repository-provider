@@ -1,6 +1,6 @@
+import micromatch from "micromatch";
 import { Branch, PullRequest } from "repository-provider";
 import { BufferContentEntry } from "content-entry";
-import micromatch from "micromatch";
 
 /**
  * Branch of a bitbucket repository

@@ -7,7 +7,7 @@ const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
-test.skip("branch create", async t => {
+test("branch create", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const newName = `test-${new Date().getTime()}`;
@@ -18,7 +18,7 @@ test.skip("branch create", async t => {
   //await branch.delete();
 });
 
-test.skip("branch delete", async t => {
+test("branch delete", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 

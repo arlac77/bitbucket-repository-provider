@@ -45,7 +45,7 @@ test("optionsFromEnvironment token", t => {
   );
 });
 
-test.only("provider branches", async t => {
+test("provider branches", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
 
