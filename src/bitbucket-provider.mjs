@@ -3,9 +3,8 @@ import fetch from "node-fetch";
 import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
-import { BitbucketGroup } from "./bitbucket-group.mjs";
 
-export { BitbucketBranch, BitbucketRepository, BitbucketGroup };
+export { BitbucketBranch, BitbucketRepository };
 
 /**
  * Provider for bitbucket repositories
@@ -71,13 +70,6 @@ export class BitbucketProvider extends Provider {
    */
   get branchClass() {
     return BitbucketBranch;
-  }
-
-  /**
-   * @return {Class} BitbucketGroup
-   */
-  get repositoryGroupClass() {
-    return BitbucketGroup;
   }
 
   /**
@@ -147,13 +139,11 @@ export class BitbucketProvider extends Provider {
    * @param {string} name
    * @return {Repository}
    */
-  async repository(name, options) {
+  async repository(name) {
     const analysed = this.analyseURL(name, { part: "repository" });
     if (analysed === undefined) {
       return undefined;
     }
-
-    console.log(analysed);
 
     let repository = this._repositories.get(analysed.repository);
 
@@ -187,19 +177,13 @@ export class BitbucketProvider extends Provider {
     let url = `repositories/${group}`;
 
     do {
-      //console.log("_loadGroupRepositories",url);
-
       const r = await this.fetch(url);
       const res = await r.json();
-
-      //console.log(res);
 
       url = res.next;
       await Promise.all(
         res.values.map(async b => {
           const groupName = b.owner.username;
-
-          //console.log(groupName);
 
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
@@ -207,25 +191,24 @@ export class BitbucketProvider extends Provider {
             this._repositoryGroups.set(group.name, group);
           }
 
-          //console.log("CREATE", group, b.name);
-
           const repository = new this.repositoryClass(group, b.name, b);
 
-          //console.log("REPOSITORY", repository.prototype);
-
-          //const repository = await group._createRepository(b.name, b);
           group._repositories.set(repository.name, repository);
-
+          console.log("SET",repository.name);
+          /*
           console.log("XX",
             b.name,
             repository.name,
             await group._repositories.get(b.name),
+            "|",
             await group.repository(repository.name)
           );
+*/
         })
       );
     } while (url);
 
+    console.log("YY",[...group._repositories.keys()]);
     return group;
   }
 

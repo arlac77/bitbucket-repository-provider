@@ -30,14 +30,6 @@ export class BitbucketRepository extends Repository {
     });
   }
 
-  get provider() {
-    return this.owner.provider;
-  }
-
-  get fullName() {
-    return `${this.owner.name}/${this.name}`;
-  }
-
   get slug() {
     return `${this.owner.name}/${this.name}`;
   }
