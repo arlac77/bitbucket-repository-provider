@@ -11,10 +11,10 @@ export { BitbucketBranch, BitbucketRepository };
  * @param {Object} config
  * @param {string} config.url provider scm base
  * @param {string} config.api provider api base
- * @param {Object} config.auth authentication
- * @param {string} config.auth.type
- * @param {string} config.auth.username
- * @param {string} config.auth.password
+ * @param {Object} config.authentication authentication
+ * @param {string} config.authentication.type
+ * @param {string} config.authentication.username
+ * @param {string} config.authentication.password
  */
 export class BitbucketProvider extends Provider {
   /**
@@ -25,7 +25,7 @@ export class BitbucketProvider extends Provider {
     return {
       url: "https://bitbucket.org",
       api: "https://api.bitbucket.org/2.0",
-      auth: {}
+      authentication: {}
     };
   }
 
@@ -34,7 +34,7 @@ export class BitbucketProvider extends Provider {
    * @return {boolean} true if token an api are present
    */
   static areOptionsSufficciant(options) {
-    return options.auth !== undefined;
+    return options.authentication !== undefined;
   }
 
   /**
@@ -47,14 +47,14 @@ export class BitbucketProvider extends Provider {
    * @return {string} BITBUCKET_PASSWORD password
    */
   static get environmentOptions() {
-    const tokenDef = { path: 'auth.token', template: { type: 'token' } };
+    const tokenDef = { path: 'authentication.token', template: { type: 'token' } };
 
     return {
       BITBUCKET_API: 'api',
       BB_TOKEN: tokenDef,
       BITBUCKET_TOKEN: tokenDef,
-      BITBUCKET_USERNAME: { path: 'auth.username', template: { type: 'basic' } },
-      BITBUCKET_PASSWORD: { path: 'auth.password', template: { type: 'basic' } }
+      BITBUCKET_USERNAME: { path: 'authentication.username', template: { type: 'basic' } },
+      BITBUCKET_PASSWORD: { path: 'authentication.password', template: { type: 'basic' } }
     };
   }
 
@@ -217,7 +217,7 @@ export class BitbucketProvider extends Provider {
       headers: {
         authorization:
           "Basic " +
-          Buffer(this.auth.username + ":" + this.auth.password).toString(
+          Buffer(this.authentication.username + ":" + this.authentication.password).toString(
             "base64"
           )
       }

@@ -17,7 +17,7 @@ test("optionsFromEnvironment user", t => {
       BITBUCKET_USERNAME: "user",
       BITBUCKET_PASSWORD: "pass"
     }),
-    { auth: { type: "basic", username: "user", password: "pass" } }
+    { authentication: { type: "basic", username: "user", password: "pass" } }
   );
 });
 
@@ -35,13 +35,13 @@ test("optionsFromEnvironment token", t => {
     BitbucketProvider.optionsFromEnvironment({
       BB_TOKEN: "1234"
     }),
-    { auth: { type: "token", token: "1234" } }
+    { authentication: { type: "token", token: "1234" } }
   );
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_TOKEN: "1234"
     }),
-    { auth: { type: "token", token: "1234" } }
+    { authentication: { type: "token", token: "1234" } }
   );
 });
 
