@@ -183,32 +183,21 @@ export class BitbucketProvider extends Provider {
       url = res.next;
       await Promise.all(
         res.values.map(async b => {
-          const groupName = b.owner.username;
+          const groupName = b.owner.nickname;
 
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
-            group = new this.repositoryGroupClass(groupName, b.owner);
+            group = new this.repositoryGroupClass(this,groupName, b.owner);
             this._repositoryGroups.set(group.name, group);
           }
 
           const repository = new this.repositoryClass(group, b.name, b);
 
           group._repositories.set(repository.name, repository);
-          console.log("SET",repository.name);
-          /*
-          console.log("XX",
-            b.name,
-            repository.name,
-            await group._repositories.get(b.name),
-            "|",
-            await group.repository(repository.name)
-          );
-*/
         })
       );
     } while (url);
 
-    console.log("YY",[...group._repositories.keys()]);
     return group;
   }
 
