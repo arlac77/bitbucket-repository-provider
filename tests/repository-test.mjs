@@ -1,9 +1,10 @@
 import test from "ava";
-import { BitbucketGroup } from "../src/bitbucket-group.mjs";
 import { BitbucketRepository } from "../src/bitbucket-repository.mjs";
+import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 test("BitbucketRepository constructor", t => {
-  const group = new BitbucketGroup("p1");
+  const provider = new BitbucketProvider();
+  const group = new provider.repositoryGroupClass("p1");
   const repository = new BitbucketRepository(group, "r1");
 
   t.is(repository.owner, group);
