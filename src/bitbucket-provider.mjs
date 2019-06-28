@@ -202,7 +202,7 @@ export class BitbucketProvider extends Provider {
   }
 
   fetch(url, options) {
-    return fetch(`${this.api}/${url}`, {
+    return fetch(url.startsWith('http') ? url : `${this.api}/${url}`, {
       headers: {
         authorization:
           "Basic " +
