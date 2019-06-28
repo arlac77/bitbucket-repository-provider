@@ -154,22 +154,9 @@ export class BitbucketProvider extends Provider {
         group = await this._loadGroupRepositories(analysed.group);
       }
 
-      console.log("GROUP", group);
-
-      repository = await group.repository(analysed.repository);
-      console.log("REPOSITORY", analysed.repository, repository);
-
-      /*
-      repository = new this.repositoryClass(
-        group,
-        analysed.repository,
-        options
-      );
-
-      group._repositories.set(repository.name, repository);
-      */
+      return await group.repository(analysed.repository);
     }
-
+    
     return repository;
   }
 
