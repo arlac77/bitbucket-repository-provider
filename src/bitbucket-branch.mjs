@@ -11,13 +11,13 @@ export class BitbucketBranch extends Branch {
    */
   static get defaultOptions() {
     return {
-        /**
-         * api url.
-         * @return {string}
-         */
-        hash: undefined,
-        ...super.defaultOptions
-      };
+      /**
+       * api url.
+       * @return {string}
+       */
+      hash: undefined,
+      ...super.defaultOptions
+    };
   }
 
   fetch(...args) {
@@ -38,7 +38,7 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
 
-    return new this.entryClass(name, await res.json());
+    return new this.entryClass(name, await res.text());
   }
 
   async *tree(name, patterns) {

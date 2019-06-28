@@ -28,5 +28,6 @@ test("branch entry", async t => {
   const branch = await provider.branch(REPOSITORY_NAME);
   const entry = await branch.entry("README.md");
   t.is(entry.name, "README.md");
+
   t.is((await entry.getString()).startsWith("# README"), true);
 });
