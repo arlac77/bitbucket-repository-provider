@@ -78,7 +78,7 @@ export class BitbucketProvider extends Provider {
    * @param {Object} options api version
    * @return {Object} bitbucket api urls by version
    */
-  analyseURL(url, options = { }) {
+  analyseURL(url, options = {}) {
     if (url === undefined) {
       return undefined;
     }
@@ -104,8 +104,7 @@ export class BitbucketProvider extends Provider {
       url = url.replace(/^git\+/, "");
     }
     if (!url.match(/^[\w\+]+:/)) {
-      // TODO default url
-      url = "https://bitbucket.org/" + url;
+      url = this.url + url;
     }
 
     const apiURL = new URL(url);
@@ -125,9 +124,18 @@ export class BitbucketProvider extends Provider {
       let m;
       if ((m = p.match(/^(\w+)\/(.*)/))) {
         const group = await this._loadGroupRepositories(m[1]);
-        yield * group.repositories(m[2]);
+        yield* group.repositories(m[2]);
       }
     }
+  }
+
+  /**
+  * All possible base urls
+  * For github something like
+  * @return {string[]} common base urls of all repositories
+ */
+  get repositoryBases() {
+    return [this.url];
   }
 
   /**
@@ -156,7 +164,7 @@ export class BitbucketProvider extends Provider {
 
       return await group.repository(analysed.repository);
     }
-    
+
     return repository;
   }
 
@@ -174,7 +182,7 @@ export class BitbucketProvider extends Provider {
 
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
-            group = new this.repositoryGroupClass(this,groupName, b.owner);
+            group = new this.repositoryGroupClass(this, groupName, b.owner);
             this._repositoryGroups.set(group.name, group);
           }
 
