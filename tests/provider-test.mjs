@@ -70,33 +70,6 @@ test("provider repository undefined", async t => {
   t.is(repository, undefined);
 });
 
-test.skip("provider url git+https mybitbucket.org", async t => {
-  const provider = new BitbucketProvider({ url: "https://mybitbucket.org" });
-
-  const repository = await provider.repository(
-    "git+https://arlac77@mybitbucket.org/arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.project.name, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
-test("provider url git+https", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "git+https://arlac77@bitbucket.org/arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
 test("provider url https with user", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
@@ -114,19 +87,6 @@ test("provider url https with user and password", async t => {
   const provider = new BitbucketProvider(config);
   const repository = await provider.repository(
     "https://arlac77:aSecret@bitbucket.org/arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
-test("provider url ssh://git@bitbucket.org/arlac77...", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "ssh://git@bitbucket.org/arlac77/sync-test-repository.git"
   );
 
   t.is(repository.name, "sync-test-repository");
@@ -170,16 +130,6 @@ test("provider url git+ssh@", async t => {
 
   const branch = await repository.branch("master");
   t.is(branch.name, "master");
-});
-
-test.skip("provider url https://user:pass@stash.mydomain.com", async t => {
-  const provider = new BitbucketProvider();
-  const repository = await provider.repository(
-    "https://user:pass@stash.mydomain.com/something/proj1/repo1"
-  );
-
-  t.is(repository.name, "repo1");
-  //t.is(repository.owner.name, "proj1");
 });
 
 test("provider repo with branch name", async t => {

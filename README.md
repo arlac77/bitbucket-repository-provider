@@ -26,36 +26,28 @@ repository provider for bitbucket
     -   [Parameters](#parameters)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
-    -   [repositoryGroupClass](#repositorygroupclass)
-    -   [analyseURL](#analyseurl)
-        -   [Parameters](#parameters-1)
-    -   [repository](#repository)
-        -   [Parameters](#parameters-2)
-    -   [project](#project)
-        -   [Parameters](#parameters-3)
+    -   [repositoryBases](#repositorybases)
     -   [defaultOptions](#defaultoptions)
-    -   [optionsFromEnvironment](#optionsfromenvironment)
-        -   [Parameters](#parameters-4)
+    -   [areOptionsSufficciant](#areoptionssufficciant)
+        -   [Parameters](#parameters-1)
+    -   [environmentOptions](#environmentoptions)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-2)
     -   [createPullRequest](#createpullrequest)
-        -   [Parameters](#parameters-6)
+        -   [Parameters](#parameters-3)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-7)
+    -   [Parameters](#parameters-4)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-8)
+        -   [Parameters](#parameters-5)
     -   [deleteBranch](#deletebranch)
-        -   [Parameters](#parameters-9)
--   [BitbucketProject](#bitbucketproject)
-    -   [defaultOptions](#defaultoptions-2)
--   [api](#api)
+        -   [Parameters](#parameters-6)
 
 ## BitbucketProvider
 
@@ -63,15 +55,22 @@ repository provider for bitbucket
 
 Provider for bitbucket repositories
 
+Supported name schemes are
+
+-   <https://user:aSecret@bitbucket.org/owner/repo-name.git>
+-   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
+-   git@bitbucket.org:owner/repo-name.git
+-   owner/repo-name
+
 ### Parameters
 
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider scm base
     -   `config.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider api base
-    -   `config.auth` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** authentication
-        -   `config.auth.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-        -   `config.auth.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-        -   `config.auth.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+    -   `config.authentication` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** authentication
+        -   `config.authentication.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+        -   `config.authentication.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+        -   `config.authentication.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### repositoryClass
 
@@ -81,44 +80,12 @@ Returns **Class** BitbucketRepository
 
 Returns **Class** BitbucketBranch
 
-### repositoryGroupClass
+### repositoryBases
 
-Returns **Class** BitbucketProject
+All possible base urls
+For github something like
 
-### analyseURL
-
-decode URL for a given repo url
-provide version 1.0 for stash hosts names and 2.0 for all other
-
-#### Parameters
-
--   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket (repo)
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** api version (optional, default `{version:"2.0"}`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** bitbucket api urls by version
-
-### repository
-
-Supported name schemes are
-
--   <https://user:aSecret@bitbucket.org/owner/repo-name.git>
--   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
--   git@bitbucket.org:owner/repo-name.git
--   owner/repo-name
-
-#### Parameters
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `options`  
-
-Returns **Repository** 
-
-### project
-
-#### Parameters
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
 ### defaultOptions
 
@@ -126,20 +93,29 @@ Default configuration as given for the cloud privider
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### optionsFromEnvironment
-
-provide auth info from environment variables
-either from
-**BITBUCKET_USERNAME** and
-**BITBUCKET_PASSWORD**
-or
-**BITBUCKET_TOKEN** or **BB_TOKEN**
+### areOptionsSufficciant
 
 #### Parameters
 
--   `env` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** as provided by process.env
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** undefined if no bitbucket related entries where found
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if token an api are present
+
+### environmentOptions
+
+known environment variables
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_API api
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BB_TOKEN api token
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_TOKEN ´api token
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_USERNAME username
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_PASSWORD password
 
 ## BitbucketBranch
 
@@ -148,6 +124,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 Branch of a bitbucket repository
 
 ### entry
+
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
 
 #### Parameters
 
@@ -186,12 +164,12 @@ a repository hosted in bitbucket
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
-    -   `options.project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+    -   `options.group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
 
 ### Properties
 
 -   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `project` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `user` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### urls
@@ -231,22 +209,6 @@ Create a new branch
 #### Parameters
 
 -   `name`  
-
-## BitbucketProject
-
-**Extends RepositoryGroup**
-
-Project of a bitbucket repository
-
-### defaultOptions
-
-options
-
-## api
-
-api url.
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 # install
 

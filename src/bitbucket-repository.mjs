@@ -70,6 +70,7 @@ export class BitbucketRepository extends Repository {
     let url = `repositories/${this.fullName}/refs/branches`;
 
     do {
+      console.log("FETCH", url);
       const r = await this.fetch(url);
       const res = await r.json();
       url = res.next;
