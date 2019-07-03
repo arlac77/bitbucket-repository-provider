@@ -55,12 +55,9 @@ test("provider branches", async t => {
     "https://bitbucket.org/arlac77/sync-test-repository.git"
   );
 
-  const branches = await repository.branches();
-  t.is(branches.get("master").name, "master");
-  /*
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-  */
+  for await(const branch of repository.branches('master')) {
+    t.is(branch.name, "master");
+  }
 });
 
 test("provider repository undefined", async t => {
@@ -68,45 +65,6 @@ test("provider repository undefined", async t => {
   const repository = await provider.repository(undefined);
 
   t.is(repository, undefined);
-});
-
-test("provider url https with user", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
-test("provider url https with user and password", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "https://arlac77:aSecret@bitbucket.org/arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
-test("provider url git@ :", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "git@bitbucket.org:arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
 });
 
 test("provider url git@ / ", async t => {
@@ -119,19 +77,6 @@ test("provider url git@ / ", async t => {
   );
 });
 
-test("provider url git+ssh@", async t => {
-  const provider = new BitbucketProvider(config);
-  const repository = await provider.repository(
-    "git+ssh@bitbucket.org:arlac77/sync-test-repository.git"
-  );
-
-  t.is(repository.name, "sync-test-repository");
-  //t.is(repository.user, "arlac77");
-
-  const branch = await repository.branch("master");
-  t.is(branch.name, "master");
-});
-
 test("provider repo with branch name", async t => {
   const provider = new BitbucketProvider(config);
 
@@ -139,5 +84,4 @@ test("provider repo with branch name", async t => {
 
   t.is(branch.provider, provider);
   t.is(branch.name, "master");
-  //t.is(branch.user, 'arlac77');
 });

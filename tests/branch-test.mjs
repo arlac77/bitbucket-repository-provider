@@ -19,17 +19,13 @@ test("branch create", async t => {
 });
 
 test("branch delete", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(undefined, process.env);
   const repository = await provider.repository(REPOSITORY_NAME);
 
-  const branches = await repository.branches();
-
-  for (const [name, branch] of branches.entries()) {
-    if (name.match(/^test-/)) {
-      console.log(`${name}: ${branch}`);
-
-      await repository.deleteBranch(name);
-      t.is(await repository.branch(name), undefined);
-    }
+  for await (const branch of repository.branches("test-")) {
+    const name = branch.name;
+    console.log(`${name}: ${branch}`);
+    await repository.deleteBranch(name);
+    t.is(await repository.branch(name), undefined);
   }
 });
