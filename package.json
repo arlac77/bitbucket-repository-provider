@@ -28,10 +28,10 @@
     "test": "ava"
   },
   "dependencies": {
-    "content-entry": "^2.1.5",
+    "content-entry": "^2.2.0",
     "micromatch": "^4.0.2",
     "node-fetch": "^2.6.0",
-    "repository-provider": "^15.0.0"
+    "repository-provider": "^15.1.1"
   },
   "devDependencies": {
     "ava": "^2.1.0",
