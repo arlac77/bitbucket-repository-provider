@@ -15,3 +15,17 @@ test.skip("create pullRequest", async t => {
 
   t.is(pr.name, "PR1");
 });
+
+test("list pullRequest", async t => {
+  const provider = BitbucketProvider.initialize(undefined, process.env);
+  const repository = await provider.repository("arlac77/npm-package-template");
+
+  const prs = [];
+
+  for await (const pr of repository.pullRequests()) {
+    console.log(pr);
+
+    prs.push(pr);
+  }
+  t.true(prs.length > 0);
+});

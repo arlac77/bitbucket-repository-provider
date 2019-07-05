@@ -61,6 +61,33 @@ export class BitbucketRepository extends Repository {
     return this.provider.fetch(...args);
   }
 
+  async _fetchPullRequests() {
+    let url = `repositories/${this.fullName}/pullrequests`;
+
+    do {
+      const r = await this.fetch(url);
+      const res = await r.json();
+      url = res.next;
+
+      await Promise.all(res.values.map(async p => {
+        const getBranch = async u => this.provider.branch([u.repository.full_name,u.branch.name].join('#'));
+
+        const pr = new this.pullRequestClass(
+          await getBranch(p.source), 
+          await getBranch(p.destination), 
+          p.id,
+          {
+            description: p.description,
+            title: p.title,
+            state: p.state
+          }
+        );
+
+        this._pullRequests.set(pr.name, pr);
+        }));
+    } while (url);
+  }
+
   async _fetchHooks() {
     let url = `repositories/${this.fullName}/hooks`;
 

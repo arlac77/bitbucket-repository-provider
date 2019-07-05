@@ -108,13 +108,17 @@ export class BitbucketProvider extends Provider {
   }
 
   async repositoryGroup(name) {
+    let group = await super.repositoryGroup(name);
+
+    if(group !== undefined) {
+      return group;
+    }
+
     if (name === undefined) {
       return undefined;
     }
 
     let url = `repositories/${name}`;
-
-    let group;
 
     do {
       const r = await this.fetch(url);
