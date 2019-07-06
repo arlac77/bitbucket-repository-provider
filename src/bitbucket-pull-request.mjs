@@ -45,13 +45,12 @@ export class BitbucketPullRequest extends PullRequest {
   /**
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
    */
-  static async open(source, destination, title) {
+  static async open(source, destination, options) {
     const url = `repositories/${destination.fullName}/pullrequests`;
 
     const r = await destination.fetch(url, {
       method: "POST",
       data: {
-        title,
         source: {
           branch: {
             name: source.name
@@ -61,7 +60,8 @@ export class BitbucketPullRequest extends PullRequest {
           branch: {
             name: destination.name
           }
-        }
+        },
+        ...options
       }
     });
     //console.log(r);

@@ -126,7 +126,7 @@ export class BitbucketProvider extends Provider {
       return undefined;
     }
 
-    let url = `repositories/${name}`;
+    let url = `repositories/${name}`; // + '?role=contributor';
 
     do {
       const r = await this.fetch(url);
