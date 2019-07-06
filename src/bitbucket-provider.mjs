@@ -3,8 +3,9 @@ import fetch from "node-fetch";
 import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
+import { BitbucketPullRequest } from "./bitbucket-pull-request.mjs";
 
-export { BitbucketBranch, BitbucketRepository };
+export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest };
 
 /**
  * Provider for bitbucket repositories
@@ -88,6 +89,13 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
+   * @return {Class} pull request class used by the Provider
+   */
+  get pullRequestClass() {
+    return BitbucketPullRequest;
+  }
+
+  /**
    * All possible base urls
    * For github something like
    * @return {string[]} common base urls of all repositories
@@ -110,7 +118,7 @@ export class BitbucketProvider extends Provider {
   async repositoryGroup(name) {
     let group = await super.repositoryGroup(name);
 
-    if(group !== undefined) {
+    if (group !== undefined) {
       return group;
     }
 

@@ -63,54 +63,6 @@ export class BitbucketBranch extends Branch {
     return yield* this.tree("/", patterns);
   }
 
-  /**
-   * @see{https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}
-   */
-  async createPullRequest(to, msg) {
-    const res = await this.fetch(`pullrequests`, {
-      method: "put",
-      data: {
-        title: msg,
-        description: msg,
-        state: "OPEN",
-        open: true,
-        closed: false,
-        fromRef: {
-          id: this.ref,
-          repository: {
-            slug: this.name,
-            name: null,
-            project: {
-              key: this.project
-            }
-          }
-        },
-        toRef: {
-          id: to.ref,
-          repository: {
-            slug: to,
-            name: null,
-            project: {
-              key: this.project
-            }
-          }
-        },
-        locked: false,
-        reviewers: [
-          {
-            user: {
-              name: "REVIEWER"
-            }
-          }
-        ]
-      }
-    });
-
-    console.log(res);
-
-    return new PullRequest(this.repository, result.number);
-  }
-
   get entryClass() {
     return BufferContentEntry;
   }

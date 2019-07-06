@@ -26,3 +26,20 @@ export async function assertRepo(t, repository, fixture) {
     }
   }
 }
+
+export async function createBranchFrom(source, pattern, options)
+{
+  let name = pattern;
+
+  let n = 1;
+
+  for await (const b of source.repository.branches(pattern)) {
+    console.log("FOUND", b.name);
+    n++;
+  }
+
+  name = pattern.replace(/\*/,n);
+  
+  console.log('NEW BRANCH', pattern, name);
+  return source.createBranch(name, options);
+}

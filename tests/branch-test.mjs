@@ -18,13 +18,13 @@ test("branch create", async t => {
   //await branch.delete();
 });
 
-test("branch delete", async t => {
+test.only("branch delete", async t => {
   const provider = BitbucketProvider.initialize(undefined, process.env);
   const repository = await provider.repository(REPOSITORY_NAME);
 
   for await (const branch of repository.branches("test-")) {
     const name = branch.name;
-    console.log(`${name}: ${branch}`);
+    console.log(`DELETE ${branch}`);
     await repository.deleteBranch(name);
     t.is(await repository.branch(name), undefined);
   }

@@ -1,19 +1,23 @@
 import test from "ava";
+import {createBranchFrom } from './util.mjs';
+
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
-const REPOSITORY_URL =
-  "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git";
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
 test.skip("create pullRequest", async t => {
-  const provider = BitbucketProvider.initialize(undefined, process.env);
-  const branch = await provider.branch(REPOSITORY_NAME);
+  const provider = BitbucketProvider.initialize(undefined, process.env);  
+  const destination = await provider.branch(REPOSITORY_NAME);
 
-  const pr = await branch.createPullRequest(branch, "PR1");
+  const source = createBranchFrom(destination,'pr-creation-test/*');
+
+  const pr = await provider.pullRequestClass.open(source, destination, {
+    title: 'my PR'
+  });
 
   console.log(pr);
 
-  t.is(pr.name, "PR1");
+  t.is(pr.name, "my PR");
 });
 
 test("list pullRequest", async t => {

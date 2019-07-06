@@ -61,33 +61,6 @@ export class BitbucketRepository extends Repository {
     return this.provider.fetch(...args);
   }
 
-  async _fetchPullRequests() {
-    let url = `repositories/${this.fullName}/pullrequests`;
-
-    do {
-      const r = await this.fetch(url);
-      const res = await r.json();
-      url = res.next;
-
-      await Promise.all(res.values.map(async p => {
-        const getBranch = async u => this.provider.branch([u.repository.full_name,u.branch.name].join('#'));
-
-        const pr = new this.pullRequestClass(
-          await getBranch(p.source), 
-          await getBranch(p.destination), 
-          p.id,
-          {
-            description: p.description,
-            title: p.title,
-            state: p.state
-          }
-        );
-
-        this._pullRequests.set(pr.name, pr);
-        }));
-    } while (url);
-  }
-
   async _fetchHooks() {
     let url = `repositories/${this.fullName}/hooks`;
 
@@ -96,16 +69,18 @@ export class BitbucketRepository extends Repository {
       const res = await r.json();
       url = res.next;
       res.values.forEach(h => {
-        this._hooks.push(new this.hookClass(this, h.name, new Set(h.events), {
-          id: h.uuid,
-          active: h.active,
-          url: h.url,
-          description: h.description
-        }));
+        this._hooks.push(
+          new this.hookClass(this, h.name, new Set(h.events), {
+            id: h.uuid,
+            active: h.active,
+            url: h.url,
+            description: h.description
+          })
+        );
       });
     } while (url);
   }
-  
+
   async _fetchBranches() {
     let url = `repositories/${this.fullName}/refs/branches`;
 
@@ -131,19 +106,23 @@ export class BitbucketRepository extends Repository {
    * @param {Object} options
    * @param {string} options.message
    */
-  async createBranch(name, from = this.defaultBranch, options = {}) {
+  async createBranch(name, from = this.defaultBranch, options) {
+
+
     const res = await this.fetch(
       `repositories/${this.fullName}/refs/branches`,
       {
         method: "POST",
         data: {
-          name: name,
+          name,
           target: {
             hash: "4d2dc9b5fb194eeaf1dee933e3e0140d98856be3"
           }
         }
       }
     );
+    console.log(res.ok, res.status, res.statusText);
+
     return super.createBranch(name, from, options);
   }
 
@@ -152,26 +131,14 @@ export class BitbucketRepository extends Repository {
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete
    */
   async deleteBranch(name) {
-    /*
-    const p = "arlac77";
-    const r = "sync-test-repository";
-    const u = `rest/branch-utils/1.0/projects/${p}/repos/${r}/branches`;
+    const url = `repositories/${this.fullName}/refs/branches/${name}`;
+   // console.log(url);
 
-    /rest/branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches
-    {
-    name: `refs/heads/${name}`,
-    dryRun: false
-    }
-    url = `https://api.bitbucket.org/rest/branch-utils/1.0/projects/arlac77/repos/${
-      this.fullName
-    }/branches`;
-*/
+    const res = await this.fetch(url, { method: "DELETE" });
 
-    const res = await this.fetch(
-      `repositories/${this.fullName}/refs/branches/${name}`,
-      { method: "DELETE" }
-    );
-
+    //console.log(res.ok, res.status, res.statusText);
+    //const p = await res.json();
+    //console.log(p);
     return super.deleteBranch(name);
   }
 }
