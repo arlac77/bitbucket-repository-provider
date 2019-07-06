@@ -1,5 +1,8 @@
 import { PullRequest } from "repository-provider";
 
+/**
+ * 
+ */
 export class BitbucketPullRequest extends PullRequest {
   static get validStates() {
     return new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]);
