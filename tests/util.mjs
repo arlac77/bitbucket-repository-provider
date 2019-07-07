@@ -1,3 +1,6 @@
+import { generateBranchName } from "repository-provider";
+import { StringContentEntry } from "content-entry";
+
 export async function assertRepo(t, repository, fixture) {
   if (fixture === undefined) {
     t.is(repository, undefined);
@@ -27,19 +30,36 @@ export async function assertRepo(t, repository, fixture) {
   }
 }
 
-export async function createBranchFrom(source, pattern, options)
-{
-  let name = pattern;
+export async function pullRequestLivecycle(t, provider, repoName) {
+  const repository = await provider.repository(repoName);
 
-  let n = 1;
+  const name = await generateBranchName(repository, "pr-test/*");
 
-  for await (const b of source.repository.branches(pattern)) {
-    console.log("FOUND", b.name);
-    n++;
+  const destination = await repository.defaultBranch;
+  const source = await destination.createBranch(name);
+
+  const commit = await source.commit("message text", [
+    new StringContentEntry("README.md", `file content #${name}`)
+  ]);
+
+
+  const pr = await provider.pullRequestClass.open(source, destination, {
+    title: `test pr from ${name}`,
+    body: "this is the body\n- a\n- b\n- c"
+  });
+
+  t.is(pr.title, `test pr from ${name}`);
+  t.is(pr.body, "this is the body\n- a\n- b\n- c");
+  t.is(pr.state, "OPEN");
+  t.is(pr.locked, false);
+  t.is(pr.merged, false);
+  t.true(pr.number !== undefined);
+
+  for await (const p of provider.pullRequestClass.list(repository)) {
+    console.log('LIST',p, pr.equals(p), pr.number,p.number, pr.repository, p.repository);
   }
 
-  name = pattern.replace(/\*/,n);
   
-  console.log('NEW BRANCH', pattern, name);
-  return source.createBranch(name, options);
+  //await pr.decline();
+  await source.delete();
 }
