@@ -79,5 +79,9 @@ export class BitbucketPullRequest extends PullRequest {
     });
   }
 
-  async merge() {}
+  async _merge(method) {}
+  
+  async _write() {}
+  
+  
 }
