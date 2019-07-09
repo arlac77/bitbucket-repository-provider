@@ -26,6 +26,7 @@ repository provider for bitbucket
     -   [Parameters](#parameters)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
+    -   [pullRequestClass](#pullrequestclass)
     -   [repositoryBases](#repositorybases)
     -   [defaultOptions](#defaultoptions)
     -   [areOptionsSufficciant](#areoptionssufficciant)
@@ -34,20 +35,23 @@ repository provider for bitbucket
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
         -   [Parameters](#parameters-2)
-    -   [createPullRequest](#createpullrequest)
-        -   [Parameters](#parameters-3)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-4)
+    -   [Parameters](#parameters-3)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-4)
     -   [deleteBranch](#deletebranch)
+        -   [Parameters](#parameters-5)
+-   [BitbucketPullRequest](#bitbucketpullrequest)
+    -   [list](#list)
         -   [Parameters](#parameters-6)
+    -   [open](#open)
+        -   [Parameters](#parameters-7)
 
 ## BitbucketProvider
 
@@ -79,6 +83,10 @@ Returns **Class** BitbucketRepository
 ### branchClass
 
 Returns **Class** BitbucketBranch
+
+### pullRequestClass
+
+Returns **Class** pull request class used by the Provider
 
 ### repositoryBases
 
@@ -132,15 +140,6 @@ Branch of a bitbucket repository
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
-
-### createPullRequest
-
--   **See: {<https://stackoverflow.com/questions/46310751/how-to-create-a-pull-request-in-a-bitbucket-using-api-1-0/46311951#46311951}>**
-
-#### Parameters
-
--   `to`  
--   `msg`  
 
 ### defaultOptions
 
@@ -198,7 +197,7 @@ Create a new branch
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** of the new branch to create
 -   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### deleteBranch
@@ -209,6 +208,29 @@ Create a new branch
 #### Parameters
 
 -   `name`  
+
+## BitbucketPullRequest
+
+**Extends PullRequest**
+
+### list
+
+list all pull request for a given destination repo
+
+#### Parameters
+
+-   `destination` **Repository** 
+-   `states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+### open
+
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post>
+
+#### Parameters
+
+-   `source`  
+-   `destination`  
+-   `options`  
 
 # install
 

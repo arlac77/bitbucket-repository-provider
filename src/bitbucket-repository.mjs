@@ -107,8 +107,6 @@ export class BitbucketRepository extends Repository {
    * @param {string} options.message
    */
   async createBranch(name, from = this.defaultBranch, options) {
-
-
     const res = await this.fetch(
       `repositories/${this.fullName}/refs/branches`,
       {
@@ -132,7 +130,7 @@ export class BitbucketRepository extends Repository {
    */
   async deleteBranch(name) {
     const url = `repositories/${this.fullName}/refs/branches/${name}`;
-   // console.log(url);
+    // console.log(url);
 
     const res = await this.fetch(url, { method: "DELETE" });
 

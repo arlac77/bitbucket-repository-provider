@@ -73,7 +73,7 @@ export class BitbucketPullRequest extends PullRequest {
     console.log(p);
 
     return new this(source, destination, "4711", {
-      description: p.description,
+      body: p.description,
       title: p.title,
       state: p.state
     });

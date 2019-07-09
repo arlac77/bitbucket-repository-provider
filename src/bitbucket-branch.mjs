@@ -1,5 +1,5 @@
 import micromatch from "micromatch";
-import { Branch, PullRequest } from "repository-provider";
+import { Branch } from "repository-provider";
 import { BufferContentEntry } from "content-entry";
 
 /**
