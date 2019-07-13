@@ -11,6 +11,24 @@ const repoFixtures = {
   // "git@mfelten.de/github-repository-provider.git": undefined,
   // "http://www.heise.de/index.html": undefined,
 
+  "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
+    owner: owner1,
+    fullName: "arlac77/sync-test-repository",
+    description: "test repository for npm-template-sync @bitbucket",
+    provider: BitbucketProvider
+  },
+  "ssh://git@bitbucket.org/arlac77/sync-test-repository.git": {
+    owner: owner1,
+    fullName: "arlac77/sync-test-repository",
+    description: "test repository for npm-template-sync @bitbucket",
+    provider: BitbucketProvider
+  },
+  "git@bitbucket.org:arlac77/sync-test-repository.git": {
+    owner: owner1,
+    fullName: "arlac77/sync-test-repository",
+    description: "test repository for npm-template-sync @bitbucket",
+    provider: BitbucketProvider
+  },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     fullName: "arlac77/npm-package-template",
@@ -27,10 +45,11 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
+  t.plan(27);
+
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
   for (const rn of Object.keys(repoFixtures)) {
-    const r = repoFixtures[rn];
     const repository = await provider.repository(rn);
     await assertRepo(t, repository, repoFixtures[rn]);
   }
