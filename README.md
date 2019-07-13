@@ -35,23 +35,25 @@ repository provider for bitbucket
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
         -   [Parameters](#parameters-2)
+    -   [commit](#commit)
+        -   [Parameters](#parameters-3)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-4)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
-    -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-4)
-    -   [deleteBranch](#deletebranch)
+    -   [\_createBranch](#_createbranch)
         -   [Parameters](#parameters-5)
+    -   [deleteBranch](#deletebranch)
+        -   [Parameters](#parameters-6)
 -   [BitbucketPullRequest](#bitbucketpullrequest)
     -   [list](#list)
-        -   [Parameters](#parameters-6)
-    -   [open](#open)
         -   [Parameters](#parameters-7)
+    -   [open](#open)
+        -   [Parameters](#parameters-8)
 
 ## BitbucketProvider
 
@@ -141,6 +143,18 @@ Branch of a bitbucket repository
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
 
+### commit
+
+Commit entries
+
+#### Parameters
+
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** commit message
+-   `updates` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Entry>** file content to be commited
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
 ### defaultOptions
 
 options
@@ -187,7 +201,7 @@ Deliver the url of issue tracking system.
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
 
-### createBranch
+### \_createBranch
 
 -   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post>**
 

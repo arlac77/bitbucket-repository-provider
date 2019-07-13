@@ -1,7 +1,7 @@
 import { PullRequest } from "repository-provider";
 
 /**
- * 
+ *
  */
 export class BitbucketPullRequest extends PullRequest {
   static get validStates() {
@@ -23,7 +23,7 @@ export class BitbucketPullRequest extends PullRequest {
       states && states.size
         ? "?" + [...states].map(state => `state=${state}`).join("&")
         : "";
-    let url = `repositories/${destination.fullName}/pullrequests${query}`;
+    let url = `repositories/${destination.slug}/pullrequests${query}`;
 
     do {
       const r = await destination.fetch(url);
@@ -49,9 +49,9 @@ export class BitbucketPullRequest extends PullRequest {
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
    */
   static async open(source, destination, options) {
-    const url = `repositories/${destination.fullName}/pullrequests`;
+    const url = `repositories/${destination.slug}/pullrequests`;
 
-    const r = await destination.fetch(url, {
+    const res = await destination.fetch(url, {
       method: "POST",
       data: {
         source: {
@@ -64,24 +64,22 @@ export class BitbucketPullRequest extends PullRequest {
             name: destination.name
           }
         },
-        ...options
+        ...options,
+        description: options.body
       }
     });
-    //console.log(r);
 
-    const p = await r.json();
-    console.log(p);
+    const json = await res.json();
+    //console.log(json);
 
-    return new this(source, destination, "4711", {
-      body: p.description,
-      title: p.title,
-      state: p.state
+    return new this(source, destination, json.id, {
+      body: json.description,
+      title: json.title,
+      state: json.state
     });
   }
 
   async _merge(method) {}
-  
+
   async _write() {}
-  
-  
 }

@@ -5,7 +5,7 @@ import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
-test.skip("create pullRequest", async t => {
+test.only("create pullRequest", async t => {
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
   await pullRequestLivecycle(t, provider, REPOSITORY_NAME);

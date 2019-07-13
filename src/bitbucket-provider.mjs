@@ -153,14 +153,31 @@ export class BitbucketProvider extends Provider {
   }
 
   fetch(url, options) {
-    return fetch(url.startsWith("http") ? url : `${this.api}/${url}`, {
-      headers: {
-        authorization:
-          "Basic " +
-          Buffer(
-            this.authentication.username + ":" + this.authentication.password
-          ).toString("base64")
+    let headers = {
+      authorization:
+        "Basic " +
+        Buffer(
+          this.authentication.username + ":" + this.authentication.password
+        ).toString("base64")
+    };
+
+    if (options) {
+      if(options.headers) {
+        headers = { ...options.headers, ...headers };
+        delete options.headers;
       }
+      if (options.data) {
+        options.body = JSON.stringify(options.data);
+        delete options.data;
+        headers["Content-Type"] = "application/json";
+      }
+    }
+
+    //console.log(url, options);
+
+    return fetch(url.startsWith("http") ? url : `${this.api}/${url}`, {
+      ...options,
+      headers
     });
   }
 }

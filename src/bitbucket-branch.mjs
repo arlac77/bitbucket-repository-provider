@@ -43,7 +43,7 @@ export class BitbucketBranch extends Branch {
 
   async *tree(name, patterns) {
     const r = await this.fetch(
-      `repositories/${this.repository.fullName}/src/${this.hash}${name}`
+      `repositories/${this.slug}/src/${this.hash}${name}`
     );
 
     const res = await r.json();
@@ -61,6 +61,37 @@ export class BitbucketBranch extends Branch {
 
   async *entries(patterns) {
     return yield* this.tree("/", patterns);
+  }
+
+  /**
+   * Commit entries
+   * @param {string} message commit message
+   * @param {Entry[]} updates file content to be commited
+   * @param {Object} options
+   * @return {Promise}
+   */
+  async commit(message, updates, options) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("message", message);
+    searchParams.set("branch", this.name);
+    //searchParams.set("parents", XXX);
+
+    for (const u of updates) {
+      searchParams.set(u.name, await u.getString());
+    }
+
+    const res = await this.fetch(`repositories/${this.slug}/src`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: searchParams
+    });
+
+    //console.log(res.ok, res.status, res.statusText);
+
+    //const text = await res.text();
+    //console.log(text);
   }
 
   get entryClass() {

@@ -106,22 +106,22 @@ export class BitbucketRepository extends Repository {
    * @param {Object} options
    * @param {string} options.message
    */
-  async createBranch(name, from = this.defaultBranch, options) {
-    const res = await this.fetch(
-      `repositories/${this.fullName}/refs/branches`,
-      {
-        method: "POST",
-        data: {
-          name,
-          target: {
-            hash: "4d2dc9b5fb194eeaf1dee933e3e0140d98856be3"
-          }
+  async _createBranch(name, from = this.defaultBranch, options) {
+    const res = await this.fetch(`repositories/${this.slug}/refs/branches`, {
+      method: "POST",
+      data: {
+        name,
+        target: {
+          hash: from.hash
         }
       }
-    );
-    console.log(res.ok, res.status, res.statusText);
+    });
+    //console.log(res.ok, res.status, res.statusText);
 
-    return super.createBranch(name, from, options);
+    const json = await res.json();
+    //console.log(json);
+
+    return super._createBranch(name, from, { hash: json.hash });
   }
 
   /**
@@ -129,7 +129,7 @@ export class BitbucketRepository extends Repository {
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete
    */
   async deleteBranch(name) {
-    const url = `repositories/${this.fullName}/refs/branches/${name}`;
+    const url = `repositories/${this.slug}/refs/branches/${name}`;
     // console.log(url);
 
     const res = await this.fetch(url, { method: "DELETE" });
