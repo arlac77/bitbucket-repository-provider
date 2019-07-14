@@ -9,32 +9,39 @@ const owner1 = {
 };
 
 const repoFixtures = {
-  // "git@mfelten.de/github-repository-provider.git": undefined,
-  // "http://www.heise.de/index.html": undefined,
+  //"git@mfelten.de/github-repository-provider.git": undefined,
+
+
+  "http://somewhere.com/index": undefined,
+  "https://somewhere.com/index.git": undefined,
 
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
+    provider: BitbucketProvider,
     owner: owner1,
+    name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
     uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
-    description: "test repository for npm-template-sync @bitbucket",
-    provider: BitbucketProvider
+    description: "test repository for npm-template-sync @bitbucket"
   },
   "ssh://git@bitbucket.org/arlac77/sync-test-repository.git": {
+    provider: BitbucketProvider,
     owner: owner1,
+    name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
     uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
-    description: "test repository for npm-template-sync @bitbucket",
-    provider: BitbucketProvider
+    description: "test repository for npm-template-sync @bitbucket"
   },
   "git@bitbucket.org:arlac77/sync-test-repository.git": {
+    provider: BitbucketProvider,
     owner: owner1,
+    name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
     uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
-    description: "test repository for npm-template-sync @bitbucket",
-    provider: BitbucketProvider
+    description: "test repository for npm-template-sync @bitbucket"
   },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
+    name: "npm-package-template",
     fullName: "arlac77/npm-package-template",
     uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
     owner: owner1,
@@ -50,13 +57,13 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(31);
+  t.plan(37);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
   for (const rn of Object.keys(repoFixtures)) {
     const repository = await provider.repository(rn);
-    await assertRepo(t, repository, repoFixtures[rn]);
+    await assertRepo(t, repository, repoFixtures[rn], rn);
   }
 });
 

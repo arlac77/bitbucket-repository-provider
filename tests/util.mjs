@@ -1,7 +1,9 @@
 import { generateBranchName } from "repository-provider";
 import { StringContentEntry } from "content-entry";
 
-export async function assertRepo(t, repository, fixture) {
+export async function assertRepo(t, repository, fixture, url) {
+
+  t.log(url);
   if (fixture === undefined) {
     t.is(repository, undefined);
   } else {
