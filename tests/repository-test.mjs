@@ -4,7 +4,8 @@ import { BitbucketRepository } from "../src/bitbucket-repository.mjs";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const owner1 = {
-  name: "arlac77"
+  name: "arlac77",
+  uuid: '{7eeeef8a-17ef-45be-996f-ea51387bc7b9}'
 };
 
 const repoFixtures = {
@@ -14,24 +15,28 @@ const repoFixtures = {
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
     owner: owner1,
     fullName: "arlac77/sync-test-repository",
+    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
     description: "test repository for npm-template-sync @bitbucket",
     provider: BitbucketProvider
   },
   "ssh://git@bitbucket.org/arlac77/sync-test-repository.git": {
     owner: owner1,
     fullName: "arlac77/sync-test-repository",
+    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
     description: "test repository for npm-template-sync @bitbucket",
     provider: BitbucketProvider
   },
   "git@bitbucket.org:arlac77/sync-test-repository.git": {
     owner: owner1,
     fullName: "arlac77/sync-test-repository",
+    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
     description: "test repository for npm-template-sync @bitbucket",
     provider: BitbucketProvider
   },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     fullName: "arlac77/npm-package-template",
+    uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
     owner: owner1,
     hooks: [
       {
@@ -45,7 +50,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(27);
+  t.plan(31);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 

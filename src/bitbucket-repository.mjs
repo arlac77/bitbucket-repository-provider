@@ -17,12 +17,11 @@ export class BitbucketRepository extends Repository {
     return {
       size: undefined,
       language: undefined,
-      uuid: undefined,
       ...super.defaultOptions
     };
   }
 
-  constructor(owner, name, options = {}) {
+  constructor(owner, name, options) {
     super(owner, name, options);
 
     Object.defineProperties(this, {
@@ -38,7 +37,7 @@ export class BitbucketRepository extends Repository {
    * @return {string[]} url
    */
   get urls() {
-    return [`${this.provider.url}/${this.fullName}.git`];
+    return [`${this.provider.url}/${this.slug}.git`];
   }
 
   /**
@@ -46,7 +45,7 @@ export class BitbucketRepository extends Repository {
    * @return {string} '.../overwiew'
    */
   get homePageURL() {
-    return `${this.provider.url}/${this.fullName}/overview`;
+    return `${this.provider.url}/${this.slug}/overview`;
   }
 
   /**
@@ -54,7 +53,7 @@ export class BitbucketRepository extends Repository {
    * @return {string} '.../issues'
    */
   get issuesURL() {
-    return `${this.provider.url}/${this.fullName}/issues`;
+    return `${this.provider.url}/${this.slug}/issues`;
   }
 
   fetch(...args) {
@@ -62,7 +61,7 @@ export class BitbucketRepository extends Repository {
   }
 
   async _fetchHooks() {
-    let url = `repositories/${this.fullName}/hooks`;
+    let url = `repositories/${this.slug}/hooks`;
 
     do {
       const r = await this.fetch(url);
@@ -82,7 +81,7 @@ export class BitbucketRepository extends Repository {
   }
 
   async _fetchBranches() {
-    let url = `repositories/${this.fullName}/refs/branches`;
+    let url = `repositories/${this.slug}/refs/branches`;
 
     do {
       const r = await this.fetch(url);
