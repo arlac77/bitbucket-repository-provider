@@ -130,6 +130,11 @@ export class BitbucketProvider extends Provider {
 
     do {
       const r = await this.fetch(url);
+
+      if(!r.ok) {
+        return undefined;
+      }
+
       const res = await r.json();
 
       url = res.next;
