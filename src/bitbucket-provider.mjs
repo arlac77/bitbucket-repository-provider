@@ -131,7 +131,7 @@ export class BitbucketProvider extends Provider {
     do {
       const r = await this.fetch(url);
 
-      if(!r.ok) {
+      if (!r.ok) {
         return undefined;
       }
 
@@ -167,7 +167,7 @@ export class BitbucketProvider extends Provider {
     };
 
     if (options) {
-      if(options.headers) {
+      if (options.headers) {
         headers = { ...options.headers, ...headers };
         delete options.headers;
       }
@@ -180,7 +180,7 @@ export class BitbucketProvider extends Provider {
 
     //console.log(url, options);
 
-    return fetch(url.startsWith("http") ? url : `${this.api}/${url}`, {
+    return fetch(`${this.api}/${url}`, {
       ...options,
       headers
     });
