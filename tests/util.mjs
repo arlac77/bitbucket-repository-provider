@@ -1,10 +1,26 @@
 import { generateBranchName } from "repository-provider";
 import { StringContentEntry } from "content-entry";
 
-export async function assertRepo(t, repository, fixture, url) {
-  t.log(url);
+export async function assertBranch(t, branch, fixture, url) {
   if (fixture === undefined) {
-    t.is(repository, undefined);
+    t.is(branch, undefined, `no branch at ${url}`);
+  } else {
+    if (fixture.branch !== undefined) {
+      t.is(branch.name, fixture.branch, `branch.name ${url}`);
+    }
+    if (fixture.provider && branch !== undefined) {
+      t.is(
+        branch.provider.constructor,
+        fixture.provider,
+        `provider ${url}`
+      );
+    }
+  }
+}
+
+export async function assertRepo(t, repository, fixture, url) {
+  if (fixture === undefined) {
+    t.is(repository, undefined, `no repo at ${url}`);
   } else {
     if (fixture.name !== undefined) {
       t.is(repository.name, fixture.name, `repository.name ${url}`);
