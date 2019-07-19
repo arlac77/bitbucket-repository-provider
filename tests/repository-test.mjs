@@ -15,6 +15,7 @@ const repoFixtures = {
   "http://somewhere.com/index": undefined,
   "https://somewhere.com/index.git": undefined,
 
+
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
     provider: BitbucketProvider,
     owner: owner1,
@@ -42,6 +43,12 @@ const repoFixtures = {
     description: "test repository for npm-template-sync @bitbucket",
     branch: 'master'
   },
+  "https://bitbucket.org/arlac77/npm-package-template.git" : {
+    provider: BitbucketProvider,
+    name: "npm-package-template",
+    uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
+    branch: 'master'
+  },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     name: "npm-package-template",
@@ -61,7 +68,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(37);
+  t.plan(40);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
@@ -72,7 +79,7 @@ test("locate repository several", async t => {
 });
 
 test("locate branch several", async t => {
-  t.plan(10);
+  t.plan(12);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
