@@ -112,7 +112,8 @@ export class BitbucketProvider extends Provider {
   }
 
   async *repositoryGroups(patterns) {
-    yield this.repositoryGroup(patterns);
+    const rg = this.repositoryGroup(patterns);
+    if(rg !== undefined) { yield rg; }
   }
 
   async repositoryGroup(name) {
