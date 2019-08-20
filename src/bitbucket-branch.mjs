@@ -29,7 +29,7 @@ export class BitbucketBranch extends Branch {
   }
 
   /**
-   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories
+   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D
    * @param {string} name
    * @return {Promise<Entry>}
    */
@@ -38,7 +38,7 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
 
-    return new this.entryClass(name, await res.text());
+    return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
   }
 
   async *tree(name, patterns) {
