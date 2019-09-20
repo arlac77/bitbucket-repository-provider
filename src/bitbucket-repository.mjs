@@ -86,6 +86,11 @@ export class BitbucketRepository extends Repository {
     do {
       const r = await this.fetch(url);
       const res = await r.json();
+
+      if(res.type === 'error') {
+        break;
+      }
+      
       url = res.next;
       res.values.forEach(b => {
         const branch = new this.provider.branchClass(this, b.name, {
