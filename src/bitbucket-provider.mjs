@@ -170,7 +170,6 @@ export class BitbucketProvider extends Provider {
     if (options) {
       if (options.headers) {
         headers = { ...options.headers, ...headers };
-        delete options.headers;
       }
       if (options.data) {
         options.body = JSON.stringify(options.data);

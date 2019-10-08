@@ -1,5 +1,5 @@
 import test from "ava";
-import {pullRequestLivecycle } from 'repository-provider-test-support';
+import { pullRequestLivecycle } from "repository-provider-test-support";
 
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
