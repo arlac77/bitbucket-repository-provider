@@ -26,7 +26,8 @@
     "docs": "documentation readme src/bitbucket-provider.mjs --section=API",
     "lint": "documentation lint src/bitbucket-provider.mjs",
     "posttest": "markdown-doctest",
-    "test": "ava"
+    "test": "ava",
+    "prepare": "rollup -c"
   },
   "dependencies": {
     "content-entry": "^2.2.5",
