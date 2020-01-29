@@ -9,19 +9,24 @@ export class BitbucketPullRequest extends PullRequest {
   }
 
   /**
-   * list all pull request for a given destination repo
+   * List all pull request for a given repo
+   * result can be filtered by source branch, destination branch and states
    * @param {Repository} repository
-   * @param {Set<string>} states
+   * @param {Object} filter
+   * @param {Branch?} filter.source
+   * @param {Branch?} filter.destination
+   * @param {Set<string>?} filter.states
+   * @return {Iterator<PullRequest>}
    */
-  static async *list(repository, source, destination, states) {
+  static async *list(repository, filter={}) {
     const getBranch = async u =>
     repository.provider.branch(
         [u.repository.full_name, u.branch.name].join("#")
       );
 
     const query =
-      states && states.size
-        ? "?" + [...states].map(state => `state=${state}`).join("&")
+      filter.states && filter.states.size
+        ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
         : "";
     let url = `repositories/${repository.slug}/pullrequests${query}`;
 
