@@ -10,12 +10,12 @@ export class BitbucketPullRequest extends PullRequest {
 
   /**
    * list all pull request for a given destination repo
-   * @param {Repository} destination
+   * @param {Repository} repository
    * @param {Set<string>} states
    */
-  static async *list(destination, states) {
+  static async *list(repository, source, destination, states) {
     const getBranch = async u =>
-      destination.provider.branch(
+    repository.provider.branch(
         [u.repository.full_name, u.branch.name].join("#")
       );
 
@@ -23,10 +23,10 @@ export class BitbucketPullRequest extends PullRequest {
       states && states.size
         ? "?" + [...states].map(state => `state=${state}`).join("&")
         : "";
-    let url = `repositories/${destination.slug}/pullrequests${query}`;
+    let url = `repositories/${repository.slug}/pullrequests${query}`;
 
     do {
-      const r = await destination.fetch(url);
+      const r = await repository.fetch(url);
       const res = await r.json();
       url = res.next;
 
