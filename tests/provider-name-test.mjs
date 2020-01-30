@@ -4,6 +4,11 @@ import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 test("provider parseName", t => {
   const provider = new BitbucketProvider();
   const nameFixtures = {
+    "https://arlac77@bitbucket.org/arlac77/npm-package-template.git" : {
+      base: "https://bitbucket.org",
+      group: "arlac77",
+      repository: "npm-package-template"
+    },
     "https://user:pass@bitbucket.org/arlac77/sync-test-repository.git#aBranch": {
       base: "https://bitbucket.org",
       group: "arlac77",
