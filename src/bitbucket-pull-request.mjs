@@ -10,7 +10,7 @@ export class BitbucketPullRequest extends PullRequest {
 
   /**
    * List all pull request for a given repo
-   * result can be filtered by source branch, destination branch and states
+   * result will be filtered by source branch, destination branch and states
    * @param {Repository} repository
    * @param {Object} filter
    * @param {Branch?} filter.source
@@ -36,6 +36,7 @@ export class BitbucketPullRequest extends PullRequest {
       url = res.next;
 
       for (const p of res.values) {
+        console.log(p);
         yield new this(
           await getBranch(p.source),
           await getBranch(p.destination),
