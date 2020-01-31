@@ -107,7 +107,22 @@ export class BitbucketPullRequest extends PullRequest {
     });
   }
 
-  async _merge(method) {}
+  /**
+   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge
+   */
+  async _merge(method = "merge_commit") {
+    const url = `repositories/${this.destination.slug}/pullrequests/${this.number}/merge`;
+    const res = await this.destination.fetch(url, {
+      type: "a type",
+      message: "a message",
+      method: "POST",
+      data: {
+        close_source_branch: false,
+        merge_strategy: method // "fast_forward", "squash", "merge_commit"
+      }
+    });
+
+  }
 
   async _write() {}
 }
