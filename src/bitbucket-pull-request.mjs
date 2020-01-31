@@ -36,7 +36,6 @@ export class BitbucketPullRequest extends PullRequest {
       url = res.next;
 
       for (const p of res.values) {
-        console.log(p);
         yield new this(
           await getBranch(p.source),
           await getBranch(p.destination),
@@ -76,8 +75,11 @@ export class BitbucketPullRequest extends PullRequest {
     });
 
     const json = await res.json();
-    //console.log(json);
 
+    if(json.id === undefined) {
+      throw new Error(json);
+    }
+    
     return new this(source, destination, json.id, {
       body: json.description,
       title: json.title,
