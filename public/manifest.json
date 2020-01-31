@@ -1,0 +1,10 @@
+{
+  "name": "bitbucket-repository-provider",
+  "description": "repository provider for bitbucket",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}
