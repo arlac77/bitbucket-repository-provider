@@ -5,13 +5,11 @@ import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
-test.only("create pullRequest", async t => {
-  const provider = BitbucketProvider.initialize(undefined, process.env);
-
-  await pullRequestLivecycle(t, provider, REPOSITORY_NAME);
+test("pr livecycle", async t => {
+  await pullRequestLivecycle(t, BitbucketProvider.initialize(undefined, process.env), REPOSITORY_NAME);
 });
 
-test("list pullRequest", async t => {
+test("pr list", async t => {
   const provider = BitbucketProvider.initialize(undefined, process.env);
   const repository = await provider.repository("arlac77/npm-package-template");
 
