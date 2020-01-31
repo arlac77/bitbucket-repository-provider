@@ -36,9 +36,21 @@ export class BitbucketPullRequest extends PullRequest {
       url = res.next;
 
       for (const p of res.values) {
+        const source = await getBranch(p.source);
+
+        if(filter.source && !filter.source.equals(source)) {
+          continue;
+        }
+
+        const destination = await getBranch(p.destination);
+
+        if(filter.destination && !filter.destination.equals(destination)) {
+          continue;
+        }
+        
         yield new this(
-          await getBranch(p.source),
-          await getBranch(p.destination),
+          source,
+          destination,
           p.id,
           {
             description: p.description,
@@ -54,6 +66,14 @@ export class BitbucketPullRequest extends PullRequest {
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
    */
   static async open(source, destination, options) {
+
+    for await (const p of source.provider.pullRequestClass.list(
+      source.repository,
+      { source, destination }
+    )) {
+      return p;
+    }
+
     const url = `repositories/${destination.slug}/pullrequests`;
 
     const res = await destination.fetch(url, {
