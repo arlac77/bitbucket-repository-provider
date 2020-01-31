@@ -76,8 +76,8 @@ export class BitbucketPullRequest extends PullRequest {
 
     const json = await res.json();
 
-    if(json.id === undefined) {
-      throw new Error(json);
+    if(json.type === "error" && json.error) {
+      throw new Error(json.error.message);
     }
     
     return new this(source, destination, json.id, {
