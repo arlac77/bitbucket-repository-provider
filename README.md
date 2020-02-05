@@ -35,25 +35,29 @@ repository provider for bitbucket
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
         -   [Parameters](#parameters-2)
-    -   [commit](#commit)
+    -   [entries](#entries)
         -   [Parameters](#parameters-3)
+    -   [commit](#commit)
+        -   [Parameters](#parameters-4)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-4)
+    -   [Parameters](#parameters-5)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [\_createBranch](#_createbranch)
-        -   [Parameters](#parameters-5)
-    -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-6)
--   [BitbucketPullRequest](#bitbucketpullrequest)
-    -   [list](#list)
+    -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-7)
-    -   [open](#open)
+-   [BitbucketPullRequest](#bitbucketpullrequest)
+    -   [\_merge](#_merge)
         -   [Parameters](#parameters-8)
+    -   [list](#list)
+        -   [Parameters](#parameters-9)
+    -   [open](#open)
+        -   [Parameters](#parameters-10)
 
 ## BitbucketProvider
 
@@ -143,6 +147,12 @@ Branch of a bitbucket repository
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
 
+### entries
+
+#### Parameters
+
+-   `patterns`  
+
 ### commit
 
 Commit entries
@@ -227,10 +237,18 @@ Create a new branch
 
 **Extends PullRequest**
 
+### \_merge
+
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge>
+
+#### Parameters
+
+-   `method`   (optional, default `"merge_commit"`)
+
 ### list
 
 List all pull request for a given repo
-result can be filtered by source branch, destination branch and states
+result will be filtered by source branch, destination branch and states
 
 #### Parameters
 

@@ -1,6 +1,11 @@
 import micromatch from "micromatch";
 import { Branch } from "repository-provider";
-import { BufferContentEntry } from "content-entry";
+import {
+  BufferContentEntry,
+  BufferContentEntryMixin,
+  BaseCollectionEntry
+} from "content-entry";
+import { ContentEntry } from "content-entry/src/content-entry.mjs";
 
 /**
  * Branch of a bitbucket repository
@@ -41,26 +46,32 @@ export class BitbucketBranch extends Branch {
     return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
   }
 
-  async *tree(name, patterns) {
+  /**
+   *
+   * @param patterns
+   */
+  async *entries(patterns) {
     const r = await this.fetch(
-      `repositories/${this.slug}/src/${this.hash}${name}`
+      `repositories/${this.slug}/src/${this.hash}/?max_depth=99`
     );
+
+    const e = entry => {
+      return entry.type === "commit_directory"
+        ? new BaseCollectionEntry(entry.path)
+        : new LazyBufferContentEntry(entry.path, this);
+    };
 
     const res = await r.json();
 
     for (const entry of res.values) {
       if (patterns === undefined) {
-        yield new this.entryClass(entry.path);
+        yield e(entry);
       } else {
         if (micromatch([entry.path], patterns).length === 1) {
-          yield new this.entryClass(entry.path);
+          yield e(entry);
         }
       }
     }
-  }
-
-  async *entries(patterns) {
-    return yield* this.tree("/", patterns);
   }
 
   /**
@@ -96,5 +107,24 @@ export class BitbucketBranch extends Branch {
 
   get entryClass() {
     return BufferContentEntry;
+  }
+}
+
+class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
+  constructor(name, branch) {
+    super(name);
+    Object.defineProperties(this, {
+      branch: { value: branch }
+    });
+  }
+
+  async getBuffer() {
+    const branch = this.branch;
+
+    const res = await branch.fetch(
+      `repositories/${branch.slug}/src/${branch.hash}/${this.name}`
+    );
+
+    return Buffer.from(await res.arrayBuffer());
   }
 }

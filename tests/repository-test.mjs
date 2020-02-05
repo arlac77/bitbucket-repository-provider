@@ -46,14 +46,16 @@ const repoFixtures = {
   "https://bitbucket.org/arlac77/npm-package-template.git" : {
     provider: BitbucketProvider,
     name: "npm-package-template",
-    uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
+    uuid: '{bec21095-03ca-45ad-8571-b7d611a6dffd}',
+  //  uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
     branch: 'master'
   },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     name: "npm-package-template",
     fullName: "arlac77/npm-package-template",
-    uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
+    uuid: '{bec21095-03ca-45ad-8571-b7d611a6dffd}',
+    //uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
     owner: owner1,
     hooks: [
       {
@@ -68,7 +70,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(40);
+  t.plan(32);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
