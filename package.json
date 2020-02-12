@@ -28,7 +28,7 @@
     "test": "ava --timeout 2m"
   },
   "dependencies": {
-    "content-entry": "2.2.6",
+    "content-entry": "^2.3.0",
     "micromatch": "^4.0.2",
     "node-fetch": "^2.6.0",
     "repository-provider": "^16.12.1"
