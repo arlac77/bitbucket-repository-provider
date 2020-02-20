@@ -49,7 +49,7 @@ export class BitbucketProvider extends Provider {
    * @return {Object}
    * @return {string} BITBUCKET_API api
    * @return {string} BB_TOKEN api token
-   * @return {string} BITBUCKET_TOKEN ´api token
+   * @return {string} BITBUCKET_TOKEN api token
    * @return {string} BITBUCKET_USERNAME username
    * @return {string} BITBUCKET_PASSWORD password
    */
@@ -97,7 +97,6 @@ export class BitbucketProvider extends Provider {
 
   /**
    * All possible base urls
-   * For github something like
    * @return {string[]} common base urls of all repositories
    */
   get repositoryBases() {
@@ -177,8 +176,6 @@ export class BitbucketProvider extends Provider {
         headers["Content-Type"] = "application/json";
       }
     }
-
-    //console.log(url, options);
 
     return fetch(`${this.api}/${url}`, {
       ...options,
