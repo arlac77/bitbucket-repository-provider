@@ -82,7 +82,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(32);
+  t.plan(36);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
@@ -93,7 +93,7 @@ test("locate repository several", async t => {
 });
 
 test("locate branch several", async t => {
-  t.plan(12);
+  t.plan(14);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
