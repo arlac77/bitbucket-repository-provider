@@ -1,10 +1,10 @@
 import test from "ava";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
-test("provider parseName", t => {
+test.only("provider parseName", t => {
   const provider = new BitbucketProvider();
   const nameFixtures = {
-    "https://arlac77@bitbucket.org/arlac77/npm-package-template.git" : {
+    "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
       base: "https://bitbucket.org",
       group: "arlac77",
       repository: "npm-package-template"
@@ -52,6 +52,11 @@ test("provider parseName", t => {
       base: "https://bitbucket.org",
       group: "arlac77",
       repository: "sync-test-repository"
+    },
+    "git@bitbucket.org:xhubio/decision-table-data-generator.git": {
+      base: "git@bitbucket.org:", // TODO
+      group: "xhubio",
+      repository: "decision-table-data-generator"
     }
   };
 
