@@ -140,8 +140,7 @@ export class BitbucketProvider extends Provider {
       url = res.next;
       await Promise.all(
         res.values.map(async b => {
-          const groupName = b.owner.nickname;
-
+          const groupName = b.owner.nickname || b.owner.username;
           group = this._repositoryGroups.get(groupName);
           if (group === undefined) {
             group = new this.repositoryGroupClass(this, groupName, b.owner);
