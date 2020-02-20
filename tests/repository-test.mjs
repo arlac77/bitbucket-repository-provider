@@ -8,13 +8,16 @@ const owner1 = {
   uuid: '{7eeeef8a-17ef-45be-996f-ea51387bc7b9}'
 };
 
+const owner2 = {
+  name: "xhubio",
+  //uuid: '{7eeeef8a-17ef-45be-996f-ea51387bc7b9}'
+};
+
 const repoFixtures = {
   //"git@mfelten.de/github-repository-provider.git": undefined,
 
-
   "http://somewhere.com/index": undefined,
   "https://somewhere.com/index.git": undefined,
-
 
   "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
     provider: BitbucketProvider,
@@ -41,6 +44,15 @@ const repoFixtures = {
     fullName: "arlac77/sync-test-repository",
     uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
     description: "test repository for npm-template-sync @bitbucket",
+    branch: 'master'
+  },
+  "git@bitbucket.org:xhubio/decision-table-data-generator.git": {
+    provider: BitbucketProvider,
+    owner: owner2,
+    name: "decision-table-data-generator",
+    fullName: "xhubio/decision-table-data-generator",
+    //uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
+    //description: "test repository for npm-template-sync @bitbucket",
     branch: 'master'
   },
   "https://bitbucket.org/arlac77/npm-package-template.git" : {
