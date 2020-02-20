@@ -160,7 +160,7 @@ export class BitbucketProvider extends Provider {
     let headers = {
       authorization:
         "Basic " +
-        Buffer(
+        Buffer.from(
           this.authentication.username + ":" + this.authentication.password
         ).toString("base64")
     };
