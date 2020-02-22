@@ -5,12 +5,12 @@ import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
 const owner1 = {
   name: "arlac77",
-  uuid: '{7eeeef8a-17ef-45be-996f-ea51387bc7b9}'
+  uuid: "{7eeeef8a-17ef-45be-996f-ea51387bc7b9}"
 };
 
 const owner2 = {
   name: "xhubio",
-  uuid: '{c1b7a81d-dc4b-4dd7-a763-cddcf5aa4be3}'
+  uuid: "{c1b7a81d-dc4b-4dd7-a763-cddcf5aa4be3}"
 };
 
 const repoFixtures = {
@@ -24,27 +24,27 @@ const repoFixtures = {
     owner: owner1,
     name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
-    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
+    uuid: "{1fbf1cff-a829-473c-bd42-b5bd684868a1}",
     description: "test repository for npm-template-sync @bitbucket",
-    branch: 'master'
+    branch: "master"
   },
   "ssh://git@bitbucket.org/arlac77/sync-test-repository.git": {
     provider: BitbucketProvider,
     owner: owner1,
     name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
-    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
+    uuid: "{1fbf1cff-a829-473c-bd42-b5bd684868a1}",
     description: "test repository for npm-template-sync @bitbucket",
-    branch: 'master'
+    branch: "master"
   },
   "git@bitbucket.org:arlac77/sync-test-repository.git": {
     provider: BitbucketProvider,
     owner: owner1,
     name: "sync-test-repository",
     fullName: "arlac77/sync-test-repository",
-    uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
+    uuid: "{1fbf1cff-a829-473c-bd42-b5bd684868a1}",
     description: "test repository for npm-template-sync @bitbucket",
-    branch: 'master'
+    branch: "master"
   },
   "git@bitbucket.org:xhubio/decision-table-data-generator.git": {
     provider: BitbucketProvider,
@@ -53,20 +53,21 @@ const repoFixtures = {
     fullName: "xhubio/decision-table-data-generator",
     //uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
     description: undefined,
-    branch: 'master'
+    branch: "master",
+    entries: { "package.json": {}, ".jsdoc.json": {} }
   },
-  "https://bitbucket.org/arlac77/npm-package-template.git" : {
+  "https://bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     name: "npm-package-template",
-    uuid: '{bec21095-03ca-45ad-8571-b7d611a6dffd}',
-  //  uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
-    branch: 'master'
+    uuid: "{bec21095-03ca-45ad-8571-b7d611a6dffd}",
+    //  uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
+    branch: "master"
   },
   "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
     provider: BitbucketProvider,
     name: "npm-package-template",
     fullName: "arlac77/npm-package-template",
-    uuid: '{bec21095-03ca-45ad-8571-b7d611a6dffd}',
+    uuid: "{bec21095-03ca-45ad-8571-b7d611a6dffd}",
     //uuid: '{36734289-3058-4c37-86ff-0ee8696d3d9d}',
     owner: owner1,
     hooks: [
@@ -77,12 +78,12 @@ const repoFixtures = {
         events: new Set(["repo:push"])
       }
     ],
-    branch: 'master'
+    branch: "master"
   }
 };
 
 test("locate repository several", async t => {
-  t.plan(37);
+  t.plan(39);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
