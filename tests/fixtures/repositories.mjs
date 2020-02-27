@@ -20,6 +20,12 @@ export const repositories = {
     base: "https://bitbucket.org",
     group: "some-owner",
     repository: "some-repo"
+  },
+  "https://bitbucket.org/some-owner/some-repo/src/master/C/D#b": {
+    base: "https://bitbucket.org",
+    group: "some-owner",
+    repository: "some-repo",
+    branch: "b"
   },*/
   "git@bitbucket.org/arlac77/sync-test-repository.git#aBranch": {
     base: "git@bitbucket.org/",
