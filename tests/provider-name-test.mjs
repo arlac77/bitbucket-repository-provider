@@ -1,68 +1,12 @@
 import test from "ava";
+import { repositories } from "./fixtures/repositories.mjs";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
-test.only("provider parseName", t => {
+test("provider parseName", t => {
   const provider = new BitbucketProvider();
-  const nameFixtures = {
-    "https://arlac77@bitbucket.org/arlac77/npm-package-template.git": {
-      base: "https://bitbucket.org",
-      group: "arlac77",
-      repository: "npm-package-template"
-    },
-    "https://user:pass@bitbucket.org/arlac77/sync-test-repository.git#aBranch": {
-      base: "https://bitbucket.org",
-      group: "arlac77",
-      repository: "sync-test-repository",
-      branch: "aBranch"
-    },
-    "https://bitbucket.org/arlac77/sync-test-repository.git#aBranch": {
-      base: "https://bitbucket.org",
-      group: "arlac77",
-      repository: "sync-test-repository",
-      branch: "aBranch"
-    },
-    "git@bitbucket.org/arlac77/sync-test-repository.git#aBranch": {
-      base: "git@bitbucket.org/",
-      group: "arlac77",
-      repository: "sync-test-repository",
-      branch: "aBranch"
-    },
-    "git@bitbucket.org/arlac77/sync-test-repository.git": {
-      base: "git@bitbucket.org/",
-      group: "arlac77",
-      repository: "sync-test-repository"
-    },
-    "git@bitbucket.org:arlac77/sync-test-repository.git": {
-      base: "git@bitbucket.org:",
-      group: "arlac77",
-      repository: "sync-test-repository"
-    },
-    "git+ssh@bitbucket.org:arlac77/sync-test-repository.git#aBranch": {
-      base: "ssh@bitbucket.org:",
-      group: "arlac77",
-      repository: "sync-test-repository",
-      branch: "aBranch"
-    },
-    "ssh://git@bitbucket.org/arlac77/sync-test-repository.git": {
-      base: "ssh://bitbucket.org",
-      group: "arlac77",
-      repository: "sync-test-repository"
-    },
-    "git+https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
-      base: "https://bitbucket.org",
-      group: "arlac77",
-      repository: "sync-test-repository"
-    },
-    "git@bitbucket.org:xhubio/decision-table-data-generator.git": {
-      base: "git@bitbucket.org:", // TODO
-      group: "xhubio",
-      repository: "decision-table-data-generator"
-    }
-  };
-
-  for (const name of Object.keys(nameFixtures)) {
+  for (const [name,repo] of Object.entries(repositories)) {
     t.log(name);
-    t.deepEqual(provider.parseName(name), nameFixtures[name]);
+    t.deepEqual(provider.parseName(name), repo);
   }
 });
 
@@ -85,7 +29,7 @@ test("provider parseName mydomain", t => {
     }
   };
 
-  for (const name of Object.keys(nameFixtures)) {
-    t.deepEqual(provider.parseName(name), nameFixtures[name]);
+  for (const [name,repo] of Object.entries(nameFixtures)) {
+    t.deepEqual(provider.parseName(name), repo);
   }
 });
