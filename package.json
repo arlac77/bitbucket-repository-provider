@@ -51,7 +51,6 @@
     "url": "https://github.com/arlac77/bitbucket-repository-provider/issues"
   },
   "homepage": "https://github.com/arlac77/bitbucket-repository-provider#readme",
-  "release": {},
   "template": {
     "inheritFrom": "arlac77/template-esm-only"
   }
