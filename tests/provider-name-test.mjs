@@ -6,7 +6,7 @@ test("provider parseName", t => {
   const provider = new BitbucketProvider();
   for (const [name,repo] of Object.entries(repositories)) {
     t.log(name);
-    t.deepEqual(provider.parseName(name), repo);
+    t.deepEqual(provider.parseName(name), repo, name);
   }
 });
 
@@ -30,6 +30,6 @@ test("provider parseName mydomain", t => {
   };
 
   for (const [name,repo] of Object.entries(nameFixtures)) {
-    t.deepEqual(provider.parseName(name), repo);
+    t.deepEqual(provider.parseName(name), repo, name);
   }
 });
