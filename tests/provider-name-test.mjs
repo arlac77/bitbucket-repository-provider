@@ -1,21 +1,17 @@
 import test from "ava";
+import { providerParseNameTest } from "repository-provider-test-support";
 import { repositories } from "./fixtures/repositories.mjs";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
-test("provider parseName", t => {
-  const provider = new BitbucketProvider();
-  for (const [name,repo] of Object.entries(repositories)) {
-    t.log(name);
-    t.deepEqual(provider.parseName(name), repo, name);
-  }
-});
+test(providerParseNameTest, new BitbucketProvider(), repositories);
 
-test("provider parseName mydomain", t => {
-  const provider = new BitbucketProvider({
+test(
+  "mydomain",
+  providerParseNameTest,
+  new BitbucketProvider({
     url: "https://mydomain.org/repos/"
-  });
-
-  const nameFixtures = {
+  }),
+  {
     "git+https://arlac77@mydomain.org/repos/arlac77/sync-test-repository.git": {
       base: "https://mydomain.org/repos/",
       group: "arlac77",
@@ -27,9 +23,5 @@ test("provider parseName mydomain", t => {
       repository: "sync-test-repository",
       branch: "aBranch"
     }
-  };
-
-  for (const [name,repo] of Object.entries(nameFixtures)) {
-    t.deepEqual(provider.parseName(name), repo, name);
   }
-});
+);
