@@ -18,9 +18,9 @@ export class BitbucketPullRequest extends PullRequest {
    * @param {Set<string>?} filter.states
    * @return {Iterator<PullRequest>}
    */
-  static async *list(repository, filter={}) {
+  static async *list(repository, filter = {}) {
     const getBranch = async u =>
-    repository.provider.branch(
+      repository.provider.branch(
         [u.repository.full_name, u.branch.name].join("#")
       );
 
@@ -35,29 +35,26 @@ export class BitbucketPullRequest extends PullRequest {
       const res = await r.json();
       url = res.next;
 
-      for (const p of res.values) {
-        const source = await getBranch(p.source);
+      if (res.values) {
+        for (const p of res.values) {
+          const source = await getBranch(p.source);
 
-        if(filter.source && !filter.source.equals(source)) {
-          continue;
-        }
+          if (filter.source && !filter.source.equals(source)) {
+            continue;
+          }
 
-        const destination = await getBranch(p.destination);
+          const destination = await getBranch(p.destination);
 
-        if(filter.destination && !filter.destination.equals(destination)) {
-          continue;
-        }
-        
-        yield new this(
-          source,
-          destination,
-          p.id,
-          {
+          if (filter.destination && !filter.destination.equals(destination)) {
+            continue;
+          }
+
+          yield new this(source, destination, p.id, {
             description: p.description,
             title: p.title,
             state: p.state
-          }
-        );
+          });
+        }
       }
     } while (url);
   }
@@ -66,7 +63,6 @@ export class BitbucketPullRequest extends PullRequest {
    * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
    */
   static async open(source, destination, options) {
-
     for await (const p of source.provider.pullRequestClass.list(
       source.repository,
       { source, destination }
@@ -96,10 +92,10 @@ export class BitbucketPullRequest extends PullRequest {
 
     const json = await res.json();
 
-    if(json.type === "error" && json.error) {
+    if (json.type === "error" && json.error) {
       throw new Error(json.error.message);
     }
-    
+
     return new this(source, destination, json.id, {
       body: json.description,
       title: json.title,
@@ -121,7 +117,6 @@ export class BitbucketPullRequest extends PullRequest {
         merge_strategy: method // "fast_forward", "squash", "merge_commit"
       }
     });
-
   }
 
   async _write() {}
