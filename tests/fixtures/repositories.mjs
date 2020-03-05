@@ -16,12 +16,12 @@ export const repositories = {
     repository: "sync-test-repository",
     branch: "aBranch"
   },
-  /*"https://bitbucket.org/some-owner/some-repo/src/master/C/D": {
+  "https://bitbucket.org/some-owner/some-repo/src/master/C/D": {
     base: "https://bitbucket.org",
     group: "some-owner",
     repository: "some-repo"
   },
-  "https://bitbucket.org/some-owner/some-repo/src/master/C/D#b": {
+  /*"https://bitbucket.org/some-owner/some-repo/src/master/C/D#b": {
     base: "https://bitbucket.org",
     group: "some-owner",
     repository: "some-repo",
