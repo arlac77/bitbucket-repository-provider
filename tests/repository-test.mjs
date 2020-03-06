@@ -87,15 +87,9 @@ test("locate repository several", async t => {
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
-  for (const rn of Object.keys(repoFixtures)) {
-    const repository = await provider.repository(rn);
-    await assertRepo(t, repository, repoFixtures[rn], rn);
-
-    /*if(repository) {
-    for await (const e of (await repository.branch("master"))) {
-      console.log(e.name);
-    }
-    }*/
+  for (const [name, repositoryFixture] of Object.entries(repoFixtures)) {
+    const repository = await provider.repository(name);
+    await assertRepo(t, repository, repositoryFixture, name);
   }
 });
 
