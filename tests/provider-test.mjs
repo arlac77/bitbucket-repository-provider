@@ -1,8 +1,6 @@
 import test from "ava";
 import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
 
-const REPOSITORY_URL =
-  "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git";
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
@@ -79,7 +77,6 @@ test("provider url git@ / ", async t => {
 
 test("provider repo with branch name", async t => {
   const provider = new BitbucketProvider(config);
-
   const branch = await provider.branch(REPOSITORY_NAME + "#master");
 
   t.is(branch.provider, provider);
