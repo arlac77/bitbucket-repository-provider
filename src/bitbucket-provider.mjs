@@ -38,7 +38,7 @@ export class BitbucketProvider extends Provider {
 
   /**
    * @param {Object} options
-   * @return {boolean} true if token an api are present
+   * @return {boolean} true if authentication is present
    */
   static areOptionsSufficciant(options) {
     return options.authentication !== undefined;
@@ -132,7 +132,7 @@ export class BitbucketProvider extends Provider {
       const r = await this.fetch(url);
 
       if (!r.ok) {
-        return undefined;
+        break;
       }
 
       const res = await r.json();
@@ -153,7 +153,7 @@ export class BitbucketProvider extends Provider {
       );
     } while (url);
 
-    return group;
+    return super.repositoryGroup(name);
   }
 
   fetch(url, options) {
