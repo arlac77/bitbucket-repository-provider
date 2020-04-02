@@ -1,3 +1,4 @@
+import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { Repository } from "repository-provider";
 
 /**
@@ -60,7 +61,7 @@ export class BitbucketRepository extends Repository {
     return this.provider.fetch(...args);
   }
 
-  async _fetchHooks() {
+  async initializeHooks() {
     let url = `repositories/${this.slug}/hooks`;
 
     do {
@@ -80,7 +81,7 @@ export class BitbucketRepository extends Repository {
     } while (url);
   }
 
-  async _fetchBranches() {
+  async initializeBranches() {
     let url = `repositories/${this.slug}/refs/branches`;
 
     do {
@@ -144,3 +145,11 @@ export class BitbucketRepository extends Repository {
     return super.deleteBranch(name);
   }
 }
+
+
+replaceWithOneTimeExecutionMethod(
+  BitbucketRepository.prototype,
+  "initializeBranches"
+);
+replaceWithOneTimeExecutionMethod(BitbucketRepository.prototype, "initializeHooks");
+replaceWithOneTimeExecutionMethod(BitbucketRepository.prototype, "initializePullRequests");
