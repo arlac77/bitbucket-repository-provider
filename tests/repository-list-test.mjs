@@ -7,13 +7,32 @@ test(
   BitbucketProvider.initialize(undefined, process.env),
   "xhubio/*",
   {
-    "decision-table-data-generator": { name: "decision-table-data-generator" }
+    "decision-table-data-generator": {
+      fullName: "xhubio/decision-table-data-generator",
+      name: "decision-table-data-generator",
+    },
   }
+);
+test(
+  repositoryListTest,
+  BitbucketProvider.initialize(undefined, process.env),
+  "xhubio/invalid_repository_name"
 );
 
 test(
   repositoryListTest,
   BitbucketProvider.initialize(undefined, process.env),
-  undefined,
+  "invalid_user_name/*"
+);
+
+test(
+  repositoryListTest,
+  BitbucketProvider.initialize(undefined, process.env),
   undefined
+);
+
+test(
+  repositoryListTest,
+  BitbucketProvider.initialize(undefined, process.env),
+  ""
 );
