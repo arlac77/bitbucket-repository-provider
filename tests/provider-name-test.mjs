@@ -12,6 +12,11 @@ test(
     url: "https://mydomain.org/repos/"
   }),
   {
+    "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git":{
+      base: "https://bitbucket.org/",
+      group: "arlac77",
+      repository: "sync-test-repository"
+    },
     "git+https://arlac77@mydomain.org/repos/arlac77/sync-test-repository.git": {
       base: "https://mydomain.org/repos/",
       group: "arlac77",
