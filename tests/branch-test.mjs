@@ -27,7 +27,7 @@ test.serial("branch delete", async t => {
 
   for await (const branch of repository.branches("test-*")) {
     const name = branch.name;
-    console.log(`DELETE ${branch}`);
+    //console.log(`DELETE ${branch}`);
     await repository.deleteBranch(name);
     t.is(await repository.branch(name), undefined);
   }
