@@ -7,10 +7,9 @@ test(
   BitbucketProvider.initialize(undefined, process.env),
   "xhubio/*",
   {
-    "decision-table-data-generator": {
-      fullName: "xhubio/decision-table-data-generator",
-      name: "decision-table-data-generator",
-    },
+    "xhubio/decision-table-data-generator": {
+      name: "decision-table-data-generator"
+    }
   }
 );
 test(
