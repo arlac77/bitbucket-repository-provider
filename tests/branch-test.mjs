@@ -25,11 +25,12 @@ test.serial("branch delete", async t => {
   const newName = `test-${new Date().getTime()}`;
   await repository.createBranch(newName);
 
-  for await (const branch of repository.branches("test-")) {
+  for await (const branch of repository.branches("test-*")) {
     const name = branch.name;
     console.log(`DELETE ${branch}`);
     await repository.deleteBranch(name);
     t.is(await repository.branch(name), undefined);
   }
+
   t.is(await repository.branch(newName), undefined);
 });
