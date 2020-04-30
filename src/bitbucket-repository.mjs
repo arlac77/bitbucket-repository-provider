@@ -67,7 +67,6 @@ export class BitbucketRepository extends Repository {
     do {
       const r = await this.fetch(url);
       const res = await r.json();
-      url = res.next;
       res.values.forEach(h => {
         this._hooks.push(
           new this.hookClass(this, h.name, new Set(h.events), {
@@ -78,6 +77,7 @@ export class BitbucketRepository extends Repository {
           })
         );
       });
+      url = res.next;
     } while (url);
   }
 
@@ -88,18 +88,15 @@ export class BitbucketRepository extends Repository {
       const r = await this.fetch(url);
       const res = await r.json();
 
-      if(res.type === 'error') {
+      if (res.type === "error") {
         break;
       }
-      
-      url = res.next;
-      res.values.forEach(b => {
-        const branch = new this.provider.branchClass(this, b.name, {
-          hash: b.target.hash
-        });
 
-        this._branches.set(branch.name, branch);
-      });
+    //  console.log(res);
+
+      res.values.forEach(b => this.addBranch(b.name, b.target));
+
+      url = res.next;
     } while (url);
   }
 
@@ -111,7 +108,8 @@ export class BitbucketRepository extends Repository {
    * @param {Object} options
    * @param {string} options.message
    */
-  async _createBranch(name, from = this.defaultBranch, options) {
+  async createBranch(name, from = this.defaultBranch, options) {
+    from = await from;
     const res = await this.fetch(`repositories/${this.slug}/refs/branches`, {
       method: "POST",
       data: {
@@ -124,9 +122,8 @@ export class BitbucketRepository extends Repository {
     //console.log(res.ok, res.status, res.statusText);
 
     const json = await res.json();
-    //console.log(json);
 
-    return super._createBranch(name, from, { hash: json.hash });
+    return super.addBranch(name, json);
   }
 
   /**
@@ -146,10 +143,15 @@ export class BitbucketRepository extends Repository {
   }
 }
 
-
 replaceWithOneTimeExecutionMethod(
   BitbucketRepository.prototype,
   "initializeBranches"
 );
-replaceWithOneTimeExecutionMethod(BitbucketRepository.prototype, "initializeHooks");
-replaceWithOneTimeExecutionMethod(BitbucketRepository.prototype, "initializePullRequests");
+replaceWithOneTimeExecutionMethod(
+  BitbucketRepository.prototype,
+  "initializeHooks"
+);
+replaceWithOneTimeExecutionMethod(
+  BitbucketRepository.prototype,
+  "initializePullRequests"
+);

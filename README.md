@@ -45,7 +45,7 @@ repository provider for bitbucket
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
-    -   [\_createBranch](#_createbranch)
+    -   [createBranch](#createbranch)
         -   [Parameters](#parameters-6)
     -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-7)
@@ -208,7 +208,7 @@ Deliver the url of issue tracking system.
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
 
-### \_createBranch
+### createBranch
 
 -   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post>
     **
