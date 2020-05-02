@@ -6,7 +6,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "main": "src/bitbucket-provider.mjs",
+  "main": "./src/bitbucket-provider.mjs",
   "exports": {
     ".": "./src/bitbucket-provider.mjs",
     "./": "./"
