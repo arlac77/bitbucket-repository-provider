@@ -112,7 +112,9 @@ export class BitbucketProvider extends Provider {
 
   async *repositoryGroups(patterns) {
     const rg = await this.repositoryGroup(patterns);
-    if(rg !== undefined) { yield rg; }
+    if (rg !== undefined) {
+      yield rg;
+    }
   }
 
   async repositoryGroup(name) {
@@ -138,19 +140,11 @@ export class BitbucketProvider extends Provider {
       const res = await r.json();
 
       url = res.next;
-      await Promise.all(
-        res.values.map(async b => {
-          const groupName = b.owner.nickname || b.owner.username;
-          group = this._repositoryGroups.get(groupName);
-          if (group === undefined) {
-            group = new this.repositoryGroupClass(this, groupName, b.owner);
-            this._repositoryGroups.set(group.name, group);
-          }
-
-          const repository = new this.repositoryClass(group, b.name, b);
-          group._repositories.set(repository.name, repository);
-        })
-      );
+      res.values.map(b => {
+        const groupName = b.owner.nickname || b.owner.username;
+        group = this.addRepositoryGroup(groupName, b.owner);
+        group.addRepository(b.name, b);
+      });
     } while (url);
 
     return super.repositoryGroup(name);
