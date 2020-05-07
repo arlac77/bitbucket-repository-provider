@@ -68,7 +68,7 @@ export class BitbucketRepository extends Repository {
       const r = await this.fetch(url);
       const res = await r.json();
       res.values.forEach(h => {
-        this._hooks.push(
+        this.addHook(
           new this.hookClass(this, h.name, new Set(h.events), {
             id: h.uuid,
             active: h.active,
