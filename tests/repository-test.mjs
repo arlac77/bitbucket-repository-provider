@@ -52,7 +52,7 @@ const repoFixtures = {
     name: "decision-table-data-generator",
     fullName: "xhubio/decision-table-data-generator",
     //uuid: '{1fbf1cff-a829-473c-bd42-b5bd684868a1}',
-    description: undefined,
+   // description: undefined,
     branch: "master",
     entries: { "package.json": {}, ".jsdoc.json": {} }
   },
@@ -84,7 +84,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(45);
+  t.plan(644);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
