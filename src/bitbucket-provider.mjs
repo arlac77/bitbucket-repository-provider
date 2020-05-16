@@ -1,11 +1,16 @@
 import fetch from "node-fetch";
 
-import { Provider } from "repository-provider";
+import { Provider, mapAttributes } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
 import { BitbucketPullRequest } from "./bitbucket-pull-request.mjs";
 
 export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest };
+
+const repositoryAttributeMapping = {
+  is_private: "isPrivate",
+  website: "homePageURL"
+};
 
 /**
  * Provider for bitbucket repositories
@@ -143,7 +148,7 @@ export class BitbucketProvider extends Provider {
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
         group = this.addRepositoryGroup(groupName, b.owner);
-        group.addRepository(b.name, b);
+        group.addRepository(b.name, mapAttributes(b, repositoryAttributeMapping));
       });
     } while (url);
 
