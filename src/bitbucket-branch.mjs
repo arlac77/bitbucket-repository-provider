@@ -1,11 +1,11 @@
 import micromatch from "micromatch";
 import { Branch } from "repository-provider";
 import {
+  ContentEntry,
   BufferContentEntry,
   BufferContentEntryMixin,
   BaseCollectionEntry
 } from "content-entry";
-import { ContentEntry } from "content-entry/src/content-entry.mjs";
 
 /**
  * Branch of a bitbucket repository
