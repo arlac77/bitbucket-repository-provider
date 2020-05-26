@@ -1,5 +1,5 @@
 import micromatch from "micromatch";
-import { Branch } from "repository-provider";
+import { Branch, match } from "repository-provider";
 import {
   ContentEntry,
   BufferContentEntry,
@@ -55,22 +55,12 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/?max_depth=99`
     );
 
-    const e = entry => {
-      return entry.type === "commit_directory"
-        ? new BaseCollectionEntry(entry.path)
-        : new LazyBufferContentEntry(entry.path, this);
-    };
-
     const res = await r.json();
 
-    for (const entry of res.values) {
-      if (patterns === undefined) {
-        yield e(entry);
-      } else {
-        if (micromatch([entry.path], patterns).length === 1) {
-          yield e(entry);
-        }
-      }
+    for (const entry of match(res.values, patterns, entry => entry.path)) {
+      yield entry.type === "commit_directory"
+          ? new BaseCollectionEntry(entry.path)
+          : new LazyBufferContentEntry(entry.path, this);
     }
   }
 
