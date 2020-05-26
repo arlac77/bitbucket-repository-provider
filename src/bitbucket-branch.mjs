@@ -1,4 +1,3 @@
-import micromatch from "micromatch";
 import { Branch, match } from "repository-provider";
 import {
   ContentEntry,
