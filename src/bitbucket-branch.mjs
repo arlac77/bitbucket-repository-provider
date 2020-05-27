@@ -56,7 +56,7 @@ export class BitbucketBranch extends Branch {
 
     const res = await r.json();
 
-    for (const entry of match(res.values, patterns, entry => entry.path)) {
+    for (const entry of match(res.values, patterns, { getName: entry => entry.path })) {
       yield entry.type === "commit_directory"
           ? new BaseCollectionEntry(entry.path)
           : new LazyBufferContentEntry(entry.path, this);
