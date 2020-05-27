@@ -50,7 +50,7 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
-   * known environment variables
+   * Known environment variables
    * @return {Object}
    * @return {string} BITBUCKET_API api
    * @return {string} BB_TOKEN api token
