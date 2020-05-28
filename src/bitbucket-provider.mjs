@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 
 import { Provider, mapAttributes } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
@@ -36,7 +37,7 @@ export class BitbucketProvider extends Provider {
   static get defaultOptions() {
     return {
       url: "https://bitbucket.org",
-      api: "https://api.bitbucket.org/2.0",
+      api: "https://api.bitbucket.org/2.0/",
       authentication: {}
     };
   }
@@ -115,6 +116,7 @@ export class BitbucketProvider extends Provider {
     ];
   }
 
+  /*
   async *repositoryGroups(patterns) {
     const rg = await this.repositoryGroup(patterns);
     if (rg !== undefined) {
@@ -138,6 +140,7 @@ export class BitbucketProvider extends Provider {
     do {
       const r = await this.fetch(url);
 
+      console.log(r);
       if (!r.ok) {
         break;
       }
@@ -148,14 +151,43 @@ export class BitbucketProvider extends Provider {
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
         group = this.addRepositoryGroup(groupName, b.owner);
-        group.addRepository(b.name, mapAttributes(b, repositoryAttributeMapping));
+        group.addRepository(
+          b.name,
+          mapAttributes(b, repositoryAttributeMapping)
+        );
       });
     } while (url);
 
     return super.repositoryGroup(name);
   }
+*/
 
-  fetch(url, options={}) {
+  async initializeRepositories() {
+    let url = `repositories/?role=contributor`;
+
+    do {
+      const r = await this.fetch(url);
+
+      //console.log(r);
+      if (!r.ok) {
+        break;
+      }
+
+      const res = await r.json();
+
+      url = res.next;
+      res.values.map(b => {
+        const groupName = b.owner.nickname || b.owner.username;
+        const group = this.addRepositoryGroup(groupName, b.owner);
+        group.addRepository(
+          b.name,
+          mapAttributes(b, repositoryAttributeMapping)
+        );
+      });
+    } while (url);
+  }
+
+  fetch(url, options = {}) {
     const headers = {
       authorization:
         "Basic " +
@@ -171,11 +203,16 @@ export class BitbucketProvider extends Provider {
       headers["Content-Type"] = "application/json";
     }
 
-    return fetch(`${this.api}/${url}`, {
+    return fetch(new URL(url, this.api), {
       ...options,
       headers
     });
   }
 }
+
+replaceWithOneTimeExecutionMethod(
+  BitbucketProvider.prototype,
+  "initializeRepositories"
+);
 
 export default BitbucketProvider;

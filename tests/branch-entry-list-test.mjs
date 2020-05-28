@@ -7,9 +7,9 @@ const REPOSITORY_URL =
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
+const provider = new BitbucketProvider(config);
 
 test("branch entries list", async t => {
-  const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const branch = await repository.branch("master");
   await entryListTest(t, branch, undefined, {
@@ -21,7 +21,6 @@ test("branch entries list", async t => {
 });
 
 test("branch entries list with pattern", async t => {
-  const provider = new BitbucketProvider(config);
   const repository = await provider.repository(REPOSITORY_NAME);
   const branch = await repository.branch("master");
 
@@ -31,9 +30,7 @@ test("branch entries list with pattern", async t => {
   });
 });
 
-
 test("branch entry", async t => {
-  const provider = new BitbucketProvider(config);
   const branch = await provider.branch(REPOSITORY_NAME);
   const entry = await branch.entry("README.md");
   t.is(entry.name, "README.md");
