@@ -177,3 +177,5 @@ export class BitbucketProvider extends Provider {
     });
   }
 }
+
+export default BitbucketProvider;
