@@ -92,8 +92,6 @@ export class BitbucketRepository extends Repository {
         break;
       }
 
-    //  console.log(res);
-
       res.values.forEach(b => this.addBranch(b.name, b.target));
 
       url = res.next;

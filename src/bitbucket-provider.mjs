@@ -115,65 +115,19 @@ export class BitbucketProvider extends Provider {
       "ssh@bitbucket.org:"
     ];
   }
-
-  /*
-  async *repositoryGroups(patterns) {
-    const rg = await this.repositoryGroup(patterns);
-    if (rg !== undefined) {
-      yield rg;
-    }
-  }
-
-  async repositoryGroup(name) {
-    let group = await super.repositoryGroup(name);
-
-    if (group !== undefined) {
-      return group;
-    }
-
-    if (name === undefined) {
-      return undefined;
-    }
-
-    let url = `repositories/${name}`; // + '?role=contributor';
-
-    do {
-      const r = await this.fetch(url);
-
-      console.log(r);
-      if (!r.ok) {
-        break;
-      }
-
-      const res = await r.json();
-
-      url = res.next;
-      res.values.map(b => {
-        const groupName = b.owner.nickname || b.owner.username;
-        group = this.addRepositoryGroup(groupName, b.owner);
-        group.addRepository(
-          b.name,
-          mapAttributes(b, repositoryAttributeMapping)
-        );
-      });
-    } while (url);
-
-    return super.repositoryGroup(name);
-  }
-*/
-
   async initializeRepositories() {
     let url = `repositories/?role=contributor`;
 
     do {
       const r = await this.fetch(url);
 
-      //console.log(r);
       if (!r.ok) {
         break;
       }
 
       const res = await r.json();
+
+      //console.log(JSON.stringify(res,undefined,2));
 
       url = res.next;
       res.values.map(b => {

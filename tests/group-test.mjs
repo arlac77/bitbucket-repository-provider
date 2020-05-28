@@ -9,4 +9,5 @@ test("groups by short name", async t => {
   const group = await provider.repositoryGroup("xhubio");
 
   t.is(group.name, "xhubio");
+  t.is(group.type, "team");
 });
