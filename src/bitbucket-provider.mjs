@@ -155,24 +155,20 @@ export class BitbucketProvider extends Provider {
     return super.repositoryGroup(name);
   }
 
-  fetch(url, options) {
-    let headers = {
+  fetch(url, options={}) {
+    const headers = {
       authorization:
         "Basic " +
         Buffer.from(
           this.authentication.username + ":" + this.authentication.password
-        ).toString("base64")
+        ).toString("base64"),
+      ...options.headers
     };
 
-    if (options) {
-      if (options.headers) {
-        headers = { ...options.headers, ...headers };
-      }
-      if (options.data) {
-        options.body = JSON.stringify(options.data);
-        delete options.data;
-        headers["Content-Type"] = "application/json";
-      }
+    if (options.data) {
+      options.body = JSON.stringify(options.data);
+      delete options.data;
+      headers["Content-Type"] = "application/json";
     }
 
     return fetch(`${this.api}/${url}`, {
