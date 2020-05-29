@@ -10,4 +10,5 @@ test("groups by short name", async t => {
 
   t.is(group.name, "xhubio");
   t.is(group.type, "team");
+  t.is(group.displayName, "xhubio");
 });

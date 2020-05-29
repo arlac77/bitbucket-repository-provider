@@ -13,6 +13,10 @@ const repositoryAttributeMapping = {
   website: "homePageURL"
 };
 
+const groupAttributeMapping = {
+  display_name: "displayName"
+};
+
 /**
  * Provider for bitbucket repositories
  *
@@ -127,12 +131,10 @@ export class BitbucketProvider extends Provider {
 
       const res = await r.json();
 
-      //console.log(JSON.stringify(res,undefined,2));
-
       url = res.next;
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
-        const group = this.addRepositoryGroup(groupName, b.owner);
+        const group = this.addRepositoryGroup(groupName, mapAttributes(b.owner, groupAttributeMapping));
         group.addRepository(
           b.name,
           mapAttributes(b, repositoryAttributeMapping)
