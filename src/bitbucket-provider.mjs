@@ -15,6 +15,7 @@ const repositoryAttributeMapping = {
 
 const groupAttributeMapping = {
   display_name: "displayName"
+  //website: "homePageURL"
 };
 
 /**
