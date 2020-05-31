@@ -1,22 +1,13 @@
 import fetch from "node-fetch";
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 
-import { Provider, mapAttributes } from "repository-provider";
+import { Provider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
+import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
 import { BitbucketPullRequest } from "./bitbucket-pull-request.mjs";
 
-export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest };
-
-const repositoryAttributeMapping = {
-  is_private: "isPrivate",
-  website: "homePageURL"
-};
-
-const groupAttributeMapping = {
-  display_name: "displayName"
-  //website: "homePageURL"
-};
+export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest, BitbucketRepositoryGroup };
 
 /**
  * Provider for bitbucket repositories
@@ -86,6 +77,13 @@ export class BitbucketProvider extends Provider {
   }
 
   /**
+   * @return {Class} repository group class used by the Provider
+   */
+  get repositoryGroupClass() {
+    return BitbucketRepositoryGroup;
+  }
+
+  /**
    * @return {Class} BitbucketRepository
    */
   get repositoryClass() {
@@ -135,11 +133,8 @@ export class BitbucketProvider extends Provider {
       url = res.next;
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
-        const group = this.addRepositoryGroup(groupName, mapAttributes(b.owner, groupAttributeMapping));
-        group.addRepository(
-          b.name,
-          mapAttributes(b, repositoryAttributeMapping)
-        );
+        const group = this.addRepositoryGroup(groupName, b.owner);
+        group.addRepository( b.name, b);
       });
     } while (url);
   }

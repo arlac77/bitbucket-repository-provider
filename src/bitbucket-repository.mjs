@@ -22,6 +22,14 @@ export class BitbucketRepository extends Repository {
     };
   }
 
+  static get attributMapping() {
+    return {
+      ...super.attributeMappin,
+      is_private: "isPrivate",
+      website: "homePageURL"
+    };
+  }
+
   constructor(owner, name, options) {
     super(owner, name, options);
 
