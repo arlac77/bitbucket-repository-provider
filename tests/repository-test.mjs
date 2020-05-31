@@ -1,7 +1,6 @@
 import test from "ava";
 import { assertRepo, assertBranch } from "repository-provider-test-support";
-import { BitbucketRepository } from "../src/bitbucket-repository.mjs";
-import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
+import { BitbucketRepository, BitbucketProvider } from "bitbucket-repository-provider";
 
 const owner1 = {
   name: "arlac77",

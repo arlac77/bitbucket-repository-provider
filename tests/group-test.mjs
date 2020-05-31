@@ -1,5 +1,5 @@
 import test from "ava";
-import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
+import { BitbucketProvider } from "bitbucket-repository-provider";
 
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);

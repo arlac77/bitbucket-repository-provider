@@ -1,7 +1,7 @@
 import test from "ava";
 import { providerParseNameTest } from "repository-provider-test-support";
 import { repositories } from "./fixtures/repositories.mjs";
-import { BitbucketProvider } from "../src/bitbucket-provider.mjs";
+import { BitbucketProvider } from "bitbucket-repository-provider";
 
 test(providerParseNameTest, new BitbucketProvider(), repositories);
 
