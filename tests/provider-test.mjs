@@ -1,5 +1,5 @@
 import test from "ava";
-import { BitbucketProvider } from "bitbucket-repository-provider";
+import BitbucketProvider from "bitbucket-repository-provider";
 
 const REPOSITORY_NAME = "arlac77/sync-test-repository";
 

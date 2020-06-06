@@ -1,6 +1,6 @@
 import test from "ava";
 import { repositoryListTest } from "repository-provider-test-support";
-import { BitbucketProvider } from "bitbucket-repository-provider";
+import BitbucketProvider from "bitbucket-repository-provider";
 
 const provider = BitbucketProvider.initialize(undefined, process.env);
 
