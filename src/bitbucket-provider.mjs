@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 
-import { Provider } from "repository-provider";
+import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
@@ -25,7 +25,7 @@ export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest, BitbucketRe
  * @param {string} config.authentication.username
  * @param {string} config.authentication.password
  */
-export class BitbucketProvider extends Provider {
+export class BitbucketProvider extends MultiGroupProvider {
   /**
    * Default configuration as given for the cloud privider
    * @return {Object}
