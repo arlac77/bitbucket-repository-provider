@@ -22,6 +22,7 @@ repository provider for bitbucket
 
 -   [BitbucketProvider](#bitbucketprovider)
     -   [Parameters](#parameters)
+    -   [repositoryGroupClass](#repositorygroupclass)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
     -   [pullRequestClass](#pullrequestclass)
@@ -39,6 +40,7 @@ repository provider for bitbucket
         -   [Parameters](#parameters-4)
     -   [defaultOptions](#defaultoptions-1)
 -   [hash](#hash)
+-   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
 -   [BitbucketRepository](#bitbucketrepository)
     -   [Parameters](#parameters-5)
     -   [Properties](#properties)
@@ -80,6 +82,10 @@ Supported name schemes are
         -   `config.authentication.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
         -   `config.authentication.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### repositoryGroupClass
+
+Returns **Class** repository group class used by the Provider
+
 ### repositoryClass
 
 Returns **Class** BitbucketRepository
@@ -114,7 +120,7 @@ Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### environmentOptions
 
-known environment variables
+Known environment variables
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -171,6 +177,10 @@ options
 api url.
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## BitbucketRepositoryGroup
+
+**Extends RepositoryGroup**
 
 ## BitbucketRepository
 
