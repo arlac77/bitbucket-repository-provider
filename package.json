@@ -12,8 +12,8 @@
   },
   "description": "repository provider for bitbucket",
   "keywords": [
-    "git",
     "bitbucket",
+    "git",
     "repository-provider"
   ],
   "contributors": [
