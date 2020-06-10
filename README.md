@@ -61,7 +61,7 @@ repository provider for bitbucket
 
 ## BitbucketProvider
 
-**Extends Provider**
+**Extends MultiGroupProvider**
 
 Provider for bitbucket repositories
 
