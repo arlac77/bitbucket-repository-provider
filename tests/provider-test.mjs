@@ -15,7 +15,11 @@ test("optionsFromEnvironment user", t => {
       BITBUCKET_USERNAME: "user",
       BITBUCKET_PASSWORD: "pass"
     }),
-    { authentication: { type: "basic", username: "user", password: "pass" } }
+    {
+      "authentication.username": "user",
+      "authentication.password": "pass",
+      "authentication.type": "basic"
+    }
   );
 });
 
@@ -33,13 +37,13 @@ test("optionsFromEnvironment token", t => {
     BitbucketProvider.optionsFromEnvironment({
       BB_TOKEN: "1234"
     }),
-    { authentication: { type: "token", token: "1234" } }
+    { "authentication.token": "1234", "authentication.type": "token" }
   );
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_TOKEN: "1234"
     }),
-    { authentication: { type: "token", token: "1234" } }
+    { "authentication.token": "1234", "authentication.type": "token" }
   );
 });
 
@@ -53,7 +57,7 @@ test("provider branches", async t => {
     "https://bitbucket.org/arlac77/sync-test-repository.git"
   );
 
-  for await(const branch of repository.branches('master')) {
+  for await (const branch of repository.branches("master")) {
     t.is(branch.name, "master");
   }
 });
@@ -68,9 +72,11 @@ test("provider repository undefined", async t => {
 test("provider url git@ / ", async t => {
   const provider = new BitbucketProvider(config);
   t.is(
-    (await provider.repository(
-      "git@bitbucket.org/arlac77/sync-test-repository.git"
-    )).name,
+    (
+      await provider.repository(
+        "git@bitbucket.org/arlac77/sync-test-repository.git"
+      )
+    ).name,
     "sync-test-repository"
   );
 });

@@ -14,14 +14,14 @@ export class BitbucketBranch extends Branch {
   /**
    * options
    */
-  static get defaultOptions() {
+  static get attributes() {
     return {
+      ...super.attributes,
       /**
        * api url.
        * @return {string}
        */
       hash: undefined,
-      ...super.defaultOptions
     };
   }
 

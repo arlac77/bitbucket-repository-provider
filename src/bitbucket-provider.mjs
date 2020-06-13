@@ -7,7 +7,12 @@ import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
 import { BitbucketPullRequest } from "./bitbucket-pull-request.mjs";
 
-export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest, BitbucketRepositoryGroup };
+export {
+  BitbucketBranch,
+  BitbucketRepository,
+  BitbucketPullRequest,
+  BitbucketRepositoryGroup
+};
 
 /**
  * Provider for bitbucket repositories
@@ -17,6 +22,12 @@ export { BitbucketBranch, BitbucketRepository, BitbucketPullRequest, BitbucketRe
  * - git+https://user:aSecret@bitbucket.org/owner/repo-name.git
  * - git@bitbucket.org:owner/repo-name.git
  * - owner/repo-name
+ * Known environment variables
+ * - BITBUCKET_API api
+ * - BB_TOKEN api token
+ * - BITBUCKET_TOKEN api token
+ * - BITBUCKET_USERNAME username
+ * - BITBUCKET_PASSWORD password
  * @param {Object} config
  * @param {string} config.url provider scm base
  * @param {string} config.api provider api base
@@ -30,11 +41,29 @@ export class BitbucketProvider extends MultiGroupProvider {
    * Default configuration as given for the cloud privider
    * @return {Object}
    */
-  static get defaultOptions() {
+  static get attributes() {
     return {
-      url: "https://bitbucket.org",
-      api: "https://api.bitbucket.org/2.0/",
-      authentication: {}
+      ...super.attributes,
+      url: "https://bitbucket.org/",
+      api: {
+        env: "BITBUCKET_API",
+        default: "https://api.bitbucket.org/2.0/"
+      },
+      "authentication.token": {
+        env: ["BITBUCKET_TOKEN", "BB_TOKEN"],
+        additionalAttributes: { "authentication.type": "token" },
+        private: true
+      },
+      "authentication.password": {
+        env: "BITBUCKET_PASSWORD",
+        additionalAttributes: { "authentication.type": "basic" },
+        private: true
+      },
+      "authentication.username": {
+        env: "BITBUCKET_USERNAME",
+        additionalAttributes: { "authentication.type": "basic" }
+      },
+      "authentication.type": {}
     };
   }
 
@@ -43,37 +72,7 @@ export class BitbucketProvider extends MultiGroupProvider {
    * @return {boolean} true if authentication is present
    */
   static areOptionsSufficciant(options) {
-    return options.authentication !== undefined;
-  }
-
-  /**
-   * Known environment variables
-   * @return {Object}
-   * @return {string} BITBUCKET_API api
-   * @return {string} BB_TOKEN api token
-   * @return {string} BITBUCKET_TOKEN api token
-   * @return {string} BITBUCKET_USERNAME username
-   * @return {string} BITBUCKET_PASSWORD password
-   */
-  static get environmentOptions() {
-    const tokenDef = {
-      path: "authentication.token",
-      template: { type: "token" }
-    };
-
-    return {
-      BITBUCKET_API: "api",
-      BB_TOKEN: tokenDef,
-      BITBUCKET_TOKEN: tokenDef,
-      BITBUCKET_USERNAME: {
-        path: "authentication.username",
-        template: { type: "basic" }
-      },
-      BITBUCKET_PASSWORD: {
-        path: "authentication.password",
-        template: { type: "basic" }
-      }
-    };
+    return options["authentication.type"] !== undefined;
   }
 
   /**
@@ -134,7 +133,7 @@ export class BitbucketProvider extends MultiGroupProvider {
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
         const group = this.addRepositoryGroup(groupName, b.owner);
-        group.addRepository( b.name, b);
+        group.addRepository(b.name, b);
       });
     } while (url);
   }

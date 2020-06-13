@@ -14,11 +14,11 @@ import { Repository } from "repository-provider";
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
-  static get defaultOptions() {
+  static get attributes() {
     return {
+      ...super.attributes,
       size: undefined,
-      language: undefined,
-      ...super.defaultOptions
+      language: undefined
     };
   }
 
@@ -46,7 +46,7 @@ export class BitbucketRepository extends Repository {
    * @return {string[]} url
    */
   get urls() {
-    return [`${this.provider.url}/${this.slug}.git`];
+    return [`${this.provider.url}${this.slug}.git`];
   }
 
   /**
