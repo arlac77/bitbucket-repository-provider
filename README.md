@@ -27,10 +27,9 @@ repository provider for bitbucket
     -   [branchClass](#branchclass)
     -   [pullRequestClass](#pullrequestclass)
     -   [repositoryBases](#repositorybases)
-    -   [defaultOptions](#defaultoptions)
+    -   [attributes](#attributes)
     -   [areOptionsSufficciant](#areoptionssufficciant)
         -   [Parameters](#parameters-1)
-    -   [environmentOptions](#environmentoptions)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
         -   [Parameters](#parameters-2)
@@ -38,7 +37,7 @@ repository provider for bitbucket
         -   [Parameters](#parameters-3)
     -   [commit](#commit)
         -   [Parameters](#parameters-4)
-    -   [defaultOptions](#defaultoptions-1)
+    -   [attributes](#attributes-1)
 -   [hash](#hash)
 -   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
 -   [BitbucketRepository](#bitbucketrepository)
@@ -71,6 +70,12 @@ Supported name schemes are
 -   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
 -   git@bitbucket.org:owner/repo-name.git
 -   owner/repo-name
+    Known environment variables
+-   BITBUCKET_API api
+-   BB_TOKEN api token
+-   BITBUCKET_TOKEN api token
+-   BITBUCKET_USERNAME username
+-   BITBUCKET_PASSWORD password
 
 ### Parameters
 
@@ -104,7 +109,7 @@ All possible base urls
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
-### defaultOptions
+### attributes
 
 Default configuration as given for the cloud privider
 
@@ -117,22 +122,6 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if authentication is present
-
-### environmentOptions
-
-Known environment variables
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_API api
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BB_TOKEN api token
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_TOKEN api token
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_USERNAME username
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** BITBUCKET_PASSWORD password
 
 ## BitbucketBranch
 
@@ -168,7 +157,7 @@ Commit entries
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
-### defaultOptions
+### attributes
 
 options
 
