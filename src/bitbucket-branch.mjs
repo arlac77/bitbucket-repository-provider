@@ -21,7 +21,7 @@ export class BitbucketBranch extends Branch {
        * api url.
        * @return {string}
        */
-      hash: undefined,
+      hash: {}
     };
   }
 

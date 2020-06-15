@@ -17,8 +17,8 @@ export class BitbucketRepository extends Repository {
   static get attributes() {
     return {
       ...super.attributes,
-      size: undefined,
-      language: undefined
+      size: {},
+      language: {}
     };
   }
 

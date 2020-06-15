@@ -44,7 +44,9 @@ export class BitbucketProvider extends MultiGroupProvider {
   static get attributes() {
     return {
       ...super.attributes,
-      url: "https://bitbucket.org/",
+      url: {
+        default: "https://bitbucket.org/"
+      },
       api: {
         description: "URL of the provider api",
         env: "BITBUCKET_API",
@@ -67,7 +69,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         env: "BITBUCKET_USERNAME",
         additionalAttributes: { "authentication.type": "basic" }
       },
-      "authentication.type": {}
+//      "authentication.type": {}
     };
   }
 
