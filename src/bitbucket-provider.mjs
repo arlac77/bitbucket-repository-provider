@@ -68,8 +68,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         description: "username for plain authentification",
         env: "BITBUCKET_USERNAME",
         additionalAttributes: { "authentication.type": "basic" }
-      },
-//      "authentication.type": {}
+      }
     };
   }
 
@@ -123,12 +122,13 @@ export class BitbucketProvider extends MultiGroupProvider {
       "ssh@bitbucket.org:"
     ];
   }
+
   async initializeRepositories() {
     let url = `repositories/?role=contributor`;
 
     do {
       const r = await this.fetch(url);
-
+      
       if (!r.ok) {
         break;
       }
