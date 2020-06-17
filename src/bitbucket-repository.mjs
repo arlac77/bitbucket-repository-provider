@@ -30,10 +30,6 @@ export class BitbucketRepository extends Repository {
     });
   }
 
-  get slug() {
-    return `${this.owner.name}/${this.name}`;
-  }
-
   /**
    * @return {string[]} url
    */
