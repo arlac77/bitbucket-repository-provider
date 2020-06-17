@@ -14,14 +14,6 @@ import { Repository } from "repository-provider";
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
-  static get attributes() {
-    return {
-      ...super.attributes,
-      size: {},
-      language: {}
-    };
-  }
-
   static get attributMapping() {
     return {
       ...super.attributeMappin,
