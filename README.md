@@ -27,8 +27,9 @@ repository provider for bitbucket
     -   [branchClass](#branchclass)
     -   [pullRequestClass](#pullrequestclass)
     -   [repositoryBases](#repositorybases)
+    -   [initializeRepositories](#initializerepositories)
     -   [attributes](#attributes)
-    -   [areOptionsSufficciant](#areoptionssufficciant)
+    -   [areOptionsSufficcient](#areoptionssufficcient)
         -   [Parameters](#parameters-1)
 -   [BitbucketBranch](#bitbucketbranch)
     -   [entry](#entry)
@@ -109,13 +110,18 @@ All possible base urls
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
+### initializeRepositories
+
+-   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
+    **
+
 ### attributes
 
 Default configuration as given for the cloud privider
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### areOptionsSufficciant
+### areOptionsSufficcient
 
 #### Parameters
 
