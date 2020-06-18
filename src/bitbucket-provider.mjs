@@ -76,7 +76,7 @@ export class BitbucketProvider extends MultiGroupProvider {
    * @param {Object} options
    * @return {boolean} true if authentication is present
    */
-  static areOptionsSufficciant(options) {
+  static areOptionsSufficcient(options) {
     return options["authentication.type"] !== undefined;
   }
 
