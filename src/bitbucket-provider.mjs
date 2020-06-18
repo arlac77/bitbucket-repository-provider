@@ -123,25 +123,28 @@ export class BitbucketProvider extends MultiGroupProvider {
     ];
   }
 
+  /**
+   * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories
+   */
   async initializeRepositories() {
-    let url = `repositories/?role=contributor`;
+    let next = `repositories/?role=contributor`;
 
     do {
-      const r = await this.fetch(url);
-      
-      if (!r.ok) {
+      const response = await this.fetch(next);
+
+      if (!response.ok) {
         break;
       }
 
-      const res = await r.json();
+      const res = await response.json();
 
-      url = res.next;
+      next = res.next;
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
         const group = this.addRepositoryGroup(groupName, b.owner);
         group.addRepository(b.name, b);
       });
-    } while (url);
+    } while (next);
   }
 
   fetch(url, options = {}) {
