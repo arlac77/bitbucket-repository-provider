@@ -53,19 +53,20 @@ export class BitbucketProvider extends MultiGroupProvider {
         default: "https://api.bitbucket.org/2.0/"
       },
       "authentication.token": {
-        description: "api token",
+        description: "API token",
+        // BB_TOKEN_BASIC_AUTH is this the same ?
         env: ["BITBUCKET_TOKEN", "BB_TOKEN"],
         additionalAttributes: { "authentication.type": "token" },
         private: true
       },
       "authentication.password": {
-        description: "password for plain authentification",
+        description: "Password for plain authentification",
         env: "BITBUCKET_PASSWORD",
         additionalAttributes: { "authentication.type": "basic" },
         private: true
       },
       "authentication.username": {
-        description: "username for plain authentification",
+        description: "Username for plain authentification",
         env: "BITBUCKET_USERNAME",
         additionalAttributes: { "authentication.type": "basic" }
       }
