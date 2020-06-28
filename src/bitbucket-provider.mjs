@@ -14,6 +14,8 @@ export {
   BitbucketRepositoryGroup
 };
 
+const domain = "bitbucket.org";
+
 /**
  * Provider for bitbucket repositories
  *
@@ -45,12 +47,12 @@ export class BitbucketProvider extends MultiGroupProvider {
     return {
       ...super.attributes,
       url: {
-        default: "https://bitbucket.org/"
+        default: `https://${domain}/`
       },
       api: {
         description: "URL of the provider api",
         env: "BITBUCKET_API",
-        default: "https://api.bitbucket.org/2.0/"
+        default: `https://api.${domain}/2.0/`
       },
       "authentication.token": {
         description: "API token",
@@ -116,11 +118,11 @@ export class BitbucketProvider extends MultiGroupProvider {
   get repositoryBases() {
     return [
       this.url,
-      "ssh://bitbucket.org",
-      "git@bitbucket.org:",
-      "git@bitbucket.org/",
-      "git+ssh@bitbucket.org:",
-      "ssh@bitbucket.org:"
+      `ssh://${domain}`,
+      `git@${domain}:`,
+      `git@${domain}/`,
+      `git+ssh@${domain}:`,
+      `ssh@${domain}:`
     ];
   }
 
