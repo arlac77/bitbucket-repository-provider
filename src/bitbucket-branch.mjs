@@ -18,10 +18,10 @@ export class BitbucketBranch extends Branch {
     return {
       ...super.attributes,
       /**
-       * api url.
+       *
        * @return {string}
        */
-      hash: {}
+      hash: { type: "string" }
     };
   }
 
