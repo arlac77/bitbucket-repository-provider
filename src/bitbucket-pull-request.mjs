@@ -108,7 +108,7 @@ export class BitbucketPullRequest extends PullRequest {
    */
   async _merge(method = "merge_commit") {
     const url = `repositories/${this.destination.slug}/pullrequests/${this.number}/merge`;
-    const res = await this.destination.fetch(url, {
+    return this.destination.fetch(url, {
       type: "a type",
       message: "a message",
       method: "POST",

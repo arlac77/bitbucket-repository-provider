@@ -128,7 +128,10 @@ export class BitbucketRepository extends Repository {
     //console.log(res.ok, res.status, res.statusText);
     //const p = await res.json();
     //console.log(p);
-    return super.deleteBranch(name);
+
+    if(res.ok) {
+      return super.deleteBranch(name);
+    }
   }
 }
 

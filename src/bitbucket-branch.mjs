@@ -42,8 +42,9 @@ export class BitbucketBranch extends Branch {
     const res = await this.fetch(
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
-
-    return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
+    if(res.ok) {
+      return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
+    }
   }
 
   /**
