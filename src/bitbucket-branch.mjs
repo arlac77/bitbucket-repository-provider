@@ -82,18 +82,13 @@ export class BitbucketBranch extends Branch {
       searchParams.set(u.name, await u.getString());
     }
 
-    const res = await this.fetch(`repositories/${this.slug}/src`, {
+    return this.fetch(`repositories/${this.slug}/src`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: searchParams
     });
-
-    //console.log(res.ok, res.status, res.statusText);
-
-    //const text = await res.text();
-    //console.log(text);
   }
 
   get entryClass() {
