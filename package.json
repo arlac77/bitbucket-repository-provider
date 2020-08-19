@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "content-entry": "^2.5.0",
-    "matching-iterator": "^1.1.0",
+    "matching-iterator": "^1.1.2",
     "node-fetch": "3.0.0-beta.8",
     "one-time-execution-method": "^2.0.1",
-    "repository-provider": "^23.6.4"
+    "repository-provider": "^23.6.5"
   },
   "devDependencies": {
     "ava": "^3.11.1",
@@ -44,7 +44,7 @@
     "semantic-release": "^17.1.1"
   },
   "engines": {
-    "node": ">=12.18.2"
+    "node": ">=12.18.3"
   },
   "repository": {
     "type": "git",
