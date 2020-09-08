@@ -12,6 +12,8 @@
   },
   "description": "repository provider for bitbucket",
   "keywords": [
+    "aggregate",
+    "asynciterator",
     "bitbucket",
     "git",
     "repository-provider"
@@ -26,10 +28,11 @@
   "scripts": {
     "test": "ava --timeout 2m",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
-    "docs": "documentation readme ./src/bitbucket-provider.mjs --section=API",
-    "lint": "documentation lint ./src/bitbucket-provider.mjs"
+    "docs": "documentation readme ./src/aggregate-async-iterator.mjs --section=API && documentation readme ./src/bitbucket-provider.mjs --section=API && documentation readme ./src/repository-provider.mjs --section=API",
+    "lint": "documentation lint ./src/aggregate-async-iterator.mjs && documentation lint ./src/bitbucket-provider.mjs && documentation lint ./src/repository-provider.mjs"
   },
   "dependencies": {
+    "aggregate-async-iterator": "^1.1.1",
     "content-entry": "^2.5.0",
     "matching-iterator": "^1.1.2",
     "node-fetch": "3.0.0-beta.9",
@@ -38,8 +41,12 @@
   },
   "devDependencies": {
     "ava": "^3.12.1",
+    "bitbucket-repository-provider": "^3.7.17",
     "c8": "^7.3.0",
     "documentation": "^13.0.2",
+    "gitea-repository-provider": "^1.13.4",
+    "github-repository-provider": "^7.17.0",
+    "local-repository-provider": "^6.7.13",
     "repository-provider-test-support": "^1.0.1",
     "semantic-release": "^17.1.1"
   },
