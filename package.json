@@ -40,11 +40,11 @@
     "ava": "^3.12.1",
     "c8": "^7.3.0",
     "documentation": "^13.0.2",
-    "repository-provider-test-support": "^1.0.2",
+    "repository-provider-test-support": "^1.0.3",
     "semantic-release": "^17.1.1"
   },
   "engines": {
-    "node": ">=12.18.3"
+    "node": ">=12.18.4"
   },
   "repository": {
     "type": "git",
