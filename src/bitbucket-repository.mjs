@@ -2,7 +2,7 @@ import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { Repository } from "repository-provider";
 
 /**
- * a repository hosted in bitbucket
+ * a repository hosted on bitbucket
  * @param {Owner} owner
  * @param {string} name
  * @param {Object} options
@@ -91,7 +91,7 @@ export class BitbucketRepository extends Repository {
 
   /**
    * Create a new branch
-   * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post
+   * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post}
    * @param {string} name of the new branch to create
    * @param {BitbucketBranch} from
    * @param {Object} options
@@ -116,8 +116,8 @@ export class BitbucketRepository extends Repository {
   }
 
   /**
-   * https://docs.atlassian.com/bitbucket-server/rest/5.8.0/bitbucket-branch-rest.html#idm45555984542992
-   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete
+   * {@link https://docs.atlassian.com/bitbucket-server/rest/5.8.0/bitbucket-branch-rest.html#idm45555984542992}
+   * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete}
    */
   async deleteBranch(name) {
     const url = `repositories/${this.slug}/refs/branches/${name}`;

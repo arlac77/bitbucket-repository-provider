@@ -132,7 +132,7 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
-   * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories
+   * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories}
    */
   async initializeRepositories() {
     let next = `repositories/?role=contributor`;

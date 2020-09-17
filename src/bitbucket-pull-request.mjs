@@ -9,8 +9,8 @@ export class BitbucketPullRequest extends PullRequest {
   }
 
   /**
-   * List all pull request for a given repo
-   * result will be filtered by source branch, destination branch and states
+   * List all pull request for a given repo.
+   * Result will be filtered by source branch, destination branch and states
    * @param {Repository} repository
    * @param {Object} filter
    * @param {Branch?} filter.source
@@ -60,7 +60,7 @@ export class BitbucketPullRequest extends PullRequest {
   }
 
   /**
-   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
+   * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post}
    */
   static async open(source, destination, options) {
     for await (const p of source.provider.pullRequestClass.list(
@@ -104,7 +104,7 @@ export class BitbucketPullRequest extends PullRequest {
   }
 
   /**
-   * https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge
+   * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge}
    */
   async _merge(method = "merge_commit") {
     const url = `repositories/${this.destination.slug}/pullrequests/${this.number}/merge`;
