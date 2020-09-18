@@ -112,8 +112,7 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### initializeRepositories
 
--   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
-    **
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
 
 ### attributes
 
@@ -179,7 +178,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 **Extends Repository**
 
-a repository hosted in bitbucket
+a repository hosted on bitbucket
 
 ### Parameters
 
@@ -213,10 +212,8 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### createBranch
 
--   **See: <https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post>
-    **
-
 Create a new branch
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches?_ga=2.65542446.1034690805.1541022941-164225451.1541022941#post>
 
 #### Parameters
 
@@ -248,8 +245,8 @@ Create a new branch
 
 ### list
 
-List all pull request for a given repo
-result will be filtered by source branch, destination branch and states
+List all pull request for a given repo.
+Result will be filtered by source branch, destination branch and states
 
 #### Parameters
 
