@@ -132,6 +132,14 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
+   * We are called bitbucket
+   * @return {string} bitbucket
+   */
+  get name() {
+    return "bitbucket";
+  }
+
+  /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories}
    */
   async initializeRepositories() {
