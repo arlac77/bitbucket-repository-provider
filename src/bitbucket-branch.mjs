@@ -29,10 +29,6 @@ export class BitbucketBranch extends Branch {
     return this.provider.fetch(...args);
   }
 
-  get slug() {
-    return this.repository.slug;
-  }
-
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D}
    * @param {string} name
