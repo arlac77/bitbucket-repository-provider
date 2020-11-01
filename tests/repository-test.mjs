@@ -14,8 +14,7 @@ const owner2 = {
 };
 
 const repoFixtures = {
-  //"git@mfelten.de/github-repository-provider.git": undefined,
-
+  "git@mfelten.de/github-repository-provider.git": undefined,
   "http://somewhere.com/index": undefined,
   "https://somewhere.com/index.git": undefined,
 
@@ -81,7 +80,7 @@ const repoFixtures = {
 };
 
 test("locate repository several", async t => {
-  t.plan(647);
+  t.plan(65);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
@@ -96,7 +95,7 @@ test("locate repository several", async t => {
 });
 
 test("locate branch several", async t => {
-  t.plan(14 /*20*/);
+  t.plan(15);
 
   const provider = BitbucketProvider.initialize(undefined, process.env);
 
