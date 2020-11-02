@@ -4,11 +4,16 @@ import BitbucketProvider from "bitbucket-repository-provider";
 
 const provider = BitbucketProvider.initialize(undefined, process.env);
 
-test(repositoryListTest, provider, "xhubio/*", {
+
+const xhubioRepos = {
   "xhubio/decision-table-data-generator": {
     name: "decision-table-data-generator"
   }
-});
+};
+
+test(repositoryListTest, provider, "xhubio/*", xhubioRepos);
+test(repositoryListTest, provider, "https://bitbucket.org/xhubio/*", xhubioRepos);
+
 test(repositoryListTest, provider, "xhubio/invalid_repository_name");
 test(repositoryListTest, provider, "invalid_user_name/*");
 test(repositoryListTest, provider, "");
