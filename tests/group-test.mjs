@@ -1,13 +1,43 @@
 import test from "ava";
-import BitbucketProvider  from "bitbucket-repository-provider";
+import { groupListTest } from "repository-provider-test-support";
+import BitbucketProvider from "bitbucket-repository-provider";
 
-const config = BitbucketProvider.optionsFromEnvironment(process.env);
+const provider = BitbucketProvider.initialize(undefined, process.env);
 
 test("groups by short name", async t => {
-  const provider = new BitbucketProvider(config);
   const group = await provider.repositoryGroup("xhubio");
 
   t.is(group.name, "xhubio");
   t.is(group.type, "team");
   t.is(group.displayName, "xhubio");
 });
+
+const arlac77Group = {
+  arlac77: { displayName: "arlac77", type: "user" }
+};
+
+const xhubioGroup = {
+  xhubio: { displayName: "xhubio", type: "team" }
+};
+
+const allGroups = {
+  ...arlac77Group,
+  ...xhubioGroup
+};
+
+test(groupListTest, provider, undefined, allGroups);
+test(groupListTest, provider, "*", allGroups);
+test(groupListTest, provider, "arlac77", arlac77Group);
+
+test.skip(
+  groupListTest,
+  provider,
+  "https://arlac77@bitbucket.org/arlac77/*",
+  arlac77Group
+);
+test.skip(
+  groupListTest,
+  provider,
+  "https://bitbucket.org/arlac77/*",
+  arlac77Group
+);
