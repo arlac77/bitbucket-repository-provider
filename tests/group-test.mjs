@@ -28,16 +28,5 @@ const allGroups = {
 test(groupListTest, provider, undefined, allGroups);
 test(groupListTest, provider, "*", allGroups);
 test(groupListTest, provider, "arlac77", arlac77Group);
-
-test.skip(
-  groupListTest,
-  provider,
-  "https://arlac77@bitbucket.org/arlac77/*",
-  arlac77Group
-);
-test.skip(
-  groupListTest,
-  provider,
-  "https://bitbucket.org/arlac77/*",
-  arlac77Group
-);
+test(groupListTest, provider, "https://bitbucket.org/*", arlac77Group);
+test(groupListTest, provider, "https://arlac77@bitbucket.org/*", arlac77Group);
