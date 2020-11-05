@@ -157,8 +157,7 @@ export class BitbucketProvider extends MultiGroupProvider {
       next = res.next;
       res.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
-        const group = this.addRepositoryGroup(groupName, b.owner);
-        group.addRepository(b.name, b);
+        this.addRepositoryGroup(groupName, b.owner).addRepository(b.name, b);
       });
     } while (next);
   }

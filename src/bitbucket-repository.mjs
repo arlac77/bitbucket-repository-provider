@@ -63,11 +63,10 @@ export class BitbucketRepository extends Repository {
     do {
       const r = await this.fetch(url);
       const res = await r.json();
-      res.values.forEach(h => {
+      res.values.forEach(h =>
         this.addHook(
           new this.hookClass(this, h.id, new Set(h.events), h)
-        );
-      });
+        ));
       url = res.next;
     } while (url);
   }
