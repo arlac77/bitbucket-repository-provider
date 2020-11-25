@@ -12,6 +12,7 @@ const xhubioRepos = {
 };
 
 test(repositoryListTest, provider, "xhubio/*", xhubioRepos);
+test(repositoryListTest, provider, "bitbucket:xhubio/*", xhubioRepos);
 test(repositoryListTest, provider, "https://bitbucket.org/xhubio/*", xhubioRepos);
 
 test(repositoryListTest, provider, "xhubio/invalid_repository_name");
