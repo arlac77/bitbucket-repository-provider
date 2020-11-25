@@ -123,6 +123,7 @@ export class BitbucketProvider extends MultiGroupProvider {
   get repositoryBases() {
     return [
       this.url,
+      this.name + ':',
       `ssh://${domain}`,
       `git@${domain}:`,
       `git@${domain}/`,
