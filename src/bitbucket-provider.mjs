@@ -121,15 +121,14 @@ export class BitbucketProvider extends MultiGroupProvider {
    * @return {string[]} common base urls of all repositories
    */
   get repositoryBases() {
-    return [
+    return super.repositoryBases.concat([
       this.url,
-      this.name + ':',
       `ssh://${domain}`,
       `git@${domain}:`,
       `git@${domain}/`,
       `git+ssh@${domain}:`,
       `ssh@${domain}:`
-    ];
+    ]);
   }
 
   /**
