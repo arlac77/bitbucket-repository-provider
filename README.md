@@ -37,23 +37,25 @@ repository provider for bitbucket
     -   [attributes](#attributes-1)
 -   [hash](#hash)
 -   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
+    -   [createRepository](#createrepository)
+        -   [Parameters](#parameters-5)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-5)
+    -   [Parameters](#parameters-6)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-6)
-    -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-7)
+    -   [deleteBranch](#deletebranch)
+        -   [Parameters](#parameters-8)
 -   [BitbucketPullRequest](#bitbucketpullrequest)
     -   [\_merge](#_merge)
-        -   [Parameters](#parameters-8)
-    -   [list](#list)
         -   [Parameters](#parameters-9)
-    -   [open](#open)
+    -   [list](#list)
         -   [Parameters](#parameters-10)
+    -   [open](#open)
+        -   [Parameters](#parameters-11)
 
 ## BitbucketProvider
 
@@ -175,6 +177,17 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ## BitbucketRepositoryGroup
 
 **Extends RepositoryGroup**
+
+### createRepository
+
+<https://community.atlassian.com/t5/Bitbucket-articles/Create-and-configure-a-Bitbucket-Server-repository-using-the/ba-p/828364>
+
+#### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+
+Returns **Repository** newly created repository
 
 ## BitbucketRepository
 
