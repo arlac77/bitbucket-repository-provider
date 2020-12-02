@@ -22,8 +22,8 @@ repository provider for bitbucket
     -   [branchClass](#branchclass)
     -   [pullRequestClass](#pullrequestclass)
     -   [repositoryBases](#repositorybases)
-    -   [name](#name)
     -   [initializeRepositories](#initializerepositories)
+    -   [name](#name)
     -   [attributes](#attributes)
     -   [areOptionsSufficcient](#areoptionssufficcient)
         -   [Parameters](#parameters-1)
@@ -108,15 +108,15 @@ All possible base urls
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
+### initializeRepositories
+
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
+
 ### name
 
 We are called bitbucket
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket
-
-### initializeRepositories
-
-<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories>
 
 ### attributes
 
