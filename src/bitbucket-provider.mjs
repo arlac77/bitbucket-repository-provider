@@ -39,6 +39,15 @@ const domain = "bitbucket.org";
  * @param {string} config.authentication.password
  */
 export class BitbucketProvider extends MultiGroupProvider {
+
+  /**
+   * We are called bitbucket
+   * @return {string} bitbucket
+   */
+  static get name() {
+    return "bitbucket";
+  }
+
   /**
    * Default configuration as given for the cloud privider
    * @return {Object}
@@ -131,13 +140,6 @@ export class BitbucketProvider extends MultiGroupProvider {
     ]);
   }
 
-  /**
-   * We are called bitbucket
-   * @return {string} bitbucket
-   */
-  get name() {
-    return "bitbucket";
-  }
 
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories}

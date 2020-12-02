@@ -3,6 +3,8 @@ import { providerParseNameTest } from "repository-provider-test-support";
 import { repositories } from "./fixtures/repositories.mjs";
 import BitbucketProvider from "bitbucket-repository-provider";
 
+test("factory name", t => t.is(BitbucketProvider.name, "bitbucket"));
+
 test(providerParseNameTest, new BitbucketProvider(), repositories);
 
 test(
@@ -12,7 +14,7 @@ test(
     url: "https://mydomain.org/repos/"
   }),
   {
-    "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git":{
+    "https://arlac77@bitbucket.org/arlac77/sync-test-repository.git": {
       base: "https://bitbucket.org/",
       group: "arlac77",
       repository: "sync-test-repository"
