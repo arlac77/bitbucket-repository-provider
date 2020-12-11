@@ -64,7 +64,7 @@ export class BitbucketBranch extends Branch {
   /**
    * Commit entries
    * @param {string} message commit message
-   * @param {Entry[]} updates file content to be commited
+   * @param {ContentEntry[]} updates content to be commited
    * @param {Object} options
    * @return {Promise}
    */
