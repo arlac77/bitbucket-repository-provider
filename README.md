@@ -19,8 +19,17 @@ repository provider for bitbucket
 
 ### Table of Contents
 
+-   [BitbucketBranch](#bitbucketbranch)
+    -   [entry](#entry)
+        -   [Parameters](#parameters)
+    -   [entries](#entries)
+        -   [Parameters](#parameters-1)
+    -   [commit](#commit)
+        -   [Parameters](#parameters-2)
+    -   [attributes](#attributes)
+-   [hash](#hash)
 -   [BitbucketProvider](#bitbucketprovider)
-    -   [Parameters](#parameters)
+    -   [Parameters](#parameters-3)
     -   [repositoryGroupClass](#repositorygroupclass)
     -   [repositoryClass](#repositoryclass)
     -   [branchClass](#branchclass)
@@ -28,38 +37,71 @@ repository provider for bitbucket
     -   [repositoryBases](#repositorybases)
     -   [initializeRepositories](#initializerepositories)
     -   [name](#name)
-    -   [attributes](#attributes)
-    -   [areOptionsSufficcient](#areoptionssufficcient)
-        -   [Parameters](#parameters-1)
--   [BitbucketBranch](#bitbucketbranch)
-    -   [entry](#entry)
-        -   [Parameters](#parameters-2)
-    -   [entries](#entries)
-        -   [Parameters](#parameters-3)
-    -   [commit](#commit)
-        -   [Parameters](#parameters-4)
     -   [attributes](#attributes-1)
--   [hash](#hash)
+    -   [areOptionsSufficcient](#areoptionssufficcient)
+        -   [Parameters](#parameters-4)
+-   [BitbucketPullRequest](#bitbucketpullrequest)
+    -   [\_merge](#_merge)
+        -   [Parameters](#parameters-5)
+    -   [list](#list)
+        -   [Parameters](#parameters-6)
+    -   [open](#open)
+        -   [Parameters](#parameters-7)
 -   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
     -   [createRepository](#createrepository)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-8)
 -   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-9)
     -   [Properties](#properties)
     -   [urls](#urls)
     -   [homePageURL](#homepageurl)
     -   [issuesURL](#issuesurl)
     -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-7)
-    -   [deleteBranch](#deletebranch)
-        -   [Parameters](#parameters-8)
--   [BitbucketPullRequest](#bitbucketpullrequest)
-    -   [\_merge](#_merge)
-        -   [Parameters](#parameters-9)
-    -   [list](#list)
         -   [Parameters](#parameters-10)
-    -   [open](#open)
+    -   [deleteBranch](#deletebranch)
         -   [Parameters](#parameters-11)
+
+## BitbucketBranch
+
+**Extends Branch**
+
+Branch of a bitbucket repository
+
+### entry
+
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D>
+
+#### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
+
+### entries
+
+#### Parameters
+
+-   `patterns`  
+
+### commit
+
+Commit entries
+
+#### Parameters
+
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** commit message
+-   `updates` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;ContentEntry>** content to be commited
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+### attributes
+
+options
+
+## hash
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## BitbucketProvider
 
@@ -136,47 +178,42 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if authentication is present
 
-## BitbucketBranch
+## BitbucketPullRequest
 
-**Extends Branch**
+**Extends PullRequest**
 
-Branch of a bitbucket repository
+### \_merge
 
-### entry
-
-<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D>
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge>
 
 #### Parameters
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `method`   (optional, default `"merge_commit"`)
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
+### list
 
-### entries
-
-#### Parameters
-
--   `patterns`  
-
-### commit
-
-Commit entries
+List all pull request for a given repo.
+Result will be filtered by source branch, destination branch and states
 
 #### Parameters
 
--   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** commit message
--   `updates` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;ContentEntry>** content to be commited
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `repository` **Repository** 
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+    -   `filter.source` **Branch?** 
+    -   `filter.destination` **Branch?** 
+    -   `filter.states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **Iterator&lt;PullRequest>** 
 
-### attributes
+### open
 
-options
+<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post>
 
-## hash
+#### Parameters
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `source`  
+-   `destination`  
+-   `options`  
 
 ## BitbucketRepositoryGroup
 
@@ -249,43 +286,6 @@ Create a new branch
 #### Parameters
 
 -   `name`  
-
-## BitbucketPullRequest
-
-**Extends PullRequest**
-
-### \_merge
-
-<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge>
-
-#### Parameters
-
--   `method`   (optional, default `"merge_commit"`)
-
-### list
-
-List all pull request for a given repo.
-Result will be filtered by source branch, destination branch and states
-
-#### Parameters
-
--   `repository` **Repository** 
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
-    -   `filter.source` **Branch?** 
-    -   `filter.destination` **Branch?** 
-    -   `filter.states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** 
-
-Returns **Iterator&lt;PullRequest>** 
-
-### open
-
-<https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post>
-
-#### Parameters
-
--   `source`  
--   `destination`  
--   `options`  
 
 # install
 
