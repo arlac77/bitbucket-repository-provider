@@ -32,3 +32,18 @@ test(
     }
   }
 );
+
+test(
+  "mydomain with port",
+  providerParseNameTest,
+  new BitbucketProvider({
+    url: "https://mydomain.org:8888/repos/"
+  }),
+  {
+    "git+https://mydomain.org:8888/repos/arlac77/sync-test-repository.git": {
+      base: "https://mydomain.org:8888/repos/",
+      group: "arlac77",
+      repository: "sync-test-repository"
+    }
+  }
+);
