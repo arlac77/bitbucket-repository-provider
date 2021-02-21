@@ -17,7 +17,7 @@ export {
 const domain = "bitbucket.org";
 
 /**
- * Provider for bitbucket repositories
+ * Provider for bitbucket repositories.
  *
  * Supported name schemes are
  * - https://user:aSecret@bitbucket.org/owner/repo-name.git
@@ -126,7 +126,7 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
-   * All possible base urls
+   * All possible base urls.
    * @return {string[]} common base urls of all repositories
    */
   get repositoryBases() {
@@ -145,7 +145,7 @@ export class BitbucketProvider extends MultiGroupProvider {
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories}
    */
   async initializeRepositories() {
-    let next = `repositories/?role=contributor`;
+    let next = "repositories/?role=contributor";
 
     do {
       const response = await this.fetch(next);
