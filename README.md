@@ -107,7 +107,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 **Extends MultiGroupProvider**
 
-Provider for bitbucket repositories
+Provider for bitbucket repositories.
 
 Supported name schemes are
 
@@ -150,7 +150,7 @@ Returns **Class** pull request class used by the Provider
 
 ### repositoryBases
 
-All possible base urls
+All possible base urls.
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
