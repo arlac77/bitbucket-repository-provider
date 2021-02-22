@@ -49,7 +49,7 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
-   * Default configuration as given for the cloud privider
+   * Default configuration as given for the cloud privider.
    * @return {Object}
    */
   static get attributes() {
@@ -63,6 +63,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         type: "url",
         description: "URL of the provider api",
         env: "BITBUCKET_API",
+        set: value => (value.endsWith("/") ? value : value + "/"),
         default: `https://api.${domain}/2.0/`
       },
       "authentication.token": {
