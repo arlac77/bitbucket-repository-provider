@@ -166,7 +166,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### attributes
 
-Default configuration as given for the cloud privider
+Default configuration as given for the cloud privider.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
