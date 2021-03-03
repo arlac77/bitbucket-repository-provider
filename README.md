@@ -37,6 +37,7 @@ repository provider for bitbucket
     -   [repositoryBases](#repositorybases)
     -   [initializeRepositories](#initializerepositories)
     -   [name](#name)
+    -   [instanceIdentifier](#instanceidentifier)
     -   [attributes](#attributes-1)
     -   [areOptionsSufficcient](#areoptionssufficcient)
         -   [Parameters](#parameters-4)
@@ -163,6 +164,10 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 We are called bitbucket
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket
+
+### instanceIdentifier
+
+default instance env name prefix
 
 ### attributes
 
