@@ -49,6 +49,13 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
+   * default instance env name prefix
+   */
+  static get instanceIdentifier() {
+    return "BITBUCKET_";
+  }
+
+  /**
    * Default configuration as given for the cloud privider.
    * @return {Object}
    */
@@ -62,7 +69,7 @@ export class BitbucketProvider extends MultiGroupProvider {
       api: {
         type: "url",
         description: "URL of the provider api",
-        env: "BITBUCKET_API",
+        env: "{{instanceIdentifier}}API",
         set: value => (value.endsWith("/") ? value : value + "/"),
         default: `https://api.${domain}/2.0/`
       },
@@ -70,21 +77,21 @@ export class BitbucketProvider extends MultiGroupProvider {
         type: "string",
         description: "API token",
         // BB_TOKEN_BASIC_AUTH is this the same ?
-        env: ["BITBUCKET_TOKEN", "BB_TOKEN"],
+        env: ["{{instanceIdentifier}}TOKEN", "BB_TOKEN"],
         additionalAttributes: { "authentication.type": "token" },
         private: true
       },
       "authentication.password": {
         type: "string",
         description: "Password for plain authentification",
-        env: "BITBUCKET_PASSWORD",
+        env: "{{instanceIdentifier}}PASSWORD",
         additionalAttributes: { "authentication.type": "basic" },
         private: true
       },
       "authentication.username": {
         type: "string",
         description: "Username for plain authentification",
-        env: "BITBUCKET_USERNAME",
+        env: "{{instanceIdentifier}}USERNAME",
         additionalAttributes: { "authentication.type": "basic" }
       }
     };
