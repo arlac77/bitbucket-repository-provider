@@ -3,7 +3,7 @@
 [![minified size](https://badgen.net/bundlephobia/min/bitbucket-repository-provider)](https://bundlephobia.com/result?p=bitbucket-repository-provider)
 [![downloads](http://img.shields.io/npm/dm/bitbucket-repository-provider.svg?style=flat-square)](https://npmjs.org/package/bitbucket-repository-provider)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/bitbucket-repository-provider.svg?style=flat-square)](https://github.com/arlac77/bitbucket-repository-provider/issues)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Farlac77%2Fbitbucket-repository-provider%2Fbadge&style=flat)](https://actions-badge.atrox.dev/arlac77/bitbucket-repository-provider/goto)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Farlac77%2Fbitbucket-repository-provider%2Fbadge\&style=flat)](https://actions-badge.atrox.dev/arlac77/bitbucket-repository-provider/goto)
 [![Styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Known Vulnerabilities](https://snyk.io/test/github/arlac77/bitbucket-repository-provider/badge.svg)](https://snyk.io/test/github/arlac77/bitbucket-repository-provider)
@@ -19,48 +19,48 @@ repository provider for bitbucket
 
 ### Table of Contents
 
--   [BitbucketBranch](#bitbucketbranch)
-    -   [entry](#entry)
-        -   [Parameters](#parameters)
-    -   [entries](#entries)
-        -   [Parameters](#parameters-1)
-    -   [commit](#commit)
-        -   [Parameters](#parameters-2)
-    -   [attributes](#attributes)
--   [hash](#hash)
--   [BitbucketProvider](#bitbucketprovider)
-    -   [Parameters](#parameters-3)
-    -   [repositoryGroupClass](#repositorygroupclass)
-    -   [repositoryClass](#repositoryclass)
-    -   [branchClass](#branchclass)
-    -   [pullRequestClass](#pullrequestclass)
-    -   [repositoryBases](#repositorybases)
-    -   [initializeRepositories](#initializerepositories)
-    -   [name](#name)
-    -   [instanceIdentifier](#instanceidentifier)
-    -   [attributes](#attributes-1)
-    -   [areOptionsSufficcient](#areoptionssufficcient)
-        -   [Parameters](#parameters-4)
--   [BitbucketPullRequest](#bitbucketpullrequest)
-    -   [\_merge](#_merge)
-        -   [Parameters](#parameters-5)
-    -   [list](#list)
-        -   [Parameters](#parameters-6)
-    -   [open](#open)
-        -   [Parameters](#parameters-7)
--   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
-    -   [createRepository](#createrepository)
-        -   [Parameters](#parameters-8)
--   [BitbucketRepository](#bitbucketrepository)
-    -   [Parameters](#parameters-9)
-    -   [Properties](#properties)
-    -   [urls](#urls)
-    -   [homePageURL](#homepageurl)
-    -   [issuesURL](#issuesurl)
-    -   [createBranch](#createbranch)
-        -   [Parameters](#parameters-10)
-    -   [deleteBranch](#deletebranch)
-        -   [Parameters](#parameters-11)
+*   [BitbucketBranch](#bitbucketbranch)
+    *   [entry](#entry)
+        *   [Parameters](#parameters)
+    *   [entries](#entries)
+        *   [Parameters](#parameters-1)
+    *   [commit](#commit)
+        *   [Parameters](#parameters-2)
+    *   [attributes](#attributes)
+*   [hash](#hash)
+*   [BitbucketProvider](#bitbucketprovider)
+    *   [Parameters](#parameters-3)
+    *   [repositoryGroupClass](#repositorygroupclass)
+    *   [repositoryClass](#repositoryclass)
+    *   [branchClass](#branchclass)
+    *   [pullRequestClass](#pullrequestclass)
+    *   [repositoryBases](#repositorybases)
+    *   [initializeRepositories](#initializerepositories)
+    *   [name](#name)
+    *   [instanceIdentifier](#instanceidentifier)
+    *   [attributes](#attributes-1)
+    *   [areOptionsSufficcient](#areoptionssufficcient)
+        *   [Parameters](#parameters-4)
+*   [BitbucketPullRequest](#bitbucketpullrequest)
+    *   [\_merge](#\_merge)
+        *   [Parameters](#parameters-5)
+    *   [list](#list)
+        *   [Parameters](#parameters-6)
+    *   [open](#open)
+        *   [Parameters](#parameters-7)
+*   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
+    *   [createRepository](#createrepository)
+        *   [Parameters](#parameters-8)
+*   [BitbucketRepository](#bitbucketrepository)
+    *   [Parameters](#parameters-9)
+    *   [Properties](#properties)
+    *   [urls](#urls)
+    *   [homePageURL](#homepageurl)
+    *   [issuesURL](#issuesurl)
+    *   [createBranch](#createbranch)
+        *   [Parameters](#parameters-10)
+    *   [deleteBranch](#deletebranch)
+        *   [Parameters](#parameters-11)
 
 ## BitbucketBranch
 
@@ -74,15 +74,15 @@ Branch of a bitbucket repository
 
 #### Parameters
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;Entry>** 
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)\<Entry>** 
 
 ### entries
 
 #### Parameters
 
--   `patterns`  
+*   `patterns`  
 
 ### commit
 
@@ -90,9 +90,9 @@ Commit entries
 
 #### Parameters
 
--   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** commit message
--   `updates` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;ContentEntry>** content to be commited
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+*   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** commit message
+*   `updates` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<ContentEntry>** content to be commited
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
@@ -112,26 +112,28 @@ Provider for bitbucket repositories.
 
 Supported name schemes are
 
--   <https://user:aSecret@bitbucket.org/owner/repo-name.git>
--   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
--   git@bitbucket.org:owner/repo-name.git
--   owner/repo-name
+*   https://user:aSecret@bitbucket.org/owner/repo-name.git
+*   git+https://user:aSecret@bitbucket.org/owner/repo-name.git
+*   git@bitbucket.org:owner/repo-name.git
+*   owner/repo-name
     Known environment variables
--   BITBUCKET_API api
--   BB_TOKEN api token
--   BITBUCKET_TOKEN api token
--   BITBUCKET_USERNAME username
--   BITBUCKET_PASSWORD password
+*   BITBUCKET_API api
+*   BB_TOKEN api token
+*   BITBUCKET_TOKEN api token
+*   BITBUCKET_USERNAME username
+*   BITBUCKET_PASSWORD password
 
 ### Parameters
 
--   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider scm base
-    -   `config.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider api base
-    -   `config.authentication` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** authentication
-        -   `config.authentication.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-        -   `config.authentication.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-        -   `config.authentication.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+    *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider scm base
+    *   `config.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** provider api base
+    *   `config.authentication` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** authentication
+
+        *   `config.authentication.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+        *   `config.authentication.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+        *   `config.authentication.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### repositoryGroupClass
 
@@ -153,7 +155,7 @@ Returns **Class** pull request class used by the Provider
 
 All possible base urls.
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** common base urls of all repositories
 
 ### initializeRepositories
 
@@ -179,7 +181,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if authentication is present
 
@@ -193,7 +195,7 @@ Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### Parameters
 
--   `method`   (optional, default `"merge_commit"`)
+*   `method`   (optional, default `"merge_commit"`)
 
 ### list
 
@@ -202,13 +204,14 @@ Result will be filtered by source branch, destination branch and states
 
 #### Parameters
 
--   `repository` **Repository** 
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
-    -   `filter.source` **Branch?** 
-    -   `filter.destination` **Branch?** 
-    -   `filter.states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** 
+*   `repository` **Repository** 
+*   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 
-Returns **Iterator&lt;PullRequest>** 
+    *   `filter.source` **Branch?** 
+    *   `filter.destination` **Branch?** 
+    *   `filter.states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** 
+
+Returns **Iterator\<PullRequest>** 
 
 ### open
 
@@ -216,9 +219,9 @@ Returns **Iterator&lt;PullRequest>**
 
 #### Parameters
 
--   `source`  
--   `destination`  
--   `options`  
+*   `source`  
+*   `destination`  
+*   `options`  
 
 ## BitbucketRepositoryGroup
 
@@ -230,8 +233,8 @@ Returns **Iterator&lt;PullRequest>**
 
 #### Parameters
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
 
 Returns **Repository** newly created repository
 
@@ -243,21 +246,22 @@ a repository hosted on bitbucket
 
 ### Parameters
 
--   `owner` **Owner** 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
-    -   `options.group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+*   `owner` **Owner** 
+*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+    *   `options.api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+    *   `options.group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
 
 ### Properties
 
--   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `user` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `user` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### urls
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
 
 ### homePageURL
 
@@ -278,10 +282,11 @@ Create a new branch
 
 #### Parameters
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** of the new branch to create
--   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** of the new branch to create
+*   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+    *   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### deleteBranch
 
@@ -290,7 +295,7 @@ Create a new branch
 
 #### Parameters
 
--   `name`  
+*   `name`  
 
 # install
 
