@@ -112,11 +112,13 @@ Provider for bitbucket repositories.
 
 Supported name schemes are
 
-*   https://user:aSecret@bitbucket.org/owner/repo-name.git
-*   git+https://user:aSecret@bitbucket.org/owner/repo-name.git
-*   git@bitbucket.org:owner/repo-name.git
+*   <https://user:aSecret@bitbucket.org/owner/repo-name.git>
+*   git+<https://user:aSecret@bitbucket.org/owner/repo-name.git>
+*   <git@bitbucket.org>:owner/repo-name.git
 *   owner/repo-name
-    Known environment variables
+
+Known environment variables
+
 *   BITBUCKET_API api
 *   BB_TOKEN api token
 *   BITBUCKET_TOKEN api token
