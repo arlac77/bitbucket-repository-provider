@@ -41,7 +41,7 @@ const domain = "bitbucket.org";
 export class BitbucketProvider extends MultiGroupProvider {
 
   /**
-   * We are called bitbucket
+   * We are called bitbucket.
    * @return {string} bitbucket
    */
   static get name() {
@@ -49,7 +49,7 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   /**
-   * default instance env name prefix
+   * Default instance env name prefix.
    */
   static get instanceIdentifier() {
     return "BITBUCKET_";
