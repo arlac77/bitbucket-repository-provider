@@ -165,13 +165,13 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### name
 
-We are called bitbucket
+We are called bitbucket.
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** bitbucket
 
 ### instanceIdentifier
 
-default instance env name prefix
+Default instance env name prefix.
 
 ### attributes
 
