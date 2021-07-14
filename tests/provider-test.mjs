@@ -1,7 +1,6 @@
 import test from "ava";
 import BitbucketProvider from "bitbucket-repository-provider";
-
-const REPOSITORY_NAME = "arlac77/sync-test-repository";
+import { REPOSITORY_NAME } from "repository-provider-test-support";
 
 const config = BitbucketProvider.optionsFromEnvironment(process.env);
 
