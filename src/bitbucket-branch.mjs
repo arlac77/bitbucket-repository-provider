@@ -8,7 +8,7 @@ import {
 } from "content-entry";
 
 /**
- * Branch of a bitbucket repository
+ * Branch of a bitbucket repository.
  */
 export class BitbucketBranch extends Branch {
   /**
