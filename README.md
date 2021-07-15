@@ -66,7 +66,7 @@ repository provider for bitbucket
 
 **Extends Branch**
 
-Branch of a bitbucket repository
+Branch of a bitbucket repository.
 
 ### entry
 
