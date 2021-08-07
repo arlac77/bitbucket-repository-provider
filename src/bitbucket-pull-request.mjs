@@ -1,7 +1,7 @@
 import { PullRequest } from "repository-provider";
 
 /**
- *
+ * Pull request inside bitbucket 
  */
 export class BitbucketPullRequest extends PullRequest {
   static get validStates() {
@@ -120,4 +120,9 @@ export class BitbucketPullRequest extends PullRequest {
   }
 
   async _write() {}
+
+  get url()
+  {
+    return `${this.provider.url}/${thist.destination.slug}pull-requests/${this.name}`;
+  }
 }
