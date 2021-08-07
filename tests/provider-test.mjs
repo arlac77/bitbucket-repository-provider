@@ -87,3 +87,10 @@ test("provider repo with branch name", async t => {
   t.is(branch.provider, provider);
   t.is(branch.name, "master");
 });
+
+
+test("provider basics", async t => {
+  const provider = new BitbucketProvider(config);
+  t.is(provider.name, "bitbucket");
+  t.is(provider.url, "https://bitbucket.org/");
+});
