@@ -123,6 +123,6 @@ export class BitbucketPullRequest extends PullRequest {
 
   get url()
   {
-    return `${this.provider.url}/${thist.destination.slug}pull-requests/${this.name}`;
+    return `${this.provider.url}/${this.destination.slug}pull-requests/${this.name}`;
   }
 }
