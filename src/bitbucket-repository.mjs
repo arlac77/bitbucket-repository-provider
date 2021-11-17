@@ -107,7 +107,11 @@ export class BitbucketRepository extends Repository {
         }
       }
     });
-    //console.log(res.ok, res.status, res.statusText);
+
+    if(!res.ok) {
+      // TODO handle error
+      console.log(res.ok, res.status, res.statusText);
+    }
 
     const json = await res.json();
 
