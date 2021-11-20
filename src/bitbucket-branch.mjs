@@ -75,7 +75,7 @@ export class BitbucketBranch extends Branch {
     //searchParams.set("parents", XXX);
 
     for (const u of updates) {
-      searchParams.set(u.name, await u.getString());
+      searchParams.set(u.name, await u.string);
     }
 
     return this.fetch(`repositories/${this.slug}/src`, {

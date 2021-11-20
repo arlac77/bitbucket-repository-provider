@@ -31,5 +31,5 @@ test("branch entry", async t => {
   const entry = await branch.entry("README.md");
   t.is(entry.name, "README.md");
 
-  t.is((await entry.getString()).startsWith("file content #"), true);
+  t.is((await entry.string).startsWith("file content #"), true);
 });
