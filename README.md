@@ -57,6 +57,7 @@ repository provider for bitbucket
     *   [urls](#urls)
     *   [homePageURL](#homepageurl)
     *   [issuesURL](#issuesurl)
+    *   [update](#update)
     *   [createBranch](#createbranch)
         *   [Parameters](#parameters-10)
     *   [deleteBranch](#deletebranch)
@@ -278,6 +279,10 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 Deliver the url of issue tracking system.
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
+
+### update
+
+<https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put>
 
 ### createBranch
 
