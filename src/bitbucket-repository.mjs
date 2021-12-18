@@ -57,6 +57,21 @@ export class BitbucketRepository extends Repository {
     return this.provider.fetch(...args);
   }
 
+  /**
+   * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put}
+   */
+   async update() {
+    return this.provider.fetch(`repositories/${this.slug}`, {
+      method: "PUT",
+      body: JSON.stringify(
+        mapAttributesInverse(
+          optionJSON(this, undefined, this.constructor.writableAttributes),
+          this.constructor.attributeMapping
+        )
+      )
+    });
+  }
+
   async initializeHooks() {
     let url = `repositories/${this.slug}/hooks`;
 
