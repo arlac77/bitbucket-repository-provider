@@ -102,16 +102,17 @@ class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
 
   get buffer()
   {
-    return this.getBuffer();
+    return this._buffer();
   }
 
-  async getBuffer() {
+  async _buffer() {
     const branch = this.branch;
 
     const res = await branch.fetch(
       `repositories/${branch.slug}/src/${branch.hash}/${this.name}`
     );
 
+    //return new Uint8Array(await res.arrayBuffer());
     return Buffer.from(await res.arrayBuffer());
   }
 }
