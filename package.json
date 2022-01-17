@@ -34,13 +34,13 @@
     "matching-iterator": "^2.0.0",
     "node-fetch": "^3.1.1",
     "one-time-execution-method": "^2.0.9",
-    "repository-provider": "^26.1.2"
+    "repository-provider": "^26.1.3"
   },
   "devDependencies": {
     "ava": "^4.0.1",
     "c8": "^7.11.0",
     "documentation": "^13.2.5",
-    "repository-provider-test-support": "^1.9.7",
+    "repository-provider-test-support": "^1.9.8",
     "semantic-release": "^18.0.1"
   },
   "engines": {
