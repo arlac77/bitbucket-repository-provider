@@ -1,6 +1,5 @@
 [![npm](https://img.shields.io/npm/v/bitbucket-repository-provider.svg)](https://www.npmjs.com/package/bitbucket-repository-provider)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![install size](https://packagephobia.now.sh/badge?p=bitbucket-repository-provider/@3.10.6)](https://packagephobia.now.sh/result?p=bitbucket-repository-provider@3.10.6)
 [![minified size](https://badgen.net/bundlephobia/min/bitbucket-repository-provider)](https://bundlephobia.com/result?p=bitbucket-repository-provider)
 [![downloads](http://img.shields.io/npm/dm/bitbucket-repository-provider.svg?style=flat-square)](https://npmjs.org/package/bitbucket-repository-provider)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/bitbucket-repository-provider.svg?style=flat-square)](https://github.com/arlac77/bitbucket-repository-provider/issues)
