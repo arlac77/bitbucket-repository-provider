@@ -19,7 +19,7 @@ export class BitbucketRepositoryGroup extends RepositoryGroup {
    * @param {Object} options
    * @return {Repository} newly created repository
    */
-  async createRepository(name, options = {}) {
+  async createRepository(name, options) {
     //console.log(`repositories/${this.name}/${name}`);
     const response = await this.provider.fetch(
       `repositories/${this.name}/${name}`,
