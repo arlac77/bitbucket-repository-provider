@@ -32,7 +32,7 @@ export class BitbucketBranch extends Branch {
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D}
    * @param {string} name
-   * @return {Promise<Entry>}
+   * @return {Promise<ContentEntry>}
    */
   async entry(name) {
     const res = await this.fetch(
