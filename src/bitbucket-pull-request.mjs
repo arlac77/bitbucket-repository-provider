@@ -52,7 +52,8 @@ export class BitbucketPullRequest extends PullRequest {
           yield new this(source, destination, p.id, {
             description: p.description,
             title: p.title,
-            state: p.state
+            state: p.state,
+            body: p.summary.raw
           });
         }
       }
