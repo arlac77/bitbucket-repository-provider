@@ -39,7 +39,6 @@ const domain = "bitbucket.org";
  * @param {string} config.authentication.password
  */
 export class BitbucketProvider extends MultiGroupProvider {
-
   /**
    * We are called bitbucket.
    * @return {string} bitbucket
@@ -148,7 +147,6 @@ export class BitbucketProvider extends MultiGroupProvider {
     ]);
   }
 
-
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories}
    */
@@ -159,6 +157,7 @@ export class BitbucketProvider extends MultiGroupProvider {
       const response = await this.fetch(next);
 
       if (!response.ok) {
+        console.log(response);
         break;
       }
 
@@ -173,12 +172,22 @@ export class BitbucketProvider extends MultiGroupProvider {
   }
 
   fetch(url, options = {}) {
+    let authorization;
+
+    if (this.authentication.token) {
+      authorization = "Bearer " + this.authentication.token;
+    } else {
+      if (this.authentication.username) {
+        authorization =
+          "Basic " +
+          Buffer.from(
+            this.authentication.username + ":" + this.authentication.password
+          ).toString("base64");
+      }
+    }
+
     const headers = {
-      authorization:
-        "Basic " +
-        Buffer.from(
-          this.authentication.username + ":" + this.authentication.password
-        ).toString("base64"),
+      authorization,
       ...options.headers
     };
 
