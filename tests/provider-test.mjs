@@ -34,12 +34,6 @@ test("optionsFromEnvironment api", t => {
 test("optionsFromEnvironment token", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
-      BB_TOKEN: "1234"
-    }),
-    { "authentication.token": "1234", "authentication.type": "token" }
-  );
-  t.deepEqual(
-    BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_TOKEN: "1234"
     }),
     { "authentication.token": "1234", "authentication.type": "token" }
@@ -68,7 +62,7 @@ test("provider repository undefined", async t => {
   t.is(repository, undefined);
 });
 
-test("provider url git@ / ", async t => {
+test("provider url git@ /", async t => {
   const provider = new BitbucketProvider(config);
   t.is(
     (

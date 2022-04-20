@@ -75,15 +75,17 @@ export class BitbucketProvider extends MultiGroupProvider {
       "authentication.token": {
         type: "string",
         description: "API token",
-        // BB_TOKEN_BASIC_AUTH is this the same ?
-        env: ["{{instanceIdentifier}}TOKEN", "BB_TOKEN"],
+        env: ["{{instanceIdentifier}}TOKEN"],
         additionalAttributes: { "authentication.type": "token" },
         private: true
       },
       "authentication.password": {
         type: "string",
         description: "Password for plain authentification",
-        env: "{{instanceIdentifier}}PASSWORD",
+        env: [
+          "{{instanceIdentifier}}APP_PASSWORD",
+          "{{instanceIdentifier}}PASSWORD"
+        ],
         additionalAttributes: { "authentication.type": "basic" },
         private: true
       },
@@ -174,15 +176,15 @@ export class BitbucketProvider extends MultiGroupProvider {
   fetch(url, options = {}) {
     let authorization;
 
-    if (this.authentication.token) {
-      authorization = "Bearer " + this.authentication.token;
+    if (this.authentication.username) {
+      authorization =
+        "Basic " +
+        Buffer.from(
+          this.authentication.username + ":" + this.authentication.password
+        ).toString("base64");
     } else {
-      if (this.authentication.username) {
-        authorization =
-          "Basic " +
-          Buffer.from(
-            this.authentication.username + ":" + this.authentication.password
-          ).toString("base64");
+      if (this.authentication.token) {
+        authorization = "Bearer " + this.authentication.token;
       }
     }
 
