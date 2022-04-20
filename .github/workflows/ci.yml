@@ -19,7 +19,7 @@ jobs:
       - run: npm run cover --if-present
         env:
           BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
-          BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
+          BITBUCKET_APP_PASSWORD: ${{ secrets.BITBUCKET_APP_PASSWORD }}
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
         with:
