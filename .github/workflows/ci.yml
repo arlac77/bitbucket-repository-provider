@@ -4,7 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-        max-parallel: 1
+      max-parallel: 1
       matrix:
         node-version:
           - 16.14.2
