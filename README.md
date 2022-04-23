@@ -121,9 +121,9 @@ Supported name schemes are
 Known environment variables
 
 *   BITBUCKET_API api
-*   BB_TOKEN api token
 *   BITBUCKET_TOKEN api token
 *   BITBUCKET_USERNAME username
+*   BITBUCKET_APP_PASSWORD password
 *   BITBUCKET_PASSWORD password
 
 ### Parameters
