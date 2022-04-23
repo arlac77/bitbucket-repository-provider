@@ -53,14 +53,10 @@ export class BitbucketRepository extends Repository {
     return `${this.provider.url}/${this.slug}/issues`;
   }
 
-  fetch(...args) {
-    return this.provider.fetch(...args);
-  }
-
   /**
    * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put}
    */
-   async update() {
+  async update() {
     return this.provider.fetch(`repositories/${this.slug}`, {
       method: "PUT",
       body: JSON.stringify(
@@ -76,13 +72,11 @@ export class BitbucketRepository extends Repository {
     let url = `repositories/${this.slug}/hooks`;
 
     do {
-      const r = await this.fetch(url);
-      const res = await r.json();
-      res.values.forEach(h =>
-        this.addHook(
-          new this.hookClass(this, h.id, new Set(h.events), h)
-        ));
-      url = res.next;
+      const { json } = await this.provider.fetchJSON(url);
+      json.values.forEach(h =>
+        this.addHook(new this.hookClass(this, h.id, new Set(h.events), h))
+      );
+      url = json.next;
     } while (url);
   }
 
@@ -90,16 +84,15 @@ export class BitbucketRepository extends Repository {
     let url = `repositories/${this.slug}/refs/branches`;
 
     do {
-      const r = await this.fetch(url);
-      const res = await r.json();
+      const { json } = await this.provider.fetchJSON(url);
 
-      if (res.type === "error") {
+      if (json.type === "error") {
         break;
       }
 
-      res.values.forEach(b => this.addBranch(b.name, b.target));
+      json.values.forEach(b => this.addBranch(b.name, b.target));
 
-      url = res.next;
+      url = json.next;
     } while (url);
   }
 
@@ -113,22 +106,19 @@ export class BitbucketRepository extends Repository {
    */
   async createBranch(name, from = this.defaultBranch, options) {
     from = await from;
-    const res = await this.fetch(`repositories/${this.slug}/refs/branches`, {
-      method: "POST",
-      data: {
-        name,
-        target: {
-          hash: from.hash
+    
+    const { json } = await this.provider.fetchJSON(
+      `repositories/${this.slug}/refs/branches`,
+      {
+        method: "POST",
+        data: {
+          name,
+          target: {
+            hash: from.hash
+          }
         }
       }
-    });
-
-    if(!res.ok) {
-      // TODO handle error
-      console.log(res.ok, res.status, res.statusText);
-    }
-
-    const json = await res.json();
+    );
 
     return super.addBranch(name, json);
   }
@@ -139,17 +129,13 @@ export class BitbucketRepository extends Repository {
    */
   async deleteBranch(name) {
     const url = `repositories/${this.slug}/refs/branches/${name}`;
-    // console.log(url);
+    const response = await this.provider.fetch(url, { method: "DELETE" });
 
-    const res = await this.fetch(url, { method: "DELETE" });
-
-    //console.log(res.ok, res.status, res.statusText);
-    //const p = await res.json();
-    //console.log(p);
-
-    if(res.ok) {
-      return super.deleteBranch(name);
+    if(!response.ok) {
+      throw new Error(response.statusText);
     }
+
+    return super.deleteBranch(name);
   }
 }
 

@@ -20,7 +20,6 @@ export class BitbucketRepositoryGroup extends RepositoryGroup {
    * @return {Repository} newly created repository
    */
   async createRepository(name, options) {
-    //console.log(`repositories/${this.name}/${name}`);
     const response = await this.provider.fetch(
       `repositories/${this.name}/${name}`,
       {
@@ -31,8 +30,6 @@ export class BitbucketRepositoryGroup extends RepositoryGroup {
         })
       }
     );
-
-    //console.log(response);
 
     if (response.ok) {
       return this.addRepository(name, options);

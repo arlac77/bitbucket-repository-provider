@@ -1,8 +1,10 @@
 import test from "ava";
-import { repositoryListTest } from "repository-provider-test-support";
+import { repositoryListTest, createMessageDestination } from "repository-provider-test-support";
 import BitbucketProvider from "bitbucket-repository-provider";
 
-const provider = BitbucketProvider.initialize(undefined, process.env);
+const messageDestination = createMessageDestination().messageDestination;
+
+const provider = BitbucketProvider.initialize( { messageDestination}, process.env);
 
 const xhubioRepos = {
   "xhubio/decision-table-data-generator": {

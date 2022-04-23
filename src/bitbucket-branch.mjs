@@ -25,17 +25,13 @@ export class BitbucketBranch extends Branch {
     };
   }
 
-  fetch(...args) {
-    return this.provider.fetch(...args);
-  }
-
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D}
    * @param {string} name
    * @return {Promise<ContentEntry>}
    */
   async entry(name) {
-    const res = await this.fetch(
+    const res = await this.provider.fetch(
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
     if(res.ok) {
@@ -48,13 +44,11 @@ export class BitbucketBranch extends Branch {
    * @param patterns
    */
   async *entries(patterns) {
-    const r = await this.fetch(
+    const { json } = await this.provider.fetchJSON(
       `repositories/${this.slug}/src/${this.hash}/?max_depth=99`
     );
 
-    const res = await r.json();
-
-    for (const entry of matcher(res.values, patterns, { name: "path" })) {
+    for (const entry of matcher(json.values, patterns, { name: "path" })) {
       yield entry.type === "commit_directory"
           ? new BaseCollectionEntry(entry.path)
           : new LazyBufferContentEntry(entry.path, this);
@@ -78,7 +72,7 @@ export class BitbucketBranch extends Branch {
       searchParams.set(u.name, await u.string);
     }
 
-    return this.fetch(`repositories/${this.slug}/src`, {
+    return this.provider.fetch(`repositories/${this.slug}/src`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -108,7 +102,7 @@ class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
   async _buffer() {
     const branch = this.branch;
 
-    const res = await branch.fetch(
+    const res = await branch.provider.fetch(
       `repositories/${branch.slug}/src/${branch.hash}/${this.name}`
     );
 

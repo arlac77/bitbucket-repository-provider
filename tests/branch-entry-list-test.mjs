@@ -1,8 +1,17 @@
 import test from "ava";
-import { entryListTest, REPOSITORY_NAME } from "repository-provider-test-support";
+import {
+  entryListTest,
+  REPOSITORY_NAME,
+  createMessageDestination
+} from "repository-provider-test-support";
 import BitbucketProvider from "bitbucket-repository-provider";
 
-const config = BitbucketProvider.optionsFromEnvironment(process.env);
+const messageDestination = createMessageDestination().messageDestination;
+
+const config = {
+  ...BitbucketProvider.optionsFromEnvironment(process.env),
+  messageDestination
+};
 const provider = new BitbucketProvider(config);
 
 test("branch entries list", async t => {
@@ -21,7 +30,7 @@ test("branch entries list with pattern", async t => {
   const branch = await repository.branch("master");
 
   await entryListTest(t, branch, ["**/*.mjs", "!tests/*.mjs"], {
-   // "tests/repository-test.mjs": { notPresent: true },
+    // "tests/repository-test.mjs": { notPresent: true },
     "src/repository.mjs": { startsWith: "import" }
   });
 });

@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
-
+import { stateActionHandler } from "fetch-rate-limit-util";
 import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
@@ -26,9 +26,9 @@ const domain = "bitbucket.org";
  * - owner/repo-name
  * Known environment variables
  * - BITBUCKET_API api
- * - BB_TOKEN api token
  * - BITBUCKET_TOKEN api token
  * - BITBUCKET_USERNAME username
+ * - BITBUCKET_APP_PASSWORD password
  * - BITBUCKET_PASSWORD password
  * @param {Object} config
  * @param {string} config.url provider scm base
@@ -156,24 +156,17 @@ export class BitbucketProvider extends MultiGroupProvider {
     let next = "repositories/?role=contributor";
 
     do {
-      const response = await this.fetch(next);
+      const { json } = await this.fetchJSON(next);
 
-      if (!response.ok) {
-        console.log(response);
-        break;
-      }
-
-      const res = await response.json();
-
-      next = res.next;
-      res.values.map(b => {
+      next = json.next;
+      json.values.map(b => {
         const groupName = b.owner.nickname || b.owner.username;
         this.addRepositoryGroup(groupName, b.owner).addRepository(b.name, b);
       });
     } while (next);
   }
 
-  fetch(url, options = {}) {
+  fetch(url, options = {}, responseHandler) {
     let authorization;
 
     if (this.authentication.username) {
@@ -199,9 +192,22 @@ export class BitbucketProvider extends MultiGroupProvider {
       headers["Content-Type"] = "application/json";
     }
 
-    return fetch(new URL(url, this.api), {
-      ...options,
-      headers
+    return stateActionHandler(
+      fetch,
+      new URL(url, this.api),
+      {
+        ...options,
+        headers
+      },
+      responseHandler,
+      undefined,
+      (url, ...args) => this.trace(url.toString(), ...args)
+    );
+  }
+
+  fetchJSON(url, options) {
+    return this.fetch(url, options, async response => {
+      return { response, json: await response.json() };
     });
   }
 }

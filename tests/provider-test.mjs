@@ -1,8 +1,13 @@
 import test from "ava";
 import BitbucketProvider from "bitbucket-repository-provider";
-import { REPOSITORY_NAME } from "repository-provider-test-support";
+import { REPOSITORY_NAME, createMessageDestination } from "repository-provider-test-support";
 
-const config = BitbucketProvider.optionsFromEnvironment(process.env);
+const messageDestination = createMessageDestination().messageDestination;
+
+const config = {
+  ...BitbucketProvider.optionsFromEnvironment(process.env),
+  messageDestination
+};
 
 test("optionsFromEnvironment undefined", t => {
   t.is(BitbucketProvider.optionsFromEnvironment(undefined), undefined);
@@ -17,6 +22,22 @@ test("optionsFromEnvironment user", t => {
     {
       "authentication.username": "user",
       "authentication.password": "pass",
+      "authentication.type": "basic"
+    }
+  );
+});
+
+test("optionsFromEnvironment user (BITBUCKET_APP_PASSWORD)", t => {
+  t.deepEqual(
+    BitbucketProvider.optionsFromEnvironment({
+      BITBUCKET_USERNAME: "user",
+      BITBUCKET_APP_PASSWORD: "app_pass",
+ //     BITBUCKET_PASSWORD: "pass"
+
+    }),
+    {
+      "authentication.username": "user",
+      "authentication.password": "app_pass",
       "authentication.type": "basic"
     }
   );

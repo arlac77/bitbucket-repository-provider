@@ -31,12 +31,11 @@ export class BitbucketPullRequest extends PullRequest {
     let url = `repositories/${repository.slug}/pullrequests${query}`;
 
     do {
-      const r = await repository.fetch(url);
-      const res = await r.json();
-      url = res.next;
+      const { json } = await repository.provider.fetchJSON(url);
+      url = json.next;
 
-      if (res.values) {
-        for (const p of res.values) {
+      if (json.values) {
+        for (const p of json.values) {
           const source = await getBranch(p.source);
 
           if (filter.source && !filter.source.equals(source)) {
@@ -73,7 +72,7 @@ export class BitbucketPullRequest extends PullRequest {
 
     const url = `repositories/${destination.slug}/pullrequests`;
 
-    const res = await destination.fetch(url, {
+    const { json } = await destination.provider.fetchJSON(url, {
       method: "POST",
       data: {
         source: {
@@ -91,8 +90,6 @@ export class BitbucketPullRequest extends PullRequest {
       }
     });
 
-    const json = await res.json();
-
     if (json.type === "error" && json.error) {
       throw new Error(json.error.message);
     }
@@ -109,7 +106,7 @@ export class BitbucketPullRequest extends PullRequest {
    */
   async _merge(method = "merge_commit") {
     const url = `repositories/${this.destination.slug}/pullrequests/${this.number}/merge`;
-    return this.destination.fetch(url, {
+    return this.destination.provider.fetch(url, {
       type: "a type",
       message: "a message",
       method: "POST",
