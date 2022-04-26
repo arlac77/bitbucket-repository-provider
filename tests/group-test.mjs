@@ -1,10 +1,16 @@
 import test from "ava";
-import { groupListTest, createMessageDestination } from "repository-provider-test-support";
+import {
+  groupListTest,
+  createMessageDestination
+} from "repository-provider-test-support";
 import BitbucketProvider from "bitbucket-repository-provider";
 
 const messageDestination = createMessageDestination().messageDestination;
 
-const provider = BitbucketProvider.initialize( { messageDestination}, process.env);
+const provider = BitbucketProvider.initialize(
+  { messageDestination },
+  process.env
+);
 
 test("groups by short name", async t => {
   const group = await provider.repositoryGroup("xhubio");

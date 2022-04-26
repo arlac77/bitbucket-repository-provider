@@ -3,7 +3,7 @@ import { pullRequestLivecycle, pullRequestList, BITBUCKET_REPOSITORY_NAME, creat
 import BitbucketProvider from "bitbucket-repository-provider";
 
 const messageDestination = createMessageDestination().messageDestination;
-messageDestination.trace = console.log;
+//messageDestination.trace = console.log;
 
 test("pr livecycle", async t => {
   await pullRequestLivecycle(

@@ -1,6 +1,9 @@
 import test from "ava";
 import BitbucketProvider from "bitbucket-repository-provider";
-import { REPOSITORY_NAME, createMessageDestination } from "repository-provider-test-support";
+import {
+  REPOSITORY_NAME,
+  createMessageDestination
+} from "repository-provider-test-support";
 
 const messageDestination = createMessageDestination().messageDestination;
 
@@ -31,9 +34,8 @@ test("optionsFromEnvironment user (BITBUCKET_APP_PASSWORD)", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_USERNAME: "user",
-      BITBUCKET_APP_PASSWORD: "app_pass",
- //     BITBUCKET_PASSWORD: "pass"
-
+      BITBUCKET_APP_PASSWORD: "app_pass"
+      //     BITBUCKET_PASSWORD: "pass"
     }),
     {
       "authentication.username": "user",
@@ -102,7 +104,6 @@ test("provider repo with branch name", async t => {
   t.is(branch.provider, provider);
   t.is(branch.name, "master");
 });
-
 
 test("provider basics", async t => {
   const provider = new BitbucketProvider(config);

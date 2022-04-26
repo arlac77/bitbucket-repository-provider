@@ -24,12 +24,13 @@ test(
       group: "arlac77",
       repository: "sync-test-repository"
     },
-    "https://user:pass@mydomain.org/repos/arlac77/sync-test-repository.git#aBranch": {
-      base: "https://mydomain.org/repos/",
-      group: "arlac77",
-      repository: "sync-test-repository",
-      branch: "aBranch"
-    }
+    "https://user:pass@mydomain.org/repos/arlac77/sync-test-repository.git#aBranch":
+      {
+        base: "https://mydomain.org/repos/",
+        group: "arlac77",
+        repository: "sync-test-repository",
+        branch: "aBranch"
+      }
   }
 );
 

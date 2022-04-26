@@ -1,6 +1,13 @@
 import test from "ava";
-import { assertRepo, assertBranch, createMessageDestination } from "repository-provider-test-support";
-import { BitbucketRepository, BitbucketProvider } from "bitbucket-repository-provider";
+import {
+  assertRepo,
+  assertBranch,
+  createMessageDestination
+} from "repository-provider-test-support";
+import {
+  BitbucketRepository,
+  BitbucketProvider
+} from "bitbucket-repository-provider";
 
 const messageDestination = createMessageDestination().messageDestination;
 
@@ -52,7 +59,7 @@ const repoFixtures = {
     owner: owner2,
     name: "decision-table-data-generator",
     fullName: "xhubio/decision-table-data-generator",
-   // description: undefined,
+    // description: undefined,
     branch: "master",
     entries: { "package.json": {}, ".jsdoc.json": {} }
   },
@@ -84,7 +91,10 @@ const repoFixtures = {
 test("locate repository several", async t => {
   t.plan(65);
 
-  const provider = BitbucketProvider.initialize( { messageDestination}, process.env);
+  const provider = BitbucketProvider.initialize(
+    { messageDestination },
+    process.env
+  );
 
   for (const [name, repositoryFixture] of Object.entries(repoFixtures)) {
     await assertRepo(
@@ -99,7 +109,10 @@ test("locate repository several", async t => {
 test("locate branch several", async t => {
   t.plan(15);
 
-  const provider = BitbucketProvider.initialize( { messageDestination }, process.env);
+  const provider = BitbucketProvider.initialize(
+    { messageDestination },
+    process.env
+  );
 
   for (const [name, repositoryFixture] of Object.entries(repoFixtures)) {
     await assertBranch(t, await provider.branch(name), repositoryFixture, name);

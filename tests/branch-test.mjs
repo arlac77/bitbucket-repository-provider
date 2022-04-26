@@ -1,6 +1,9 @@
 import test from "ava";
 import { BitbucketProvider } from "bitbucket-repository-provider";
-import { REPOSITORY_NAME, createMessageDestination } from "repository-provider-test-support";
+import {
+  REPOSITORY_NAME,
+  createMessageDestination
+} from "repository-provider-test-support";
 
 const messageDestination = createMessageDestination().messageDestination;
 
@@ -21,7 +24,10 @@ test.serial("branch create/delete", async t => {
 });
 
 test.serial("branch delete", async t => {
-  const provider = BitbucketProvider.initialize({ messageDestination }, process.env);
+  const provider = BitbucketProvider.initialize(
+    { messageDestination },
+    process.env
+  );
   const repository = await provider.repository(REPOSITORY_NAME);
 
   const newName = `test-${new Date().getTime()}`;
