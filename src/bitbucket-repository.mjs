@@ -22,12 +22,9 @@ export class BitbucketRepository extends Repository {
     };
   }
 
-  constructor(owner, name, options) {
-    super(owner, name, options);
-
-    Object.defineProperties(this, {
-      user: { value: name.split(/\//)[0] }
-    });
+  get user()
+  {
+    return this.name.split(/\//)[0];
   }
 
   /**
@@ -111,7 +108,7 @@ export class BitbucketRepository extends Repository {
     }
 
     from = await from;
-    
+
     const { json } = await this.provider.fetchJSON(
       `repositories/${this.slug}/refs/branches`,
       {
@@ -133,10 +130,12 @@ export class BitbucketRepository extends Repository {
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/refs/branches/%7Bname%7D#delete}
    */
   async deleteBranch(name) {
-    const url = `repositories/${this.slug}/refs/branches/${name}`;
-    const response = await this.provider.fetch(url, { method: "DELETE" });
+    const response = await this.provider.fetch(
+      `repositories/${this.slug}/refs/branches/${name}`,
+      { method: "DELETE" }
+    );
 
-    if(!response.ok) {
+    if (!response.ok) {
       throw new Error(response.statusText);
     }
 
