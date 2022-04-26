@@ -111,6 +111,8 @@ export class BitbucketRepository extends Repository {
 
     from = await from;
 
+    await from.initialize();
+
     const { json } = await this.provider.fetchJSON(
       `repositories/${this.slug}/refs/branches`,
       {
