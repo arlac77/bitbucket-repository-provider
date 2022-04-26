@@ -70,9 +70,7 @@ export class BitbucketPullRequest extends PullRequest {
       return p;
     }
 
-    const url = `repositories/${destination.slug}/pullrequests`;
-
-    const { json } = await destination.provider.fetchJSON(url, {
+    const { json } = await destination.provider.fetchJSON(`repositories/${destination.slug}/pullrequests`, {
       method: "POST",
       data: {
         source: {
