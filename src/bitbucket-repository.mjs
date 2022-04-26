@@ -22,8 +22,7 @@ export class BitbucketRepository extends Repository {
     };
   }
 
-  get user()
-  {
+  get user() {
     return this.name.split(/\//)[0];
   }
 
@@ -77,6 +76,9 @@ export class BitbucketRepository extends Repository {
     } while (url);
   }
 
+  /**
+   * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-refs/#api-group-refs}
+   */
   async initializeBranches() {
     let url = `repositories/${this.slug}/refs/branches`;
 

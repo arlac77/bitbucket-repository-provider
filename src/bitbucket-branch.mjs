@@ -25,12 +25,30 @@ export class BitbucketBranch extends Branch {
     };
   }
 
+  // TODO isInitialized ?
+  
+  async initialize()
+  {
+      if(this.hash === undefined) { 
+        const url = `repositories/${this.slug}/refs/branches?q=name="${this.name}"`;
+        const { json } = await this.provider.fetchJSON(url);
+//        console.log(json.values[0].target);
+
+        this.hash = json.values[0].target.hash;
+
+        //delete json.values[0].target.repository;
+        //Object.assign(this,json.values[0].target);
+      }
+  }
+
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src/%7Bnode%7D/%7Bpath%7D}
    * @param {string} name
    * @return {Promise<ContentEntry>}
    */
   async entry(name) {
+    await this.initialize();
+
     const res = await this.provider.fetch(
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
@@ -44,6 +62,8 @@ export class BitbucketBranch extends Branch {
    * @param patterns
    */
   async *entries(patterns) {
+    await this.initialize();
+
     const { json } = await this.provider.fetchJSON(
       `repositories/${this.slug}/src/${this.hash}/?max_depth=99`
     );

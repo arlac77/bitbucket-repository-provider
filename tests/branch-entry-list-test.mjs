@@ -7,6 +7,7 @@ import {
 import BitbucketProvider from "bitbucket-repository-provider";
 
 const messageDestination = createMessageDestination().messageDestination;
+//messageDestination.trace = console.log;
 
 const config = {
   ...BitbucketProvider.optionsFromEnvironment(process.env),
