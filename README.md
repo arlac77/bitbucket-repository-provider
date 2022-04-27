@@ -58,6 +58,7 @@ repository provider for bitbucket
     *   [homePageURL](#homepageurl)
     *   [issuesURL](#issuesurl)
     *   [update](#update)
+    *   [initializeBranches](#initializebranches)
     *   [createBranch](#createbranch)
         *   [Parameters](#parameters-10)
     *   [deleteBranch](#deletebranch)
@@ -283,6 +284,10 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### update
 
 <https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put>
+
+### initializeBranches
+
+<https://developer.atlassian.com/cloud/bitbucket/rest/api-group-refs/#api-group-refs>
 
 ### createBranch
 
