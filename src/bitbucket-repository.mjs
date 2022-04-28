@@ -64,6 +64,9 @@ export class BitbucketRepository extends Repository {
     });
   }
 
+  /**
+   * @{link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-hooks-get}
+   */
   async initializeHooks() {
     let url = `repositories/${this.slug}/hooks`;
 
