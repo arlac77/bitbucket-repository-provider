@@ -73,7 +73,7 @@ export class BitbucketRepository extends Repository {
     do {
       const { json } = await this.provider.fetchJSON(url);
       json.values.forEach(h =>
-        this.addHook(new this.hookClass(this, h.id, new Set(h.events), h))
+        this.addHook(new this.hookClass(this, h.uuid, new Set(h.events), h))
       );
       url = json.next;
     } while (url);

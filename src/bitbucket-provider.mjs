@@ -6,12 +6,14 @@ import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
 import { BitbucketPullRequest } from "./bitbucket-pull-request.mjs";
+import { BitbucketHook } from "./bitbucket-hook.mjs";
 
 export {
   BitbucketBranch,
   BitbucketRepository,
   BitbucketPullRequest,
-  BitbucketRepositoryGroup
+  BitbucketRepositoryGroup,
+  BitbucketHook
 };
 
 const domain = "bitbucket.org";
@@ -133,6 +135,13 @@ export class BitbucketProvider extends MultiGroupProvider {
   get pullRequestClass() {
     return BitbucketPullRequest;
   }
+
+   /**
+   * @return {Class} hook class used by the Provider
+   */
+    get hookClass() {
+      return BitbucketHook;
+    }
 
   /**
    * All possible base urls.
