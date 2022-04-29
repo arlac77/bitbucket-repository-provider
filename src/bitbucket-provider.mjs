@@ -136,12 +136,12 @@ export class BitbucketProvider extends MultiGroupProvider {
     return BitbucketPullRequest;
   }
 
-   /**
+  /**
    * @return {Class} hook class used by the Provider
    */
-    get hookClass() {
-      return BitbucketHook;
-    }
+  get hookClass() {
+    return BitbucketHook;
+  }
 
   /**
    * All possible base urls.
@@ -177,7 +177,7 @@ export class BitbucketProvider extends MultiGroupProvider {
     } catch {}
   }
 
-  fetch(url, options = {}, responseHandler) {
+  fetch(url, options = {}, responseHandler, actions) {
     let authorization;
 
     if (this.authentication.username) {
@@ -211,15 +211,20 @@ export class BitbucketProvider extends MultiGroupProvider {
         headers
       },
       responseHandler,
-      undefined,
+      actions,
       (url, ...args) => this.trace(url.toString(), ...args)
     );
   }
 
-  fetchJSON(url, options) {
-    return this.fetch(url, options, async response => {
-      return { response, json: await response.json() };
-    });
+  fetchJSON(url, options, actions) {
+    return this.fetch(
+      url,
+      options,
+      async response => {
+        return { response, json: await response.json() };
+      },
+      actions
+    );
   }
 }
 
