@@ -28,12 +28,14 @@ repository provider for bitbucket
         *   [Parameters](#parameters-2)
     *   [attributes](#attributes)
 *   [hash](#hash)
+*   [BitbucketHook](#bitbuckethook)
 *   [BitbucketProvider](#bitbucketprovider)
     *   [Parameters](#parameters-3)
     *   [repositoryGroupClass](#repositorygroupclass)
     *   [repositoryClass](#repositoryclass)
     *   [branchClass](#branchclass)
     *   [pullRequestClass](#pullrequestclass)
+    *   [hookClass](#hookclass)
     *   [repositoryBases](#repositorybases)
     *   [initializeRepositories](#initializerepositories)
     *   [name](#name)
@@ -58,6 +60,7 @@ repository provider for bitbucket
     *   [homePageURL](#homepageurl)
     *   [issuesURL](#issuesurl)
     *   [update](#update)
+    *   [initializeHooks](#initializehooks)
     *   [initializeBranches](#initializebranches)
     *   [createBranch](#createbranch)
         *   [Parameters](#parameters-10)
@@ -105,6 +108,10 @@ options
 ## hash
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## BitbucketHook
+
+**Extends Hook**
 
 ## BitbucketProvider
 
@@ -154,6 +161,10 @@ Returns **Class** BitbucketBranch
 ### pullRequestClass
 
 Returns **Class** pull request class used by the Provider
+
+### hookClass
+
+Returns **Class** hook class used by the Provider
 
 ### repositoryBases
 
@@ -284,6 +295,8 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### update
 
 <https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put>
+
+### initializeHooks
 
 ### initializeBranches
 
