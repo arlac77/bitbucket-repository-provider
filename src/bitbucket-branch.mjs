@@ -32,8 +32,12 @@ export class BitbucketBranch extends Branch {
       if(this.hash === undefined) { 
         const url = `repositories/${this.slug}/refs/branches?q=name="${this.name}"`;
         const { json } = await this.provider.fetchJSON(url);
-//        console.log(json.values[0].target);
 
+        if(json.values && !json.values[0].target) {
+        	console.log(json);
+        	throw new Error(`No such branch ${this.name}`);
+        }
+ 
         this.hash = json.values[0].target.hash;
 
         //delete json.values[0].target.repository;
