@@ -32,7 +32,7 @@ export class BitbucketBranch extends Branch {
       const url = `repositories/${this.slug}/refs/branches?q=name="${this.name}"`;
       const { json } = await this.provider.fetchJSON(url);
 
-      if (!Array.isArray(json.values) || !json.values[0].target) {
+      if (!Array.isArray(json.values) || json.values.length != 1) {
         console.log(json);
         throw new Error(`No such branch ${this.name}`);
       }
