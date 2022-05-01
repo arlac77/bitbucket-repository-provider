@@ -26,23 +26,22 @@ export class BitbucketBranch extends Branch {
   }
 
   // TODO isInitialized ?
-  
-  async initialize()
-  {
-      if(this.hash === undefined) { 
-        const url = `repositories/${this.slug}/refs/branches?q=name="${this.name}"`;
-        const { json } = await this.provider.fetchJSON(url);
 
-        if(json.values && !json.values[0].target) {
-        	console.log(json);
-        	throw new Error(`No such branch ${this.name}`);
-        }
- 
-        this.hash = json.values[0].target.hash;
+  async initialize() {
+    if (this.hash === undefined) {
+      const url = `repositories/${this.slug}/refs/branches?q=name="${this.name}"`;
+      const { json } = await this.provider.fetchJSON(url);
 
-        //delete json.values[0].target.repository;
-        //Object.assign(this,json.values[0].target);
+      if (!Array.isArray(json.values) || !json.values[0].target) {
+        console.log(json);
+        throw new Error(`No such branch ${this.name}`);
       }
+
+      this.hash = json.values[0].target.hash;
+
+      //delete json.values[0].target.repository;
+      //Object.assign(this,json.values[0].target);
+    }
   }
 
   /**
@@ -56,7 +55,7 @@ export class BitbucketBranch extends Branch {
     const res = await this.provider.fetch(
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
-    if(res.ok) {
+    if (res.ok) {
       return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
     }
   }
@@ -74,8 +73,8 @@ export class BitbucketBranch extends Branch {
 
     for (const entry of matcher(json.values, patterns, { name: "path" })) {
       yield entry.type === "commit_directory"
-          ? new BaseCollectionEntry(entry.path)
-          : new LazyBufferContentEntry(entry.path, this);
+        ? new BaseCollectionEntry(entry.path)
+        : new LazyBufferContentEntry(entry.path, this);
     }
   }
 
@@ -118,8 +117,7 @@ class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
     });
   }
 
-  get buffer()
-  {
+  get buffer() {
     return this._buffer();
   }
 
