@@ -121,7 +121,7 @@ test("locate branch several", async t => {
 
 test("BitbucketRepository constructor", t => {
   const provider = new BitbucketProvider();
-  const group = new provider.repositoryGroupClass("p1");
+  const group = new provider.repositoryGroupClass(provider, "p1");
   const repository = new BitbucketRepository(group, "r1");
 
   t.is(repository.owner, group);
