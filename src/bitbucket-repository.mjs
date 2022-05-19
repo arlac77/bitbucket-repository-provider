@@ -107,7 +107,8 @@ export class BitbucketRepository extends Repository {
    * @param {string} options.message
    */
   async createBranch(name, from = this.defaultBranch, options) {
-    const branch = this._branches.get(name);
+    const branch = await super.branch(name);
+
     if (branch) {
       return branch;
     }
