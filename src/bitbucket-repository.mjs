@@ -49,11 +49,15 @@ export class BitbucketRepository extends Repository {
     return `${this.provider.url}/${this.slug}/issues`;
   }
 
+  get api() {
+    return `repositories/${this.slug}`;
+  }
+
   /**
    * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put}
    */
   async update() {
-    return this.provider.fetch(`repositories/${this.slug}`, {
+    return this.provider.fetch(this.api, {
       method: "PUT",
       body: JSON.stringify(
         mapAttributesInverse(
@@ -68,13 +72,11 @@ export class BitbucketRepository extends Repository {
    * @{link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-hooks-get}
    */
   async initializeHooks() {
-    let url = `repositories/${this.slug}/hooks`;
+    let url = `${this.api}/hooks`;
 
     do {
       const { json } = await this.provider.fetchJSON(url);
-      json.values.forEach(h =>
-        this.addHook(new this.hookClass(this, h.uuid, new Set(h.events), h))
-      );
+      json.values.forEach(h => this.addHook(h.uuid, h));
       url = json.next;
     } while (url);
   }
@@ -83,7 +85,7 @@ export class BitbucketRepository extends Repository {
    * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-refs/#api-group-refs}
    */
   async initializeBranches() {
-    let url = `repositories/${this.slug}/refs/branches`;
+    let url = `${this.api}/refs/branches`;
 
     do {
       const { json } = await this.provider.fetchJSON(url);
@@ -118,7 +120,7 @@ export class BitbucketRepository extends Repository {
     await from.initialize();
 
     const { json } = await this.provider.fetchJSON(
-      `repositories/${this.slug}/refs/branches`,
+      `${this.api}/refs/branches`,
       {
         method: "POST",
         data: {
@@ -139,7 +141,7 @@ export class BitbucketRepository extends Repository {
    */
   async deleteBranch(name) {
     const response = await this.provider.fetch(
-      `repositories/${this.slug}/refs/branches/${name}`,
+      `${this.api}/refs/branches/${name}`,
       { method: "DELETE" }
     );
 

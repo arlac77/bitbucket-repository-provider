@@ -28,7 +28,7 @@ export class BitbucketPullRequest extends PullRequest {
       filter.states && filter.states.size
         ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
         : "";
-    let url = `repositories/${repository.slug}/pullrequests${query}`;
+    let url = `${repository.api}/pullrequests${query}`;
 
     do {
       const { json } = await repository.provider.fetchJSON(url);
@@ -70,7 +70,7 @@ export class BitbucketPullRequest extends PullRequest {
       return p;
     }
 
-    const { json } = await destination.provider.fetchJSON(`repositories/${destination.slug}/pullrequests`, {
+    const { json } = await destination.provider.fetchJSON(`${destination.api}/pullrequests`, {
       method: "POST",
       data: {
         source: {
@@ -103,7 +103,7 @@ export class BitbucketPullRequest extends PullRequest {
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge}
    */
   async _merge(method = "merge_commit") {
-    const url = `repositories/${this.destination.slug}/pullrequests/${this.number}/merge`;
+    const url = `${this.destination.api}/pullrequests/${this.number}/merge`;
     return this.destination.provider.fetch(url, {
       type: "a type",
       message: "a message",
