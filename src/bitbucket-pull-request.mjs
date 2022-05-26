@@ -70,7 +70,7 @@ export class BitbucketPullRequest extends PullRequest {
       return p;
     }
 
-    const { json } = await destination.provider.fetchJSON(`${destination.api}/pullrequests`, {
+    const { response, json } = await destination.provider.fetchJSON(`${destination.api}/pullrequests`, {
       method: "POST",
       data: {
         source: {
@@ -87,6 +87,10 @@ export class BitbucketPullRequest extends PullRequest {
         description: options.body
       }
     });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
 
     if (json.type === "error" && json.error) {
       throw new Error(json.error.message);

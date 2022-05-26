@@ -107,6 +107,13 @@ export class BitbucketBranch extends Branch {
   get entryClass() {
     return BufferContentEntry;
   }
+
+  // TODO move into base object
+  get api()
+  {
+    return this.owner.api;
+  }
+
 }
 
 class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
