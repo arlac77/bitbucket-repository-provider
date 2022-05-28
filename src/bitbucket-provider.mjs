@@ -177,7 +177,7 @@ export class BitbucketProvider extends MultiGroupProvider {
     } catch {}
   }
 
-  fetch(url, options = {}, responseHandler, actions) {
+  fetch(url, options = {}) {
     let authorization;
 
     if (this.authentication.username) {
@@ -203,28 +203,24 @@ export class BitbucketProvider extends MultiGroupProvider {
       headers["Content-Type"] = "application/json";
     }
 
+    options.reporter = (url, ...args) => this.trace(url.toString(), ...args);
+
     return stateActionHandler(
       fetch,
       new URL(url, this.api),
       {
         ...options,
         headers
-      },
-      responseHandler,
-      actions,
-      (url, ...args) => this.trace(url.toString(), ...args)
+      }
     );
   }
 
-  fetchJSON(url, options, actions) {
-    return this.fetch(
-      url,
-      options,
-      async response => {
-        return { response, json: await response.json() };
-      },
-      actions
-    );
+  fetchJSON(url, options = {}) {
+    options.postprocess = async response => {
+      return { response, json: await response.json() };
+    };
+
+    return this.fetch(url, options);
   }
 }
 
