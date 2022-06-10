@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "content-entry": "^5.0.6",
-    "fetch-rate-limit-util": "^3.0.5",
+    "fetch-rate-limit-util": "^3.0.11",
     "matching-iterator": "^2.0.6",
     "node-fetch": "^3.2.5",
     "one-time-execution-method": "^3.0.3",
