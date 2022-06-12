@@ -31,17 +31,17 @@
   },
   "dependencies": {
     "content-entry": "^5.0.6",
-    "fetch-rate-limit-util": "^3.0.13",
+    "fetch-rate-limit-util": "^3.0.12",
     "matching-iterator": "^2.0.6",
     "node-fetch": "^3.2.5",
     "one-time-execution-method": "^3.0.3",
-    "repository-provider": "^31.2.7"
+    "repository-provider": "^31.2.6"
   },
   "devDependencies": {
     "ava": "^4.3.0",
     "c8": "^7.11.3",
     "documentation": "^13.2.5",
-    "repository-provider-test-support": "^2.2.3",
+    "repository-provider-test-support": "^2.2.5",
     "semantic-release": "^19.0.3"
   },
   "engines": {
