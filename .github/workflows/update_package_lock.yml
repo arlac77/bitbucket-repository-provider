@@ -1,4 +1,4 @@
-name: API to readme
+name: Update package lock
 'on':
   schedule:
     - cron: 12 18 * * *
