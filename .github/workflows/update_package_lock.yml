@@ -1,0 +1,21 @@
+name: API to readme
+'on':
+  schedule:
+    - cron: 12 18 * * *
+jobs:
+  update_readme_api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.3.0
+        with:
+          node-version: 18.3.0
+      - run: npm install
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: package-lock.json
+          title: update package lock
+          branch: package-lock
+          commit-message: 'chore(deps): lock'
