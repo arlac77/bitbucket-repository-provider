@@ -1,9 +1,9 @@
 name: Update package lock
 'on':
   schedule:
-    - cron: 2 2 * * *
+    - cron: 18 16 * * *
 jobs:
-  update_readme_api:
+  update_package_lock:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
