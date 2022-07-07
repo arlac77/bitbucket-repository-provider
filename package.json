@@ -35,7 +35,7 @@
     "matching-iterator": "^2.0.6",
     "node-fetch": "^3.2.5",
     "one-time-execution-method": "^3.0.3",
-    "repository-provider": "^32.0.2"
+    "repository-provider": "^32.0.3"
   },
   "devDependencies": {
     "ava": "^4.3.0",
