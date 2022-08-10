@@ -25,7 +25,7 @@ export class BitbucketPullRequest extends PullRequest {
       );
 
     const query =
-      filter.states && filter.states.size
+      filter.states?.size
         ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
         : "";
     let url = `${repository.api}/pullrequests${query}`;
