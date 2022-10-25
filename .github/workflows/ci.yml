@@ -1,7 +1,7 @@
 name: CI
 'on': push
 jobs:
-  test:
+  test-node:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -23,15 +23,15 @@ jobs:
           BITBUCKET_APP_PASSWORD: ${{ secrets.BITBUCKET_APP_PASSWORD }}
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
+        continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: run-${{ matrix.test_number }}
           path-to-lcov: build/coverage/lcov.info
           parallel: true
-        continue-on-error: true
   release:
     needs:
-      - test
+      - test-node
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,11 +43,11 @@ jobs:
       - run: npx semantic-release
         env:
           CI: 'true'
+          PKGBUILD_PUBLISH: ${{ secrets.PKGBUILD_PUBLISH }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PKGBUILD_PUBLISH: ${{ secrets.PKGBUILD_PUBLISH }}
   finish:
-    needs: test
+    needs: test-node
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
