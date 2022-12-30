@@ -126,4 +126,5 @@ test("BitbucketRepository constructor", t => {
 
   t.is(repository.owner, group);
   t.is(repository.name, "r1");
+  t.is(repository.url, "https://bitbucket.org/p1/r1");
 });
