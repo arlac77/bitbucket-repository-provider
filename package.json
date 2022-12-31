@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "content-entry": "^5.2.16",
-    "fetch-rate-limit-util": "^3.1.2",
+    "fetch-rate-limit-util": "^3.1.5",
     "matching-iterator": "^2.0.11",
     "node-fetch": "^3.3.0",
     "one-time-execution-method": "^3.0.6",
@@ -41,7 +41,7 @@
     "ava": "^5.1.0",
     "c8": "^7.12.0",
     "documentation": "^14.0.1",
-    "repository-provider-test-support": "^2.2.27",
+    "repository-provider-test-support": "^2.2.25",
     "semantic-release": "^19.0.5"
   },
   "engines": {
