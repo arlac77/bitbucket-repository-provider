@@ -1,11 +1,20 @@
 import { PullRequest } from "repository-provider";
 
 /**
- * Pull request inside bitbucket 
+ * Pull request inside bitbucket
  */
 export class BitbucketPullRequest extends PullRequest {
-  static get validStates() {
-    return new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]);
+  static get attributes() {
+    return {
+      ...super.attributes,
+      state: {
+        type: "string",
+        values: new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]),
+        writeable: true
+      },
+      close_source_branch: { type: "boolean" },
+      task_count: { type: "integer" }
+    };
   }
 
   /**
@@ -24,10 +33,9 @@ export class BitbucketPullRequest extends PullRequest {
         [u.repository.full_name, u.branch.name].join("#")
       );
 
-    const query =
-      filter.states?.size
-        ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
-        : "";
+    const query = filter.states?.size
+      ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
+      : "";
     let url = `${repository.api}/pullrequests${query}`;
 
     do {
@@ -70,23 +78,26 @@ export class BitbucketPullRequest extends PullRequest {
       return p;
     }
 
-    const { response, json } = await destination.provider.fetchJSON(`${destination.api}/pullrequests`, {
-      method: "POST",
-      data: {
-        source: {
-          branch: {
-            name: source.name
-          }
-        },
-        destination: {
-          branch: {
-            name: destination.name
-          }
-        },
-        ...options,
-        description: options.body
+    const { response, json } = await destination.provider.fetchJSON(
+      `${destination.api}/pullrequests`,
+      {
+        method: "POST",
+        data: {
+          source: {
+            branch: {
+              name: source.name
+            }
+          },
+          destination: {
+            branch: {
+              name: destination.name
+            }
+          },
+          ...options,
+          description: options.body
+        }
       }
-    });
+    );
 
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -119,8 +130,7 @@ export class BitbucketPullRequest extends PullRequest {
     });
   }
 
-  get url()
-  {
+  get url() {
     return `${this.provider.url}/${this.destination.slug}/pull-requests/${this.name}`;
   }
 }
