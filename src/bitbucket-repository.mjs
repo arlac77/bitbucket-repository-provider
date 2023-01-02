@@ -14,6 +14,14 @@ import { Repository } from "repository-provider";
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
+  static get attributes() {
+    return {
+      ...super.attributes,
+      uuid: { type: "string", isKey: true },
+      fork_policy: { type: "string", default: "allow_forks" }
+    };
+  }
+
   static get attributMapping() {
     return {
       ...super.attributeMappin,

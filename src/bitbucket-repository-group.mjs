@@ -4,6 +4,14 @@ import { RepositoryGroup } from "repository-provider";
  *
  */
 export class BitbucketRepositoryGroup extends RepositoryGroup {
+
+  static get attributes() {
+    return {
+      ...super.attributes,
+      uuid: { type: "string", isKey: true }
+    };
+  }
+
   static get attributeMapping() {
     return {
       ...super.attributeMapping,
