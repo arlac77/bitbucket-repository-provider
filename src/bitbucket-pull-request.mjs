@@ -1,4 +1,4 @@
-import { PullRequest } from "repository-provider";
+import { PullRequest, boolean_attribute } from "repository-provider";
 
 /**
  * Pull request inside bitbucket
@@ -12,7 +12,7 @@ export class BitbucketPullRequest extends PullRequest {
         values: new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]),
         writeable: true
       },
-      close_source_branch: { type: "boolean" },
+      close_source_branch: boolean_attribute,
       task_count: { type: "integer" }
     };
   }
