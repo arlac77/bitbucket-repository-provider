@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
-import { MultiGroupProvider } from "repository-provider";
+import { MultiGroupProvider, url_attribute } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
@@ -64,11 +64,11 @@ export class BitbucketProvider extends MultiGroupProvider {
     return {
       ...super.attributes,
       url: {
-        type: "url",
+        ...url_attribute,
         default: `https://${domain}/`
       },
       api: {
-        type: "url",
+        ...url_attribute,
         description: "URL of the provider api",
         env: "{{instanceIdentifier}}API",
         set: value => (value.endsWith("/") ? value : value + "/"),
@@ -82,7 +82,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         private: true
       },
       "authentication.password": {
-        type: "string",
+        ...url_attribute,
         description: "Password for plain authentification",
         env: [
           "{{instanceIdentifier}}APP_PASSWORD",
