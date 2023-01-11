@@ -35,13 +35,6 @@ export class BitbucketRepository extends Repository {
   }
 
   /**
-   * @return {string[]} url
-   */
-  get urls() {
-    return [`${this.provider.url}${this.slug}.git`];
-  }
-
-  /**
    * Deliver the url of home page.
    * @return {string} '.../overwiew'
    */

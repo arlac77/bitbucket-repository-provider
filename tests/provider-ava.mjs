@@ -69,8 +69,8 @@ test("provider branches", async t => {
 
   t.is(repository.name, "sync-test-repository");
   t.is(
-    repository.urls.find(u => u.startsWith("http")),
-    "https://bitbucket.org/arlac77/sync-test-repository.git"
+    repository.url,
+    "https://bitbucket.org/arlac77/sync-test-repository"
   );
 
   for await (const branch of repository.branches("master")) {
