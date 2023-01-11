@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arlac77/bitbucket-repository-provider.git"
+    "url": "https://github.com/arlac77/bitbucket-repository-provider"
   },
   "bugs": {
     "url": "https://github.com/arlac77/bitbucket-repository-provider/issues"
