@@ -56,7 +56,6 @@ repository provider for bitbucket
 *   [BitbucketRepository](#bitbucketrepository)
     *   [Parameters](#parameters-9)
     *   [Properties](#properties)
-    *   [urls](#urls)
     *   [homePageURL](#homepageurl)
     *   [issuesURL](#issuesurl)
     *   [update](#update)
@@ -273,10 +272,6 @@ a repository hosted on bitbucket
 *   `api` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `user` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
-
-### urls
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** url
 
 ### homePageURL
 
