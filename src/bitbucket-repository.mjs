@@ -1,5 +1,10 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
-import { Repository, uuid_attiribute } from "repository-provider";
+import {
+  Repository,
+  uuid_attiribute,
+  size_attribute,
+  language_attribute
+} from "repository-provider";
 
 /**
  * a repository hosted on bitbucket
@@ -18,6 +23,8 @@ export class BitbucketRepository extends Repository {
     return {
       ...super.attributes,
       uuid: uuid_attiribute,
+      size_attribute,
+      language_attribute,
       fork_policy: { type: "string", default: "allow_forks" }
     };
   }
