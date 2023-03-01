@@ -77,7 +77,7 @@ export class BitbucketProvider extends MultiGroupProvider {
       "authentication.token": {
         ...secret_attribute,
         description: "API token",
-        env: ["{{instanceIdentifier}}TOKEN"],
+        env: "{{instanceIdentifier}}TOKEN",
         additionalAttributes: { "authentication.type": "token" },
       },
       "authentication.password": {
