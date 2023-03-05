@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
 import { MultiGroupProvider, url_attribute, secret_attribute } from "repository-provider";
