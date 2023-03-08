@@ -203,7 +203,6 @@ export class BitbucketProvider extends MultiGroupProvider {
     options.reporter = (url, ...args) => this.trace(url.toString(), ...args);
 
     return stateActionHandler(
-      fetch,
       new URL(url, this.api),
       {
         ...options,
