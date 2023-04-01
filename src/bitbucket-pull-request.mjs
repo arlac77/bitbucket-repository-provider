@@ -1,4 +1,9 @@
-import { PullRequest, boolean_attribute, count_attribute } from "repository-provider";
+import {
+  PullRequest,
+  boolean_attribute,
+  count_attribute,
+  default_attribute
+} from "repository-provider";
 
 /**
  * Pull request inside bitbucket
@@ -8,7 +13,7 @@ export class BitbucketPullRequest extends PullRequest {
     return {
       ...super.attributes,
       state: {
-        type: "string",
+        ...default_attribute,
         values: new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]),
         writeable: true
       },

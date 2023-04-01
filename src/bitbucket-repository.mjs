@@ -3,7 +3,8 @@ import {
   Repository,
   uuid_attiribute,
   size_attribute,
-  language_attribute
+  language_attribute,
+  default_attribute
 } from "repository-provider";
 
 /**
@@ -25,7 +26,7 @@ export class BitbucketRepository extends Repository {
       uuid: uuid_attiribute,
       size_attribute,
       language_attribute,
-      fork_policy: { type: "string", default: "allow_forks" }
+      fork_policy: { ...default_attribute, default: "allow_forks" }
     };
   }
 
