@@ -9,12 +9,16 @@ import {
  * Pull request inside bitbucket
  */
 export class BitbucketPullRequest extends PullRequest {
+
+  static states = new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]);
+  static mergeStrategies = new Set(["fast_forward", "squash", "merge_commit"]);
+
   static get attributes() {
     return {
       ...super.attributes,
       state: {
         ...default_attribute,
-        values: new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]),
+        values: this.states,
         writeable: true
       },
       close_source_branch: boolean_attribute,
@@ -122,7 +126,7 @@ export class BitbucketPullRequest extends PullRequest {
   /**
    * {@link https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Bworkspace%7D/%7Brepo_slug%7D/pullrequests/%7Bpull_request_id%7D/merge}
    */
-  async _merge(method = "merge_commit") {
+  async _merge(merge_strategy = "merge_commit") {
     const url = `${this.destination.api}/pullrequests/${this.number}/merge`;
     return this.destination.provider.fetch(url, {
       type: "a type",
@@ -130,7 +134,7 @@ export class BitbucketPullRequest extends PullRequest {
       method: "POST",
       data: {
         close_source_branch: false,
-        merge_strategy: method // "fast_forward", "squash", "merge_commit"
+        merge_strategy
       }
     });
   }
