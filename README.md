@@ -209,7 +209,7 @@ Pull request inside bitbucket
 
 #### Parameters
 
-*   `method`   (optional, default `"merge_commit"`)
+*   `merge_strategy`   (optional, default `"merge_commit"`)
 
 ### list
 
