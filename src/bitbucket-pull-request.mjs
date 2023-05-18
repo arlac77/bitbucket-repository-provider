@@ -31,10 +31,10 @@ export class BitbucketPullRequest extends PullRequest {
    * Result will be filtered by source branch, destination branch and states
    * @param {Repository} repository
    * @param {Object} filter
-   * @param {Branch?} filter.source
-   * @param {Branch?} filter.destination
-   * @param {Set<string>?} filter.states
-   * @return {Iterator<PullRequest>}
+   * @param {Branch} [filter.source]
+   * @param {Branch} [filter.destination]
+   * @param {Set<string>} [filter.states]
+   * @return {AsyncIterator<PullRequest>}
    */
   static async *list(repository, filter = {}) {
     const getBranch = async u =>

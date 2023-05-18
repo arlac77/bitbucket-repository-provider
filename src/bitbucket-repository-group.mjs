@@ -24,8 +24,8 @@ export class BitbucketRepositoryGroup extends RepositoryGroup {
   /**
    * {@link https://community.atlassian.com/t5/Bitbucket-articles/Create-and-configure-a-Bitbucket-Server-repository-using-the/ba-p/828364}
    * @param {string} name
-   * @param {Object} options
-   * @return {Repository} newly created repository
+   * @param {Object} [options]
+   * @return {Promise<Repository>} newly created repository
    */
   async createRepository(name, options) {
     const response = await this.provider.fetch(

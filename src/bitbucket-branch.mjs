@@ -82,7 +82,7 @@ export class BitbucketBranch extends Branch {
    * Commit entries
    * @param {string} message commit message
    * @param {ContentEntry[]} updates content to be commited
-   * @param {Object} options
+   * @param {Object} [options]
    * @return {Promise}
    */
   async commit(message, updates, options) {
