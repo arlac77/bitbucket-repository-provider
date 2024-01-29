@@ -1,7 +1,7 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import {
   Repository,
-  uuid_attiribute,
+  uuid_attribute,
   size_attribute,
   language_attribute,
   default_attribute
@@ -23,7 +23,7 @@ export class BitbucketRepository extends Repository {
   static get attributes() {
     return {
       ...super.attributes,
-      uuid: uuid_attiribute,
+      uuid: uuid_attribute,
       size_attribute,
       language_attribute,
       fork_policy: { ...default_attribute, default: "allow_forks" }

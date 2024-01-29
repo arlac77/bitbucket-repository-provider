@@ -1,4 +1,4 @@
-import { RepositoryGroup, uuid_attiribute } from "repository-provider";
+import { RepositoryGroup, uuid_attribute } from "repository-provider";
 
 /**
  *
@@ -8,7 +8,7 @@ export class BitbucketRepositoryGroup extends RepositoryGroup {
   static get attributes() {
     return {
       ...super.attributes,
-      uuid: uuid_attiribute
+      uuid: uuid_attribute
     };
   }
 
