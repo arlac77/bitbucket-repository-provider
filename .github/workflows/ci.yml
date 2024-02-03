@@ -29,7 +29,7 @@ jobs:
           BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
           BITBUCKET_APP_PASSWORD: ${{ secrets.BITBUCKET_APP_PASSWORD }}
       - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,14 +54,21 @@ jobs:
           PKGBUILD_PUBLISH: ${{ secrets.PKGBUILD_PUBLISH }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
   finish:
     needs:
       - test-node
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: build/coverage/lcov.info
           parallel-finished: true
+permissions:
+  contents: read
