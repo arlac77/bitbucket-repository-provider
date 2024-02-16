@@ -32,11 +32,6 @@ repository provider for bitbucket
 *   [BitbucketHook](#bitbuckethook)
 *   [BitbucketProvider](#bitbucketprovider)
     *   [Parameters](#parameters-3)
-    *   [repositoryGroupClass](#repositorygroupclass)
-    *   [repositoryClass](#repositoryclass)
-    *   [branchClass](#branchclass)
-    *   [pullRequestClass](#pullrequestclass)
-    *   [hookClass](#hookclass)
     *   [repositoryBases](#repositorybases)
     *   [initializeRepositories](#initializerepositories)
     *   [name](#name)
@@ -144,26 +139,6 @@ Supported name schemes are
         *   `config.authentication.username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
         *   `config.authentication.password` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
-### repositoryGroupClass
-
-Returns **Class** repository group class used by the Provider
-
-### repositoryClass
-
-Returns **Class** BitbucketRepository
-
-### branchClass
-
-Returns **Class** BitbucketBranch
-
-### pullRequestClass
-
-Returns **Class** pull request class used by the Provider
-
-### hookClass
-
-Returns **Class** hook class used by the Provider
-
 ### repositoryBases
 
 All possible base urls.
@@ -261,7 +236,7 @@ a repository hosted on bitbucket
 
 ### Parameters
 
-*   `owner` **Owner**&#x20;
+*   `owner` **RepositoryOwner**&#x20;
 *   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
@@ -287,8 +262,6 @@ Deliver the url of issue tracking system.
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** '.../issues'
 
 ### update
-
-<https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put>
 
 ### initializeHooks
 
