@@ -1,6 +1,11 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
-import { MultiGroupProvider, url_attribute, secret_attribute, default_attribute } from "repository-provider";
+import {
+  MultiGroupProvider,
+  url_attribute,
+  secret_attribute,
+  default_attribute
+} from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";
@@ -77,7 +82,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         ...secret_attribute,
         description: "API token",
         env: "{{instanceIdentifier}}TOKEN",
-        additionalAttributes: { "authentication.type": "token" },
+        additionalAttributes: { "authentication.type": "token" }
       },
       "authentication.password": {
         ...secret_attribute,
@@ -86,7 +91,7 @@ export class BitbucketProvider extends MultiGroupProvider {
           "{{instanceIdentifier}}APP_PASSWORD",
           "{{instanceIdentifier}}PASSWORD"
         ],
-        additionalAttributes: { "authentication.type": "basic" },
+        additionalAttributes: { "authentication.type": "basic" }
       },
       "authentication.username": {
         ...default_attribute,
@@ -105,37 +110,22 @@ export class BitbucketProvider extends MultiGroupProvider {
     return options["authentication.type"] !== undefined;
   }
 
-  /**
-   * @return {Class} repository group class used by the Provider
-   */
   get repositoryGroupClass() {
     return BitbucketRepositoryGroup;
   }
 
-  /**
-   * @return {Class} BitbucketRepository
-   */
   get repositoryClass() {
     return BitbucketRepository;
   }
 
-  /**
-   * @return {Class} BitbucketBranch
-   */
   get branchClass() {
     return BitbucketBranch;
   }
 
-  /**
-   * @return {Class} pull request class used by the Provider
-   */
   get pullRequestClass() {
     return BitbucketPullRequest;
   }
 
-  /**
-   * @return {Class} hook class used by the Provider
-   */
   get hookClass() {
     return BitbucketHook;
   }
@@ -202,13 +192,10 @@ export class BitbucketProvider extends MultiGroupProvider {
 
     options.reporter = (url, ...args) => this.trace(url.toString(), ...args);
 
-    return stateActionHandler(
-      new URL(url, this.api),
-      {
-        ...options,
-        headers
-      }
-    );
+    return stateActionHandler(new URL(url, this.api), {
+      ...options,
+      headers
+    });
   }
 
   fetchJSON(url, options = {}) {

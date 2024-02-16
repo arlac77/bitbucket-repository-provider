@@ -1,6 +1,7 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import {
   Repository,
+  RepositoryOwner,
   uuid_attribute,
   size_attribute,
   language_attribute,
@@ -9,7 +10,7 @@ import {
 
 /**
  * a repository hosted on bitbucket
- * @param {Owner} owner
+ * @param {RepositoryOwner} owner
  * @param {string} name
  * @param {Object} options
  * @param {string} [options.api]
@@ -32,7 +33,7 @@ export class BitbucketRepository extends Repository {
 
   static get attributMapping() {
     return {
-      ...super.attributeMappin,
+      ...super.attributeMapping,
       is_private: "isPrivate",
       website: "homePageURL"
     };
@@ -63,7 +64,7 @@ export class BitbucketRepository extends Repository {
   }
 
   /**
-   * {@link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put}
+   * @link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put
    */
   async update() {
     return this.provider.fetch(this.api, {
@@ -78,7 +79,7 @@ export class BitbucketRepository extends Repository {
   }
 
   /**
-   * @{link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-hooks-get}
+   * @link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-hooks-get
    */
   async initializeHooks() {
     let url = `${this.api}/hooks`;

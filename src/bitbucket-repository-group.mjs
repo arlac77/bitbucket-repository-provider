@@ -1,4 +1,4 @@
-import { RepositoryGroup, uuid_attribute } from "repository-provider";
+import { Repository, RepositoryGroup, uuid_attribute } from "repository-provider";
 
 /**
  *

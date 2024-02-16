@@ -1,5 +1,7 @@
 import {
   PullRequest,
+  Repository,
+  Branch,
   boolean_attribute,
   count_attribute,
   default_attribute
