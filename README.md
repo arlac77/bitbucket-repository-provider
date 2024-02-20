@@ -195,13 +195,13 @@ Result will be filtered by source branch, destination branch and states
 #### Parameters
 
 *   `repository` **Repository**&#x20;
-*   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+*   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**&#x20;
 
     *   `filter.source` **Branch?**&#x20;
     *   `filter.destination` **Branch?**&#x20;
     *   `filter.states` **[Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?**&#x20;
 
-Returns **AsyncIterator\<PullRequest>**&#x20;
+Returns **AsyncIterable\<PullRequest>**&#x20;
 
 ### open
 
