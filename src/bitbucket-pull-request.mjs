@@ -32,20 +32,20 @@ export class BitbucketPullRequest extends PullRequest {
    * List all pull request for a given repo.
    * Result will be filtered by source branch, destination branch and states
    * @param {Repository} repository
-   * @param {Object} filter
+   * @param {Object} [filter]
    * @param {Branch} [filter.source]
    * @param {Branch} [filter.destination]
    * @param {Set<string>} [filter.states]
-   * @return {AsyncIterator<PullRequest>}
+   * @return {AsyncIterable<PullRequest>}
    */
-  static async *list(repository, filter = {}) {
+  static async *list(repository, filter) {
     const getBranch = async u =>
       repository.provider.branch(
         [u.repository.full_name, u.branch.name].join("#")
       );
 
-    const query = filter.states?.size
-      ? "?" + [...filter.states].map(state => `state=${state}`).join("&")
+    const query = filter?.states?.size
+      ? "?" + [...filter?.states].map(state => `state=${state}`).join("&")
       : "";
     let url = `${repository.api}/pullrequests${query}`;
 
@@ -57,13 +57,13 @@ export class BitbucketPullRequest extends PullRequest {
         for (const p of json.values) {
           const source = await getBranch(p.source);
 
-          if (filter.source && !filter.source.equals(source)) {
+          if (!filter?.source?.equals(source)) {
             continue;
           }
 
           const destination = await getBranch(p.destination);
 
-          if (filter.destination && !filter.destination.equals(destination)) {
+          if (!filter?.destination?.equals(destination)) {
             continue;
           }
 
