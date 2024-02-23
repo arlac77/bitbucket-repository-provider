@@ -7,6 +7,7 @@ import {
   language_attribute,
   default_attribute
 } from "repository-provider";
+import { BitbucketBranch } from "./bitbucket-branch.mjs";
 
 /**
  * a repository hosted on bitbucket
@@ -116,7 +117,7 @@ export class BitbucketRepository extends Repository {
    * @param {string} name of the new branch to create
    * @param {BitbucketBranch} from
    * @param {Object} options
-   * @param {string} options.message
+   * @param {string} [options.message]
    */
   async createBranch(name, from = this.defaultBranch, options) {
     const branch = await super.branch(name);
