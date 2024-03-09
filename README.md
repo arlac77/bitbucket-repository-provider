@@ -263,7 +263,11 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### update
 
+*   **See**: <https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-put>
+
 ### initializeHooks
+
+*   **See**: <https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-hooks-get>
 
 ### initializeBranches
 
@@ -280,7 +284,7 @@ Create a new branch
 *   `from` **[BitbucketBranch](#bitbucketbranch)**  (optional, default `this.defaultBranch`)
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
-    *   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+    *   `options.message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?**&#x20;
 
 ### deleteBranch
 
