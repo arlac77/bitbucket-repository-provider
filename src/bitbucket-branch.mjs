@@ -4,7 +4,7 @@ import {
   ContentEntry,
   BufferContentEntry,
   BufferContentEntryMixin,
-  BaseCollectionEntry
+  CollectionEntry
 } from "content-entry";
 
 /**
@@ -62,7 +62,7 @@ export class BitbucketBranch extends Branch {
 
   /**
    *
-   * @param patterns
+   * @param {string[]|string} patterns
    */
   async *entries(patterns) {
     await this.initialize();
@@ -73,7 +73,7 @@ export class BitbucketBranch extends Branch {
 
     for (const entry of matcher(json.values, patterns, { name: "path" })) {
       yield entry.type === "commit_directory"
-        ? new BaseCollectionEntry(entry.path)
+        ? new CollectionEntry(entry.path)
         : new LazyBufferContentEntry(entry.path, this);
     }
   }
