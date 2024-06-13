@@ -8,3 +8,4 @@ bun.lockb
 types
 .test
 .tmp
+dist
