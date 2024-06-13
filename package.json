@@ -1,20 +1,56 @@
 {
-  "name": "bitbucket-repository-provider",
+  "name": "svelte-websocket-store",
   "version": "0.0.0-semantic-release",
   "publishConfig": {
     "access": "public",
     "provenance": true
   },
+  "types": "./types/repository-provider.d.mts",
   "exports": {
     ".": {
-      "default": "./src/bitbucket-provider.mjs"
-    }
+      "0": ".",
+      "1": "/",
+      "2": "s",
+      "3": "r",
+      "4": "c",
+      "5": "/",
+      "6": "i",
+      "7": "n",
+      "8": "d",
+      "9": "e",
+      "10": "x",
+      "11": ".",
+      "12": "m",
+      "13": "j",
+      "14": "s",
+      "default": "./src/bitbucket-provider.mjs",
+      "svelte": "./src/index.svelte",
+      "types": "./types/repository-provider.d.mts"
+    },
+    "./css": "./src/entitlement.css",
+    "./package.json": "./package.json"
   },
-  "description": "repository provider for bitbucket",
+  "description": "svelte store with a websocket backend",
   "keywords": [
+    "JWT",
+    "aggregate",
+    "asynciterator",
     "bitbucket",
+    "component",
     "git",
-    "repository-provider"
+    "iterators",
+    "log",
+    "repository-provider",
+    "router",
+    "sequence",
+    "session",
+    "spa",
+    "store",
+    "svelte",
+    "vite",
+    "web",
+    "websocket",
+    "zip"
   ],
   "contributors": [
     {
@@ -24,31 +60,67 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "prepare": "npm run prepare:typescript",
+    "prepare": "npm run prepare:typescript && npm run prepare:vite",
     "prepare:typescript": "tsc --allowJs --declaration --emitDeclarationOnly --declarationDir types --resolveJsonModule -t esnext -m esnext --module nodenext --moduleResolution nodenext --rootDir src ./src**/*.mjs",
-    "test": "npm run test:ava",
+    "prepare:vite": "vite build",
+    "start": "vite",
+    "test": "npm run test:ava && npm run test:cafe && npm run test:browser-ava",
     "test:ava": "ava --timeout 4m tests/*-ava.mjs tests/*-ava-node.mjs",
+    "test:browser-ava": "browser-ava --headless --no-keep-open tests/*-ava.mjs tests/*-ava-browser.mjs",
+    "test:cafe": "testcafe $BROWSER:headless tests/cafe/*-cafe.mjs --esm -s build/test --page-request-timeout 5000 --app-init-delay 8000 --app vite",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 4m tests/*-ava.mjs tests/*-ava-node.mjs && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme --section=API ./src/**/*.mjs",
     "lint": "npm run lint:docs && npm run lint:typescript",
     "lint:docs": "documentation lint ./src/**/*.mjs",
-    "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule -t esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
+    "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule -t esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "aggregate-async-iterator": "^1.2.1",
     "content-entry": "^11.0.1",
     "fetch-rate-limit-util": "^4.3.1",
     "matching-iterator": "^2.1.3",
+    "multi-path-matcher": "^4.1.1",
     "one-time-execution-method": "^3.1.1",
-    "repository-provider": "^35.2.21"
+    "repository-provider": "^35.2.21",
+    "svelte-dnd-action": "^0.9.49",
+    "vite-plugin-compression2": "^1.1.1"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/github": "^10.0.6",
+    "@semantic-release/release-notes-generator": "^14.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@types/node": "^20.14.2",
     "ava": "^6.1.3",
+    "bitbucket-repository-provider": "^6.0.24",
+    "browser-ava": "^2.2.15",
     "c8": "^10.1.2",
     "documentation": "^14.0.3",
+    "gitea-repository-provider": "^4.2.3",
+    "github-repository-provider": "^9.0.17",
+    "jsonwebtoken": "^9.0.2",
+    "local-repository-provider": "^9.0.1",
+    "mf-styling": "^3.1.6",
+    "mock-repository-provider": "^8.2.7",
+    "npm-pkgbuild": "^15.3.21",
     "repository-provider-test-support": "^3.1.5",
     "semantic-release": "^24.0.0",
-    "typescript": "^5.4.5"
+    "svelte": "^5.0.0-next.154",
+    "svelte-common": "^6.10.19",
+    "testcafe": "^3.6.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13",
+    "vite-plugin-compression2": "^1.1.1",
+    "ws": "^8.17.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0-next.0"
+  },
+  "optionalDependencies": {
+    "mf-hosting-cloudflare": "^1.0.6",
+    "mf-hosting-frontend": "^3.2.1"
   },
   "engines": {
     "node": ">=20.12.2"
@@ -61,6 +133,62 @@
     "url": "https://github.com/arlac77/bitbucket-repository-provider/issues"
   },
   "homepage": "https://github.com/arlac77/bitbucket-repository-provider#readme",
+  "pkgbuild": {
+    "content": {
+      "${install.dir}": "build/"
+    },
+    "example": true,
+    "frontend": true,
+    "api": "api/login"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "npx npm-pkgbuild --publish dist"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "dist/*.deb",
+              "label": "any Debian Package"
+            },
+            {
+              "path": "dist/*any.pkg.*",
+              "label": "any Arch Linux Package"
+            },
+            {
+              "path": "dist/*x86_64.pkg.*",
+              "label": "x86_64 Arch Linux Package"
+            },
+            {
+              "path": "dist/*aarch64.pkg.*",
+              "label": "arm64 Arch Linux Package"
+            },
+            {
+              "path": "dist/*noarch.rpm",
+              "label": "noarch RPM"
+            },
+            {
+              "path": "dist/*x86_64.rpm",
+              "label": "x86_64 RPM"
+            },
+            {
+              "path": "dist/*aarch64.rpm",
+              "label": "arm64 RPM"
+            }
+          ]
+        }
+      ]
+    ]
+  },
   "template": {
     "inheritFrom": [
       "arlac77/template-arlac77-github",
