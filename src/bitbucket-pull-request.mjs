@@ -54,7 +54,6 @@ export class BitbucketPullRequest extends PullRequest {
       url = json.next;
 
       if (json.values) {
-        console.log("N",json.values.length);
         for (const p of json.values) {
           const source = await getBranch(p.source);
 
