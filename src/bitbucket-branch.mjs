@@ -3,7 +3,6 @@ import { Branch } from "repository-provider";
 import {
   ContentEntry,
   BufferContentEntry,
-  BufferContentEntryMixin,
   CollectionEntry
 } from "content-entry";
 
@@ -109,19 +108,22 @@ export class BitbucketBranch extends Branch {
   }
 }
 
-class LazyBufferContentEntry extends BufferContentEntryMixin(ContentEntry) {
+class LazyBufferContentEntry extends BufferContentEntry {
   constructor(name, branch) {
     super(name);
-    Object.defineProperties(this, {
-      branch: { value: branch }
-    });
+    this.branch = branch;
   }
 
   get buffer() {
-    return this._buffer();
+    return this.getBuffer();
   }
 
-  async _buffer() {
+  set buffer(value)
+  {
+    this._buffer = value;
+  }
+  
+  async getBuffer() {
     const branch = this.branch;
 
     const res = await branch.provider.fetch(
