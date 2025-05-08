@@ -55,7 +55,7 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
     if (res.ok) {
-      return new this.entryClass(name, Buffer.from(await res.arrayBuffer()));
+      return new BufferContentEntry(name, undefined, Buffer.from(await res.arrayBuffer()));
     }
   }
 
@@ -73,7 +73,7 @@ export class BitbucketBranch extends Branch {
     for (const entry of matcher(json.values, patterns, { name: "path" })) {
       yield entry.type === "commit_directory"
         ? new CollectionEntry(entry.path)
-        : new LazyBufferContentEntry(entry.path, this);
+        : new LazyBufferContentEntry(entry.path, undefined, this);
     }
   }
 
@@ -102,15 +102,11 @@ export class BitbucketBranch extends Branch {
       body: searchParams
     });
   }
-
-  get entryClass() {
-    return BufferContentEntry;
-  }
 }
 
 class LazyBufferContentEntry extends BufferContentEntry {
-  constructor(name, branch) {
-    super(name);
+  constructor(name, options, branch) {
+    super(name, options);
     this.branch = branch;
   }
 
@@ -118,11 +114,10 @@ class LazyBufferContentEntry extends BufferContentEntry {
     return this.getBuffer();
   }
 
-  set buffer(value)
-  {
+  set buffer(value) {
     this._buffer = value;
   }
-  
+
   async getBuffer() {
     const branch = this.branch;
 
