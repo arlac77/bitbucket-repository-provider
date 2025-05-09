@@ -55,7 +55,11 @@ export class BitbucketBranch extends Branch {
       `repositories/${this.slug}/src/${this.hash}/${name}`
     );
     if (res.ok) {
-      return new BufferContentEntry(name, undefined, Buffer.from(await res.arrayBuffer()));
+      return new BufferContentEntry(
+        name,
+        undefined,
+        Buffer.from(await res.arrayBuffer())
+      );
     }
   }
 
@@ -73,7 +77,14 @@ export class BitbucketBranch extends Branch {
     for (const entry of matcher(json.values, patterns, { name: "path" })) {
       yield entry.type === "commit_directory"
         ? new CollectionEntry(entry.path)
-        : new LazyBufferContentEntry(entry.path, undefined, this);
+        : new BufferContentEntry(entry.path, undefined, async entry => {
+            const res = await this.provider.fetch(
+              `repositories/${this.slug}/src/${this.hash}/${entry.name}`
+            );
+
+            //return new Uint8Array(await res.arrayBuffer());
+            return Buffer.from(await res.arrayBuffer());
+          });
     }
   }
 
@@ -101,31 +112,5 @@ export class BitbucketBranch extends Branch {
       },
       body: searchParams
     });
-  }
-}
-
-class LazyBufferContentEntry extends BufferContentEntry {
-  constructor(name, options, branch) {
-    super(name, options);
-    this.branch = branch;
-  }
-
-  get buffer() {
-    return this.getBuffer();
-  }
-
-  set buffer(value) {
-    this._buffer = value;
-  }
-
-  async getBuffer() {
-    const branch = this.branch;
-
-    const res = await branch.provider.fetch(
-      `repositories/${branch.slug}/src/${branch.hash}/${this.name}`
-    );
-
-    //return new Uint8Array(await res.arrayBuffer());
-    return Buffer.from(await res.arrayBuffer());
   }
 }
