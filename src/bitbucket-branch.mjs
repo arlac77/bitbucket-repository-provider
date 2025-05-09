@@ -58,7 +58,7 @@ export class BitbucketBranch extends Branch {
       return new BufferContentEntry(
         name,
         undefined,
-        Buffer.from(await res.arrayBuffer())
+        new Uint8Array(await res.arrayBuffer())
       );
     }
   }
@@ -82,8 +82,7 @@ export class BitbucketBranch extends Branch {
               `repositories/${this.slug}/src/${this.hash}/${entry.name}`
             );
 
-            //return new Uint8Array(await res.arrayBuffer());
-            return Buffer.from(await res.arrayBuffer());
+            return new Uint8Array(await res.arrayBuffer());
           });
     }
   }
