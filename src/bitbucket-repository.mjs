@@ -1,12 +1,11 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import {
-  Repository,
-  RepositoryOwner,
   uuid_attribute,
   size_attribute,
   language_attribute,
   default_attribute
-} from "repository-provider";
+} from "pacc";
+import { Repository, RepositoryOwner } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 
 /**

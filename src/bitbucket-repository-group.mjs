@@ -1,10 +1,10 @@
-import { Repository, RepositoryGroup, uuid_attribute } from "repository-provider";
+import { uuid_attribute } from "pacc";
+import { Repository, RepositoryGroup } from "repository-provider";
 
 /**
  *
  */
 export class BitbucketRepositoryGroup extends RepositoryGroup {
-
   static get attributes() {
     return {
       ...super.attributes,

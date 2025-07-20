@@ -1,11 +1,7 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
-import {
-  MultiGroupProvider,
-  url_attribute,
-  secret_attribute,
-  default_attribute
-} from "repository-provider";
+import { url_attribute, secret_attribute, default_attribute } from "pacc";
+import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
 import { BitbucketRepository } from "./bitbucket-repository.mjs";

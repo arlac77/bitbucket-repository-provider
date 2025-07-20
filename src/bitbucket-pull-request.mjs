@@ -1,17 +1,10 @@
-import {
-  PullRequest,
-  Repository,
-  Branch,
-  boolean_attribute,
-  count_attribute,
-  default_attribute
-} from "repository-provider";
+import { boolean_attribute, count_attribute, default_attribute } from "pacc";
+import { PullRequest, Repository, Branch } from "repository-provider";
 
 /**
  * Pull request inside bitbucket
  */
 export class BitbucketPullRequest extends PullRequest {
-
   static states = new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]);
   static mergeStrategies = new Set(["fast_forward", "squash", "merge_commit"]);
 
