@@ -1,5 +1,6 @@
 import { matcher } from "matching-iterator";
 import { Branch } from "repository-provider";
+import { default_attribute } from "pacc";
 import {
   ContentEntry,
   BufferContentEntry,
@@ -20,7 +21,7 @@ export class BitbucketBranch extends Branch {
        *
        * @return {string}
        */
-      hash: { type: "string" }
+      hash: default_attribute
     };
   }
 

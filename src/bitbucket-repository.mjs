@@ -25,8 +25,8 @@ export class BitbucketRepository extends Repository {
     return {
       ...super.attributes,
       uuid: uuid_attribute,
-      size_attribute,
-      language_attribute,
+      size: size_attribute,
+      language: language_attribute,
       fork_policy: { ...default_attribute, default: "allow_forks" }
     };
   }

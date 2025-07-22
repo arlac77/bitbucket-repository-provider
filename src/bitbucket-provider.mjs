@@ -1,6 +1,6 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
-import { url_attribute, secret_attribute, default_attribute } from "pacc";
+import { url_attribute, token_attribute, username_attribute, password_attribute } from "pacc";
 import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
@@ -75,13 +75,13 @@ export class BitbucketProvider extends MultiGroupProvider {
         default: `https://api.${domain}/2.0/`
       },
       "authentication.token": {
-        ...secret_attribute,
+        ...token_attribute,
         description: "API token",
         env: "{{instanceIdentifier}}TOKEN",
         additionalAttributes: { "authentication.type": "token" }
       },
       "authentication.password": {
-        ...secret_attribute,
+        ...password_attribute,
         description: "Password for plain authentification",
         env: [
           "{{instanceIdentifier}}APP_PASSWORD",
@@ -90,7 +90,7 @@ export class BitbucketProvider extends MultiGroupProvider {
         additionalAttributes: { "authentication.type": "basic" }
       },
       "authentication.username": {
-        ...default_attribute,
+        ...username_attribute,
         description: "Username for plain authentification",
         env: "{{instanceIdentifier}}USERNAME",
         additionalAttributes: { "authentication.type": "basic" }
