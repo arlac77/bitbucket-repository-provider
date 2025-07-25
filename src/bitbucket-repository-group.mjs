@@ -5,21 +5,17 @@ import { Repository, RepositoryGroup } from "repository-provider";
  *
  */
 export class BitbucketRepositoryGroup extends RepositoryGroup {
-  static get attributes() {
-    return {
-      ...super.attributes,
-      uuid: uuid_attribute
-    };
-  }
+  static attributes = {
+    ...super.attributes,
+    uuid: uuid_attribute
+  };
 
-  static get attributeMapping() {
-    return {
-      ...super.attributeMapping,
-      display_name: "displayName",
-      "links.avatar.href": "avatarURL",
-      website: "homePageURL"
-    };
-  }
+  static attributeMapping = {
+    ...super.attributeMapping,
+    display_name: "displayName",
+    "links.avatar.href": "avatarURL",
+    website: "homePageURL"
+  };
 
   /**
    * {@link https://community.atlassian.com/t5/Bitbucket-articles/Create-and-configure-a-Bitbucket-Server-repository-using-the/ba-p/828364}

@@ -1,6 +1,11 @@
 import { replaceWithOneTimeExecutionMethod } from "one-time-execution-method";
 import { stateActionHandler } from "fetch-rate-limit-util";
-import { url_attribute, token_attribute, username_attribute, password_attribute } from "pacc";
+import {
+  url_attribute,
+  token_attribute,
+  username_attribute,
+  password_attribute
+} from "pacc";
 import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
 import { BitbucketRepositoryGroup } from "./bitbucket-repository-group.mjs";
@@ -60,43 +65,41 @@ export class BitbucketProvider extends MultiGroupProvider {
    * Default configuration as given for the cloud privider.
    * @return {Object}
    */
-  static get attributes() {
-    return {
-      ...super.attributes,
-      url: {
-        ...url_attribute,
-        default: `https://${domain}/`
-      },
-      api: {
-        ...url_attribute,
-        description: "URL of the provider api",
-        env: "{{instanceIdentifier}}API",
-        set: value => (value.endsWith("/") ? value : value + "/"),
-        default: `https://api.${domain}/2.0/`
-      },
-      "authentication.token": {
-        ...token_attribute,
-        description: "API token",
-        env: "{{instanceIdentifier}}TOKEN",
-        additionalAttributes: { "authentication.type": "token" }
-      },
-      "authentication.password": {
-        ...password_attribute,
-        description: "Password for plain authentification",
-        env: [
-          "{{instanceIdentifier}}APP_PASSWORD",
-          "{{instanceIdentifier}}PASSWORD"
-        ],
-        additionalAttributes: { "authentication.type": "basic" }
-      },
-      "authentication.username": {
-        ...username_attribute,
-        description: "Username for plain authentification",
-        env: "{{instanceIdentifier}}USERNAME",
-        additionalAttributes: { "authentication.type": "basic" }
-      }
-    };
-  }
+  static attributes = {
+    ...super.attributes,
+    url: {
+      ...url_attribute,
+      default: `https://${domain}/`
+    },
+    api: {
+      ...url_attribute,
+      description: "URL of the provider api",
+      env: "{{instanceIdentifier}}API",
+      set: value => (value.endsWith("/") ? value : value + "/"),
+      default: `https://api.${domain}/2.0/`
+    },
+    "authentication.token": {
+      ...token_attribute,
+      description: "API token",
+      env: "{{instanceIdentifier}}TOKEN",
+      additionalAttributes: { "authentication.type": "token" }
+    },
+    "authentication.password": {
+      ...password_attribute,
+      description: "Password for plain authentification",
+      env: [
+        "{{instanceIdentifier}}APP_PASSWORD",
+        "{{instanceIdentifier}}PASSWORD"
+      ],
+      additionalAttributes: { "authentication.type": "basic" }
+    },
+    "authentication.username": {
+      ...username_attribute,
+      description: "Username for plain authentification",
+      env: "{{instanceIdentifier}}USERNAME",
+      additionalAttributes: { "authentication.type": "basic" }
+    }
+  };
 
   /**
    * @param {Object} options

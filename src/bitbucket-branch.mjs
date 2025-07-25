@@ -14,16 +14,14 @@ export class BitbucketBranch extends Branch {
   /**
    * options
    */
-  static get attributes() {
-    return {
-      ...super.attributes,
-      /**
-       *
-       * @return {string}
-       */
-      hash: default_attribute
-    };
-  }
+  static attributes = {
+    ...super.attributes,
+    /**
+     *
+     * @return {string}
+     */
+    hash: default_attribute
+  };
 
   // TODO isInitialized ?
 

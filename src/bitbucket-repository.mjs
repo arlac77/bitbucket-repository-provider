@@ -21,23 +21,19 @@ import { BitbucketBranch } from "./bitbucket-branch.mjs";
  * @property {string} user
  */
 export class BitbucketRepository extends Repository {
-  static get attributes() {
-    return {
-      ...super.attributes,
-      uuid: uuid_attribute,
-      size: size_attribute,
-      language: language_attribute,
-      fork_policy: { ...default_attribute, default: "allow_forks" }
-    };
-  }
+  static attributes = {
+    ...super.attributes,
+    uuid: uuid_attribute,
+    size: size_attribute,
+    language: language_attribute,
+    fork_policy: { ...default_attribute, default: "allow_forks" }
+  };
 
-  static get attributMapping() {
-    return {
-      ...super.attributeMapping,
-      is_private: "isPrivate",
-      website: "homePageURL"
-    };
-  }
+  static attributMapping = {
+    ...super.attributeMapping,
+    is_private: "isPrivate",
+    website: "homePageURL"
+  };
 
   get user() {
     return this.name.split(/\//)[0];

@@ -8,18 +8,16 @@ export class BitbucketPullRequest extends PullRequest {
   static states = new Set(["OPEN", "MERGED", "SUPERSEDED", "DECLINED"]);
   static mergeStrategies = new Set(["fast_forward", "squash", "merge_commit"]);
 
-  static get attributes() {
-    return {
-      ...super.attributes,
-      state: {
-        ...default_attribute,
-        values: this.states,
-        writeable: true
-      },
-      close_source_branch: boolean_attribute,
-      task_count: count_attribute
-    };
-  }
+  static attributes = {
+    ...super.attributes,
+    state: {
+      ...default_attribute,
+      values: this.states,
+      writeable: true
+    },
+    close_source_branch: boolean_attribute,
+    task_count: count_attribute
+  };
 
   /**
    * List all pull request for a given repo.
