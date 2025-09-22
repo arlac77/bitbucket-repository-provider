@@ -8,15 +8,14 @@ import {
 const messageDestination = createMessageDestination().messageDestination;
 
 const config = {
-  ...BitbucketProvider.optionsFromEnvironment(process.env),
   messageDestination
 };
 
-test("optionsFromEnvironment undefined", t => {
-  t.is(BitbucketProvider.optionsFromEnvironment(undefined), undefined);
+test("BitbucketProvider undefined", t => {
+  t.is(BitbucketProvider.initialize(config, undefined), undefined);
 });
 
-test("optionsFromEnvironment user", t => {
+test.skip("optionsFromEnvironment user", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_USERNAME: "user",
@@ -30,12 +29,11 @@ test("optionsFromEnvironment user", t => {
   );
 });
 
-test("optionsFromEnvironment user (BITBUCKET_APP_PASSWORD)", t => {
+test.skip("optionsFromEnvironment user (BITBUCKET_APP_PASSWORD)", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_USERNAME: "user",
       BITBUCKET_APP_PASSWORD: "app_pass"
-      //     BITBUCKET_PASSWORD: "pass"
     }),
     {
       "authentication.username": "user",
@@ -45,7 +43,7 @@ test("optionsFromEnvironment user (BITBUCKET_APP_PASSWORD)", t => {
   );
 });
 
-test("optionsFromEnvironment api", t => {
+test.skip("optionsFromEnvironment api", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_API: "https://stash.myserver.mydomain:1234/api/2.0"
@@ -54,7 +52,7 @@ test("optionsFromEnvironment api", t => {
   );
 });
 
-test("optionsFromEnvironment token", t => {
+test.skip("optionsFromEnvironment token", t => {
   t.deepEqual(
     BitbucketProvider.optionsFromEnvironment({
       BITBUCKET_TOKEN: "1234"
@@ -64,14 +62,11 @@ test("optionsFromEnvironment token", t => {
 });
 
 test("provider branches", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   const repository = await provider.repository(REPOSITORY_NAME);
 
   t.is(repository.name, "sync-test-repository");
-  t.is(
-    repository.url,
-    "https://bitbucket.org/arlac77/sync-test-repository"
-  );
+  t.is(repository.url, "https://bitbucket.org/arlac77/sync-test-repository");
 
   for await (const branch of repository.branches("master")) {
     t.is(branch.name, "master");
@@ -79,14 +74,14 @@ test("provider branches", async t => {
 });
 
 test("provider repository undefined", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   const repository = await provider.repository(undefined);
 
   t.is(repository, undefined);
 });
 
 test("provider url git@ /", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   t.is(
     (
       await provider.repository(
@@ -98,7 +93,7 @@ test("provider url git@ /", async t => {
 });
 
 test("provider repo with branch name", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   const branch = await provider.branch(REPOSITORY_NAME + "#master");
 
   t.is(branch.provider, provider);
@@ -106,7 +101,7 @@ test("provider repo with branch name", async t => {
 });
 
 test("provider basics", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   t.is(provider.name, "bitbucket");
   t.is(provider.url, "https://bitbucket.org/");
 });

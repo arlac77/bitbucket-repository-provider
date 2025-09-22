@@ -10,10 +10,9 @@ const messageDestination = createMessageDestination().messageDestination;
 //messageDestination.trace = console.log;
 
 const config = {
-  ...BitbucketProvider.optionsFromEnvironment(process.env),
   messageDestination
 };
-const provider = new BitbucketProvider(config);
+const provider = BitbucketProvider.initialize(config, process.env);
 
 test("branch entries list", async t => {
   const repository = await provider.repository(REPOSITORY_NAME);

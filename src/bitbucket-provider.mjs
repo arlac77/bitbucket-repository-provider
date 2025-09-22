@@ -4,7 +4,8 @@ import {
   url_attribute,
   token_attribute,
   username_attribute,
-  password_attribute
+  password_attribute,
+  object_attribute
 } from "pacc";
 import { MultiGroupProvider } from "repository-provider";
 import { BitbucketBranch } from "./bitbucket-branch.mjs";
@@ -75,39 +76,37 @@ export class BitbucketProvider extends MultiGroupProvider {
       ...url_attribute,
       description: "URL of the provider api",
       env: "{{instanceIdentifier}}API",
-      set: value => (value.endsWith("/") ? value : value + "/"),
+      prepareValue: value => (value.endsWith("/") ? value : value + "/"),
       default: `https://api.${domain}/2.0/`
     },
-    "authentication.token": {
-      ...token_attribute,
-      description: "API token",
-      env: "{{instanceIdentifier}}TOKEN",
-      additionalAttributes: { "authentication.type": "token" }
-    },
-    "authentication.password": {
-      ...password_attribute,
-      description: "Password for plain authentification",
-      env: [
-        "{{instanceIdentifier}}APP_PASSWORD",
-        "{{instanceIdentifier}}PASSWORD"
-      ],
-      additionalAttributes: { "authentication.type": "basic" }
-    },
-    "authentication.username": {
-      ...username_attribute,
-      description: "Username for plain authentification",
-      env: "{{instanceIdentifier}}USERNAME",
-      additionalAttributes: { "authentication.type": "basic" }
+    authentication: {
+      ...object_attribute,
+      mandatory: true,
+      attributes: {
+        token: {
+          ...token_attribute,
+          description: "API token",
+          env: "{{instanceIdentifier}}TOKEN",
+          additionalValues: { "authentication.type": "token" }
+        },
+        password: {
+          ...password_attribute,
+          description: "Password for plain authentification",
+          env: [
+            "{{instanceIdentifier}}APP_PASSWORD",
+            "{{instanceIdentifier}}PASSWORD"
+          ],
+          additionalValues: { "authentication.type": "basic" }
+        },
+        username: {
+          ...username_attribute,
+          description: "Username for plain authentification",
+          env: "{{instanceIdentifier}}USERNAME",
+          additionalValues: { "authentication.type": "basic" }
+        }
+      }
     }
   };
-
-  /**
-   * @param {Object} options
-   * @return {boolean} true if authentication is present
-   */
-  static areOptionsSufficcient(options) {
-    return options["authentication.type"] !== undefined;
-  }
 
   get repositoryGroupClass() {
     return BitbucketRepositoryGroup;

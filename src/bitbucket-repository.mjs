@@ -26,13 +26,12 @@ export class BitbucketRepository extends Repository {
     uuid: uuid_attribute,
     size: size_attribute,
     language: language_attribute,
-    fork_policy: { ...default_attribute, default: "allow_forks" }
-  };
-
-  static attributMapping = {
-    ...super.attributeMapping,
-    is_private: "isPrivate",
-    website: "homePageURL"
+    fork_policy: { ...default_attribute, default: "allow_forks" },
+    homePageURL: {
+      ...super.attributes.homePageURL,
+      externalName: "website"
+    },
+    isPrivate: { ...super.attributes.isPrivate, externalName: "is_private" }
   };
 
   get user() {

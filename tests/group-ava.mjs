@@ -21,7 +21,7 @@ test("groups by short name", async t => {
 });
 
 const arlac77Group = {
-  arlac77: { displayName: "arlac77", type: "user" }
+  arlac77: { displayName: "Markus Felten", type: "user" }
 };
 
 const xhubioGroup = {

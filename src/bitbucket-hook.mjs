@@ -4,7 +4,8 @@ import { Hook } from "repository-provider";
  *
  */
 export class BitbucketHook extends Hook {
-  static attributeMapping = {
-    uuid: "id"
+  static attributes = {
+    ...super.attributes,
+    id: { ...super.attributes.id, externalName: "uuid" }
   };
 }

@@ -7,14 +7,19 @@ import { Repository, RepositoryGroup } from "repository-provider";
 export class BitbucketRepositoryGroup extends RepositoryGroup {
   static attributes = {
     ...super.attributes,
-    uuid: uuid_attribute
-  };
-
-  static attributeMapping = {
-    ...super.attributeMapping,
-    display_name: "displayName",
-    "links.avatar.href": "avatarURL",
-    website: "homePageURL"
+    uuid: uuid_attribute,
+    displayName: {
+      ...super.attributes.displayName,
+      externalName: "display_name"
+    },
+    homePageURL: {
+      ...super.attributes.homePageURL,
+      externalName: "website"
+    },
+    avatarURL: {
+      ...super.attributes.avatarURL,
+      externalName: "links.avatar.href"
+    }
   };
 
   /**

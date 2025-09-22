@@ -9,12 +9,11 @@ const messageDestination = createMessageDestination().messageDestination;
 //messageDestination.trace = console.log;
 
 const config = {
-  ...BitbucketProvider.optionsFromEnvironment(process.env),
   messageDestination
 };
 
 test.serial("branch create/delete", async t => {
-  const provider = new BitbucketProvider(config);
+  const provider = BitbucketProvider.initialize(config, process.env);
   const repository = await provider.repository(REPOSITORY_NAME);
   const newName = `test-${new Date().getTime()}`;
   const branch = await repository.createBranch(newName);
@@ -25,10 +24,7 @@ test.serial("branch create/delete", async t => {
 });
 
 test.serial("branch delete", async t => {
-  const provider = BitbucketProvider.initialize(
-    { messageDestination },
-    process.env
-  );
+  const provider = BitbucketProvider.initialize(config, process.env);
   const repository = await provider.repository(REPOSITORY_NAME);
 
   const newName = `test-${new Date().getTime()}`;
