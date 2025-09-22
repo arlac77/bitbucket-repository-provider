@@ -36,20 +36,18 @@ repository provider for bitbucket
     *   [name](#name)
     *   [instanceIdentifier](#instanceidentifier)
     *   [attributes](#attributes-1)
-    *   [areOptionsSufficcient](#areoptionssufficcient)
-        *   [Parameters](#parameters-4)
 *   [BitbucketPullRequest](#bitbucketpullrequest)
     *   [\_merge](#_merge)
-        *   [Parameters](#parameters-5)
+        *   [Parameters](#parameters-4)
     *   [list](#list)
-        *   [Parameters](#parameters-6)
+        *   [Parameters](#parameters-5)
     *   [open](#open)
-        *   [Parameters](#parameters-7)
+        *   [Parameters](#parameters-6)
 *   [BitbucketRepositoryGroup](#bitbucketrepositorygroup)
     *   [createRepository](#createrepository)
-        *   [Parameters](#parameters-8)
+        *   [Parameters](#parameters-7)
 *   [BitbucketRepository](#bitbucketrepository)
-    *   [Parameters](#parameters-9)
+    *   [Parameters](#parameters-8)
     *   [Properties](#properties)
     *   [homePageURL](#homepageurl)
     *   [issuesURL](#issuesurl)
@@ -57,9 +55,9 @@ repository provider for bitbucket
     *   [initializeHooks](#initializehooks)
     *   [initializeBranches](#initializebranches)
     *   [createBranch](#createbranch)
-        *   [Parameters](#parameters-10)
+        *   [Parameters](#parameters-9)
     *   [deleteBranch](#deletebranch)
-        *   [Parameters](#parameters-11)
+        *   [Parameters](#parameters-10)
 
 ## BitbucketBranch
 
@@ -163,14 +161,6 @@ Default instance env name prefix.
 Default configuration as given for the cloud privider.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### areOptionsSufficcient
-
-#### Parameters
-
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if authentication is present
 
 ## BitbucketPullRequest
 
