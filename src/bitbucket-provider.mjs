@@ -108,7 +108,7 @@ export class BitbucketProvider extends MultiGroupProvider {
     }
   };
 
-  get repositoryGroupClass() {
+  repositoryGroupClassFor(name, options) {
     return BitbucketRepositoryGroup;
   }
 
