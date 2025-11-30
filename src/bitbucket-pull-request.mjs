@@ -1,4 +1,8 @@
-import { boolean_attribute_writable, count_attribute, default_attribute } from "pacc";
+import {
+  boolean_attribute_writable,
+  count_attribute,
+  state_attribute_writable
+} from "pacc";
 import { PullRequest, Repository, Branch } from "repository-provider";
 
 /**
@@ -11,9 +15,8 @@ export class BitbucketPullRequest extends PullRequest {
   static attributes = {
     ...super.attributes,
     state: {
-      ...default_attribute,
-      values: this.states,
-      writeable: true
+      ...state_attribute_writable,
+      values: this.states
     },
     close_source_branch: boolean_attribute_writable,
     task_count: count_attribute
