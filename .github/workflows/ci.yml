@@ -18,7 +18,7 @@ jobs:
       max-parallel: 1
       matrix:
         node-version:
-          - 26.7.0
+          - 26.8.1
     steps:
       - name: checkout
         uses: actions/checkout@v7.0.1
