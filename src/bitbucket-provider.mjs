@@ -76,7 +76,8 @@ export class BitbucketProvider extends MultiGroupProvider {
       ...url_attribute,
       description: "URL of the provider api",
       env: "{{instanceIdentifier}}API",
-      prepareValue: value => (value.endsWith("/") ? value : value + "/"),
+      toInternal: value =>
+        value === undefined || value.endsWith("/") ? value : value + "/",
       default: `https://api.${domain}/2.0/`
     },
     authentication: {
