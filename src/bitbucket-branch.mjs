@@ -20,7 +20,7 @@ export class BitbucketBranch extends Branch {
      *
      * @return {string}
      */
-    hash: default_attribute
+    hash: { ...default_attribute, name: "hash" }
   };
 
   // TODO isInitialized ?
